@@ -13,15 +13,24 @@ def generateCalendar(startDate, endDate):
 	curDate = startDate
 	startDayOfWk = startDate.weekday()
 	while curDate <= endDate:
+		if curDate != startDate and curDate.weekday() == startDayOfWk:
+			startToEnd.append('--------')
 		startToEnd.append(curDate)
 		curDate += timedelta(days = 1)
-	for i in range(0, (endDate-startDate).days+1):
-		print i
+	for i in range(0, len(startToEnd)/7):
+		wkList.append(startToEnd[i:i+7])
 
+	wkList.append(startToEnd[(len(startToEnd)/7)*7:len(startToEnd)])
 
-	
+	# for i in wkList:
+	# 	print i,"\n"
+	# print "WKLIST"
+	# print wkList
 
-def writeExcel(st, st2, yearList):
+	return startToEnd
+
+def writeExcel(st, st2):
+	objectiveType = []
 	categories = {}
 	curCategory = None
 	types = []
@@ -37,66 +46,17 @@ def writeExcel(st, st2, yearList):
 		elif curCategory != None:
 			newEntry = (st.range('A'+str(row)).value, st.range('B'+str(row)).value,  st.range('C'+str(row)).value, st.range('D'+str(row)).value) 
 			categories[curCategory].append(newEntry)
-		# if st.range('A'+str(row)).value not in types and st.range('A'+str(row)).value != None:
-		# 	types.append(st.range('A'+str(row)).value)
-		# if row != 1 and st.range('B'+str(row)).color == None:
-		# 	job.append((st.range('B'+str(row)).value, st.range('A'+str(row)).value, st.range('C'+str(row)).value, st.range('D'+str(row)).value))
+			objectiveType.append(st.range('A'+str(row)).value)
 		row += 1
 
-	for i in categories:
-		print i
-		for j in range(0, len(categories[i])):
-			print categories[i][j]
-		print "\n\n"
+	# for i in categories:
+	# 	print i
+	# 	for j in range(0, len(categories[i])):
+	# 		print categories[i][j]
+	# 	print "\n\n"
 
 #------------------------------------
 
-	# for i in job:
-	# 	print i
-	# print len(job)
-	# print len(types)
-
-	# partsRange = st2.range('B2')
-	# partsRange = partsRange.resize(len(types),1)
-	# for i in range(0, len(partsRange)):
-	# 	partsRange[i].value = types[i]
-	# 	partsRange[i].color = palette[i]
-	# partsRange.autofit()
-	# st2.range('C1').value = 'Start Date'
-	# st2.range('D1').value = 'End Date'
-
-	# dateRange = st2.range('F1')
-	# dateRange = dateRange.resize(1,len(yearList))
-	# dateRange.value = yearList
-	# j = 7
-	# while j < len(yearList):
-	# 	dateRange[j].color = (0, 0, 0)
-	# 	j += 8
-	# dateRange.autofit()
-	# dateRange.api.ColumnWidth = 1
-
-
-# startday = raw_input("Enter Starting Weekday (S, M, T, W, Th, F, Sa): ")
-# startday = startday.lower()
-# wkday = -1
-# while wkday < 0:
-# 	if startday == 's':
-# 		wkday = 6
-# 	elif startday == 'm':
-# 		wkday = 0
-# 	elif startday == 't':
-# 		wkday = 1
-# 	elif startday == 'w':
-# 		wkday = 2
-# 	elif startday == 'th':
-# 		wkday = 3
-# 	elif startday == 'f':
-# 		wkday = 4
-# 	elif startday == 'sa':
-# 		wkday = 5
-# 	else:
-# 		print "Invalid Input, please try again\n------------------\n"
-# 		startday = raw_input("Enter Starting Weekday (S, M, T, W, Th, F, Sa): ")
 while True:
 	start = raw_input("Enter Start Date in the form MMDDYYYY: ")
 	if(re.match(yearMatch, start)):
@@ -128,18 +88,18 @@ wkList = generateCalendar(startDate, endDate)
 
 wb = xw.Book('966GC sample.xlsx')
 st = wb.sheets['Sheet1']
-yearList = []
-for i in range(0,53):
-	for j in range(0,7):
-		if i < 51:
-			yearList.append(wkList[j][i])
-		if (len(wkList[j]) > 51 and i == 51) or (len(wkList[j]) == 53 and i == 52):
-			yearList.append(wkList[j][i])
-	yearList.append('')
-# print yearList
-
 
 st2 = wb.sheets['calendar']
 st2.clear()
-writeExcel(st, st2, yearList)
+st2.range('F2').options(transpose = False).value = wkList
+weekday = []
+for i in wkList:
+	if type(i) == date:
+		day = ['M','T','W','Th','F','Sa','Su']
+		weekday.append(day[i.weekday()])
+	else:
+		weekday.append(None)
+st2.range('F1').options(transpose = False).value = weekday
+
+writeExcel(st, st2)
 
