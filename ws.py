@@ -22,14 +22,9 @@ def generateCalendar(startDate, endDate):
 
 	wkList.append(startToEnd[(len(startToEnd)/7)*7:len(startToEnd)])
 
-	# for i in wkList:
-	# 	print i,"\n"
-	# print "WKLIST"
-	# print wkList
-
 	return startToEnd
 
-def writeExcel(st, st2):
+def writeExcel(st, st2, numDays, start, end):
 	objectiveType = []
 	categories = {}
 	curCategory = None
@@ -44,18 +39,29 @@ def writeExcel(st, st2):
 			categories[st.range('B'+str(row)).value] = []
 			curCategory = st.range('B'+str(row)).value
 		elif curCategory != None:
-			newEntry = (st.range('A'+str(row)).value, st.range('B'+str(row)).value,  st.range('C'+str(row)).value, st.range('D'+str(row)).value) 
+			newEntry = (st.range('A'+str(row)).value, st.range('B'+str(row)).value, st.range('C'+str(row)).value, st.range('D'+str(row)).value) 
 			categories[curCategory].append(newEntry)
-			objectiveType.append(st.range('A'+str(row)).value)
+			if st.range('A'+str(row)).value not in objectiveType and st.range('A'+str(row)).value != None:
+				objectiveType.append(st.range('A'+str(row)).value)
 		row += 1
 
-	# for i in categories:
-	# 	print i
-	# 	for j in range(0, len(categories[i])):
-	# 		print categories[i][j]
-	# 	print "\n\n"
+	objectiveType.append(u'NOT_ASSIGNED')
 
-#------------------------------------
+	row = 2
+	for i in categories:
+		st2.range('B'+str(row)).options(transpose = True).value = i
+		row += 1
+		for j in categories[i]:
+			st2.range('C'+str(row)).options(transpose = True).value = j[0]
+			st2.range('D'+str(row)).options(transpose = True).value = j[1]
+			print row, 6+(j[2].now().date()-start).days 
+			st2.cells(row, 6+(j[])).value = j[1]
+			row += 1
+	
+		row += 1
+
+	st2.autofit('c')
+#--------------------------------
 
 while True:
 	start = raw_input("Enter Start Date in the form MMDDYYYY: ")
@@ -82,7 +88,7 @@ while True:
 	else:
 		print "Invalid Input, please try again"
 
-print("Generating and Exporting Calendar to Excel")
+print("Generating and Exporting Calendar to Excel...\nGeneration done in Calendar Tab")
 
 wkList = generateCalendar(startDate, endDate)
 
@@ -101,5 +107,5 @@ for i in wkList:
 		weekday.append(None)
 st2.range('F1').options(transpose = False).value = weekday
 
-writeExcel(st, st2)
+writeExcel(st, st2, len(wkList), startDate, endDate)
 
