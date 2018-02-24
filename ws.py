@@ -4,7 +4,7 @@ import re
 
 yearMatch = re.compile(r'\d{8}')
 
-palette = [0xFF3333, 0x00FF00, 0x0000FF, 0xFFFF00, 0x00FFFF, 0xFF00FF, 0x66AA00, 0xAA6600, 0x0066AA, 0xCC66CC, 0x526556, 0x104827, 0x9d82e1, 0xa41923, 0xb3a678]
+palette = [0xFF3333, 0x00FF00, 0x0000FF, 0xFFFF00, 0x00FFFF, 0xFF00FF, 0x66AA00, 0xAA6600, 0x0066AA, 0xCC66CC, 0x526556, 0x104827, 0x9d82e1, 0xa41923, 0xb3a678, 0xD43A12]
 
 
 def generateCalendar(startDate, endDate):
@@ -24,43 +24,50 @@ def generateCalendar(startDate, endDate):
 
 	return startToEnd
 
-def writeExcel(st, st2, numDays, start, end):
+def writeExcel(st, st2, numDays, start, end, wkList):
 	objectiveType = []
 	categories = {}
 	curCategory = None
-	types = []
-	job = []
+	colors = []
 	row = 1
 	while st.range('A'+str(row)).value != None or st.range('B'+str(row)).value != None or st.range('C'+str(row)).value != None or st.range('D'+str(row)).value != None:
 		if row == 1:
 			row += 1
 			continue
 		if st.range('B'+str(row)).color != None:
+			colors.append(st.range('B'+str(row)).color)
 			categories[st.range('B'+str(row)).value] = []
 			curCategory = st.range('B'+str(row)).value
 		elif curCategory != None:
 			newEntry = (st.range('A'+str(row)).value, st.range('B'+str(row)).value, st.range('C'+str(row)).value, st.range('D'+str(row)).value) 
 			categories[curCategory].append(newEntry)
-			if st.range('A'+str(row)).value not in objectiveType and st.range('A'+str(row)).value != None:
+			if st.range('A'+str(row)).value not in objectiveType:
 				objectiveType.append(st.range('A'+str(row)).value)
 		row += 1
 
-	objectiveType.append(u'NOT_ASSIGNED')
-
+	colorIdx = 0
 	row = 2
 	for i in categories:
 		st2.range('B'+str(row)).options(transpose = True).value = i
+		st2.range('B'+str(row)).options(transpose = True).color = colors[colorIdx]
 		row += 1
 		for j in categories[i]:
 			st2.range('C'+str(row)).options(transpose = True).value = j[0]
 			st2.range('D'+str(row)).options(transpose = True).value = j[1]
-			print row, 6+(j[2].now().date()-start).days 
-			st2.cells(row, 6+(j[])).value = j[1]
+			print j[2], start, row, (j[2].date()-start).days
+			# st2.cells(row, 6+(j[2].date()-start).days).value = 'Start'
+			# st2.cells(row, 6+(j[3].date()-start).days).value = 'End'
+			st2.cells(row, 6+(wkList.index(j[2].date()))).value = 'Start'
+			st2.cells(row, 6+(wkList.index(j[3].date()))).value = 'End'
+			st2.range((row, 6+(wkList.index(j[2].date()))), (row, 6+(wkList.index(j[3].date())))).color = palette[objectiveType.index(j[0])]
 			row += 1
 	
 		row += 1
+		colorIdx += 1
 
-	st2.autofit('c')
+	st2.range((1,1),(row,5)).columns.autofit()
+	# st2.range("A1:E1").column_width = 2
+	print len(objectiveType)
 #--------------------------------
 
 while True:
@@ -107,5 +114,5 @@ for i in wkList:
 		weekday.append(None)
 st2.range('F1').options(transpose = False).value = weekday
 
-writeExcel(st, st2, len(wkList), startDate, endDate)
+writeExcel(st, st2, len(wkList), startDate, endDate, wkList)
 
