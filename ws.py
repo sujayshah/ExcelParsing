@@ -1,6 +1,9 @@
+# cat color = ffc000
 import xlwings as xw
 from datetime import date, timedelta
 import re
+import os
+import sys
 
 yearMatch = re.compile(r'\d{8}')
 
@@ -114,5 +117,7 @@ for i in wkList:
 		weekday.append(None)
 st2.range('F1').options(transpose = False).value = weekday
 
-writeExcel(st, st2, len(wkList), startDate, endDate, wkList)
-
+try:
+	writeExcel(st, st2, len(wkList), startDate, endDate, wkList)
+except:
+	print "Warning: Date range specified does not cover some events. Please restart program and indicate a date range that matches all project events.\n" 
