@@ -1,33 +1,64 @@
-# cat color = ffc000
 import xlwings as xw
 from datetime import date, timedelta
 import re
 import os
 import sys
+import pprint
+import colorsys
+import itertools
 
 yearMatch = re.compile(r'\d{8}')
 
-palette = [0xFF3333, 0x00FF00, 0x0000FF, 0xFFFF00, 0x00FFFF, 0xFF00FF, 0x66AA00, 0xAA6600, 0x0066AA, 0xCC66CC, 0x526556, 0x104827, 0x9d82e1, 0xa41923, 0xb3a678, 0xD43A12]
-
+def generatePalette(N):
+	HSV_tuples = [(x*1.0/N, 0.5, 0.5) for x in range(N)]
+	RGB_tuples = map(lambda x: colorsys.hsv_to_rgb(*x), HSV_tuples)
+	return RGB_tuples
 
 def generateCalendar(startDate, endDate):
 	startToEnd = []
-	wkList = []
 	curDate = startDate
-	startDayOfWk = startDate.weekday()
 	while curDate <= endDate:
-		if curDate != startDate and curDate.weekday() == startDayOfWk:
-			startToEnd.append('--------')
 		startToEnd.append(curDate)
-		curDate += timedelta(days = 1)
-	for i in range(0, len(startToEnd)/7):
-		wkList.append(startToEnd[i:i+7])
-
-	wkList.append(startToEnd[(len(startToEnd)/7)*7:len(startToEnd)])
-
+		curDate += timedelta(days = 7)
 	return startToEnd
 
-def writeExcel(st, st2, numDays, start, end, wkList):
+def parseSchedule(st, categories):
+	class Event():
+		def __init__(self, activity, start, finish): 
+			self.machineID = activity[activity.find('(')+1:activity.find(')')]
+			self.activityID = activity[:activity.find('(')]
+			self.startDate = start
+			self.finishDate = finish
+			self.subTasks = []
+	class Task():
+		def __init__(self, category, task, start, finish):
+			self.category = category
+			self.task = task
+			self.startDate = start
+			self.finishDate = finish
+
+	eventList = []
+	row = 0
+	for a, b, c, d in itertools.izip(st.range('A:A'), st.range('B:B'), st.range('C:C'), st.range('D:D')):
+		row += 1
+		if row == 1:
+			continue
+		if b.value == None:
+			break
+		if a.value == None:
+			eventList.append(Event(b.value, c.value.date(), d.value.date()))
+		if a.value != None:
+			eventList[-1].subTasks.append(Task(a.value, b.value, c.value.date(), d.value.date()))
+			if a.value not in categories:
+				categories.append(a.value)
+	# for i in eventList:
+	# 	print i.machineID, "  ", i.activityID, "     ", i.startDate, "      ", i.finishDate
+	# 	for j in i.subTasks:
+	# 		print j.category, "    ", j.startDate, "    ", j.finishDate
+	# 	print '\n'
+	return eventList
+
+def writeExcel(st2, wkList, eventData, palette):
 	objectiveType = []
 	categories = {}
 	curCategory = None
@@ -58,8 +89,6 @@ def writeExcel(st, st2, numDays, start, end, wkList):
 			st2.range('C'+str(row)).options(transpose = True).value = j[0]
 			st2.range('D'+str(row)).options(transpose = True).value = j[1]
 			print j[2], start, row, (j[2].date()-start).days
-			# st2.cells(row, 6+(j[2].date()-start).days).value = 'Start'
-			# st2.cells(row, 6+(j[3].date()-start).days).value = 'End'
 			st2.cells(row, 6+(wkList.index(j[2].date()))).value = 'Start'
 			st2.cells(row, 6+(wkList.index(j[3].date()))).value = 'End'
 			st2.range((row, 6+(wkList.index(j[2].date()))), (row, 6+(wkList.index(j[3].date())))).color = palette[objectiveType.index(j[0])]
@@ -71,6 +100,7 @@ def writeExcel(st, st2, numDays, start, end, wkList):
 	st2.range((1,1),(row,5)).columns.autofit()
 	# st2.range("A1:E1").column_width = 2
 	print len(objectiveType)
+
 #--------------------------------
 
 while True:
@@ -98,26 +128,31 @@ while True:
 	else:
 		print "Invalid Input, please try again"
 
-print("Generating and Exporting Calendar to Excel...\nGeneration done in Calendar Tab")
+print("Generating calendar...")
+
+#--------------------------------------------------------
 
 wkList = generateCalendar(startDate, endDate)
+print("Calendar generated. Exporting to Excel...")
 
-wb = xw.Book('966GC sample.xlsx')
-st = wb.sheets['Sheet1']
-
-st2 = wb.sheets['calendar']
-st2.clear()
-st2.range('F2').options(transpose = False).value = wkList
-weekday = []
-for i in wkList:
-	if type(i) == date:
-		day = ['M','T','W','Th','F','Sa','Su']
-		weekday.append(day[i.weekday()])
-	else:
-		weekday.append(None)
-st2.range('F1').options(transpose = False).value = weekday
+wb = xw.Book('Program Validation Planning Tool.xlsx')
+st = wb.sheets[0]
 
 try:
-	writeExcel(st, st2, len(wkList), startDate, endDate, wkList)
-except:
-	print "Warning: Date range specified does not cover some events. Please restart program and indicate a date range that matches all project events.\n" 
+	st2 = wb.sheets['calendar']
+	st2.clear()
+except Exception as e:
+	print type(e)
+	sheets = wb.sheets
+	sheets.add('calendar', after = st)
+
+try:
+	categories = []
+	eventData = parseSchedule(st, categories)
+	palette = generatePalette(1+len(eventData)+len(categories))
+	writeExcel(st2, wkList, eventData, palette)
+except Exception as e:
+	print e
+	sys.exit(1)
+
+sys.exit(0)
