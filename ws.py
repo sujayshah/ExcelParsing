@@ -7,6 +7,8 @@ import pprint
 import colorsys
 import itertools
 
+XL_CENTER = -4108
+
 yearMatch = re.compile(r'\d{8}')
 
 def generatePalette(N):
@@ -17,9 +19,16 @@ def generatePalette(N):
 def generateCalendar(startDate, endDate):
 	startToEnd = []
 	curDate = startDate
+	dayOfWk = startDate.weekday()
 	while curDate <= endDate:
-		startToEnd.append(curDate)
-		curDate += timedelta(days = 7)
+		if curDate.weekday() == dayOfWk:
+			startToEnd.append(curDate)
+		else:
+			startToEnd.append(None)
+		curDate += timedelta(days = 1)
+	while curDate.weekday() != dayOfWk:
+		startToEnd.append(None)
+		curDate += timedelta(days = 1)
 	return startToEnd
 
 def parseSchedule(st, categories):
@@ -59,49 +68,29 @@ def parseSchedule(st, categories):
 	return eventList
 
 def writeExcel(st2, wkList, eventData, palette):
-	objectiveType = []
-	categories = {}
-	curCategory = None
-	colors = []
-	row = 1
-	while st.range('A'+str(row)).value != None or st.range('B'+str(row)).value != None or st.range('C'+str(row)).value != None or st.range('D'+str(row)).value != None:
-		if row == 1:
-			row += 1
-			continue
-		if st.range('B'+str(row)).color != None:
-			colors.append(st.range('B'+str(row)).color)
-			categories[st.range('B'+str(row)).value] = []
-			curCategory = st.range('B'+str(row)).value
-		elif curCategory != None:
-			newEntry = (st.range('A'+str(row)).value, st.range('B'+str(row)).value, st.range('C'+str(row)).value, st.range('D'+str(row)).value) 
-			categories[curCategory].append(newEntry)
-			if st.range('A'+str(row)).value not in objectiveType:
-				objectiveType.append(st.range('A'+str(row)).value)
-		row += 1
+	st2.range('A1').value = 'Machine S/N'
+	st2.range('B1').value = 'Phase'
+	st2.range('C1').value = wkList
+	st2.range((1,3),(1,2+len(wkList))).color = 0xFF8732
+	for i in range(0, len(wkList)/7):
+		dateCell = st2.range((1,3+7*i),(1,9+7*i))
+		dateCell.api.merge()
+		dateCell.api.horizontal_alignment.set(XL_CENTER)
+	machineNumRange = st2.range('A:A').options(transpose=True)
+	activityNumRange = st2.range('B:B').options(transpose=True)
 
-	colorIdx = 0
-	row = 2
-	for i in categories:
-		st2.range('B'+str(row)).options(transpose = True).value = i
-		st2.range('B'+str(row)).options(transpose = True).color = colors[colorIdx]
-		row += 1
-		for j in categories[i]:
-			st2.range('C'+str(row)).options(transpose = True).value = j[0]
-			st2.range('D'+str(row)).options(transpose = True).value = j[1]
-			print j[2], start, row, (j[2].date()-start).days
-			st2.cells(row, 6+(wkList.index(j[2].date()))).value = 'Start'
-			st2.cells(row, 6+(wkList.index(j[3].date()))).value = 'End'
-			st2.range((row, 6+(wkList.index(j[2].date()))), (row, 6+(wkList.index(j[3].date())))).color = palette[objectiveType.index(j[0])]
-			row += 1
-	
-		row += 1
-		colorIdx += 1
+	dataIter = iter(eventData)
+	try:
+		for i, j in itertools.izip(machineNumRange, activityNumRange):
+			if i.get_address() == '$A$1':
+				continue
+			eventObj = dataIter.next()
+			i.value = eventObj.machineID
+			j.value = eventObj.activityID
+	except StopIteration:
+		print "Machine and Activity IDs populated..."
 
-	st2.range((1,1),(row,5)).columns.autofit()
-	# st2.range("A1:E1").column_width = 2
-	print len(objectiveType)
-
-#--------------------------------
+#--------------------------------------------------------
 
 while True:
 	start = raw_input("Enter Start Date in the form MMDDYYYY: ")
@@ -150,9 +139,10 @@ try:
 	categories = []
 	eventData = parseSchedule(st, categories)
 	palette = generatePalette(1+len(eventData)+len(categories))
-	writeExcel(st2, wkList, eventData, palette)
 except Exception as e:
 	print e
 	sys.exit(1)
+
+writeExcel(st2, wkList, eventData, palette)
 
 sys.exit(0)
