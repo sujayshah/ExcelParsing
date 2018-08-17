@@ -60,18 +60,13 @@ def parseSchedule(st, categories):
 			eventList[-1].subTasks.append(Task(a.value, b.value, c.value.date(), d.value.date()))
 			if a.value not in categories:
 				categories.append(a.value)
-	# for i in eventList:
-	# 	print i.machineID, "  ", i.activityID, "     ", i.startDate, "      ", i.finishDate
-	# 	for j in i.subTasks:
-	# 		print j.category, "    ", j.startDate, "    ", j.finishDate
-	# 	print '\n'
 	return eventList
 
-def writeExcel(st2, wkList, eventData, palette):
+def writeExcel(st2, wkList, eventData, palette, startDate):
 	st2.range('A1').value = 'Machine S/N'
 	st2.range('B1').value = 'Phase'
 	st2.range('C1').value = wkList
-	st2.range((1,3),(1,2+len(wkList))).color = 0xFF8732
+	st2.range((1,3),(1,2+len(wkList))).color = 0x0095dc
 	for i in range(0, len(wkList)/7):
 		dateCell = st2.range((1,3+7*i),(1,9+7*i))
 		dateCell.api.merge()
@@ -82,12 +77,18 @@ def writeExcel(st2, wkList, eventData, palette):
 	dataIter = iter(eventData)
 	try:
 		for i, j in itertools.izip(machineNumRange, activityNumRange):
+			addr = int(re.sub('[^0-9]','', i.get_address()))
 			if i.get_address() == '$A$1':
 				continue
 			eventObj = dataIter.next()
 			i.value = eventObj.machineID
 			j.value = eventObj.activityID
+			for subTask in eventObj.subTasks:
+				st2.range((addr, 3+(subTask.startDate - startDate).days)).value = subTask.task
+				st2.range((addr, 3+(subTask.startDate - startDate).days), (addr, 3+(subTask.finishDate - startDate).days)).api.merge()
 	except StopIteration:
+		machineNumRange.autofit()
+		activityNumRange.autofit()
 		print "Machine and Activity IDs populated..."
 
 #--------------------------------------------------------
@@ -125,6 +126,7 @@ wkList = generateCalendar(startDate, endDate)
 print("Calendar generated. Exporting to Excel...")
 
 wb = xw.Book('Program Validation Planning Tool.xlsx')
+wb.app.display_alerts = False
 st = wb.sheets[0]
 
 try:
@@ -143,6 +145,6 @@ except Exception as e:
 	print e
 	sys.exit(1)
 
-writeExcel(st2, wkList, eventData, palette)
+writeExcel(st2, wkList, eventData, palette, startDate)
 
 sys.exit(0)
