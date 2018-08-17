@@ -3,16 +3,16 @@ from datetime import date, timedelta
 import re
 import os
 import sys
-import pprint
 import colorsys
 import itertools
 
 XL_CENTER = -4108
+XL_THICK = 4
 
 yearMatch = re.compile(r'\d{8}')
 
 def generatePalette(N):
-	HSV_tuples = [(x*1.0/N, 0.5, 0.5) for x in range(N)]
+	HSV_tuples = [(x*1.0/N, 0.5, 0.8) for x in range(N)]
 	RGB_tuples = map(lambda x: colorsys.hsv_to_rgb(*x), HSV_tuples)
 	return RGB_tuples
 
@@ -31,7 +31,7 @@ def generateCalendar(startDate, endDate):
 		curDate += timedelta(days = 1)
 	return startToEnd
 
-def parseSchedule(st, categories):
+def parseSchedule(st, categories, userStartDate, userEndDate):
 	class Event():
 		def __init__(self, activity, start, finish): 
 			self.machineID = activity[activity.find('(')+1:activity.find(')')]
@@ -54,6 +54,8 @@ def parseSchedule(st, categories):
 			continue
 		if b.value == None:
 			break
+		if c.value.date() < userStartDate or c.value.date() > userEndDate or d.value.date() < userStartDate or d.value.date() > userEndDate:
+			raise ValueError
 		if a.value == None:
 			eventList.append(Event(b.value, c.value.date(), d.value.date()))
 		if a.value != None:
@@ -62,7 +64,7 @@ def parseSchedule(st, categories):
 				categories.append(a.value)
 	return eventList
 
-def writeExcel(st2, wkList, eventData, palette, startDate):
+def writeExcel(st2, wkList, eventData, palette, categories, startDate):
 	st2.range('A1').value = 'Machine S/N'
 	st2.range('B1').value = 'Phase'
 	st2.range('C1').value = wkList
@@ -71,6 +73,7 @@ def writeExcel(st2, wkList, eventData, palette, startDate):
 		dateCell = st2.range((1,3+7*i),(1,9+7*i))
 		dateCell.api.merge()
 		dateCell.api.horizontal_alignment.set(XL_CENTER)
+		dateCell.api.border_around(color=0xFFFFFF, weight=XL_THICK)
 	machineNumRange = st2.range('A:A').options(transpose=True)
 	activityNumRange = st2.range('B:B').options(transpose=True)
 
@@ -85,7 +88,12 @@ def writeExcel(st2, wkList, eventData, palette, startDate):
 			j.value = eventObj.activityID
 			for subTask in eventObj.subTasks:
 				st2.range((addr, 3+(subTask.startDate - startDate).days)).value = subTask.task
-				st2.range((addr, 3+(subTask.startDate - startDate).days), (addr, 3+(subTask.finishDate - startDate).days)).api.merge()
+				mergedTaskCell = st2.range((addr, 3+(subTask.startDate - startDate).days), (addr, 3+(subTask.finishDate - startDate).days))
+				mergedTaskCell.color = (256*palette[categories.index(subTask.category)][2], 256*palette[categories.index(subTask.category)][1], 256*palette[categories.index(subTask.category)][0]) 
+				mergedTaskCell.api.merge()
+				mergedTaskCell.autofit()
+				mergedTaskCell.api.horizontal_alignment.set(XL_CENTER)
+				mergedTaskCell.api.border_around(color=0xFFFFFF, weight=XL_THICK)
 	except StopIteration:
 		machineNumRange.autofit()
 		activityNumRange.autofit()
@@ -139,12 +147,15 @@ except Exception as e:
 
 try:
 	categories = []
-	eventData = parseSchedule(st, categories)
-	palette = generatePalette(1+len(eventData)+len(categories))
+	eventData = parseSchedule(st, categories, startDate, endDate)
+	palette = generatePalette(len(categories))
+except ValueError as e:
+	print "Error: Some events do not fit within your start and end dates. Please ensure that all events fit within the specifed timeframe."
+	sys.exit(1)
 except Exception as e:
 	print e
 	sys.exit(1)
 
-writeExcel(st2, wkList, eventData, palette, startDate)
+writeExcel(st2, wkList, eventData, palette, categories, startDate)
 
 sys.exit(0)
