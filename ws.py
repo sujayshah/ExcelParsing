@@ -1,13 +1,14 @@
 import xlwings as xw
 from datetime import date, timedelta
 import re
-import os
 import sys
 import colorsys
 import itertools
+import platform
 
 XL_CENTER = -4108
 XL_THICK = 4
+XL_JUSTIFY = -4130
 
 yearMatch = re.compile(r'\d{8}')
 
@@ -71,9 +72,15 @@ def writeExcel(st2, wkList, eventData, palette, categories, startDate):
 	st2.range((1,3),(1,2+len(wkList))).color = 0x0095dc
 	for i in range(0, len(wkList)/7):
 		dateCell = st2.range((1,3+7*i),(1,9+7*i))
-		dateCell.api.merge()
-		dateCell.api.horizontal_alignment.set(XL_CENTER)
-		dateCell.api.border_around(color=0xFFFFFF, weight=XL_THICK)
+		if platform.system() == 'Windows':
+			dateCell.api.Merge()
+			dateCell.api.HorizontalAlignment = XL_CENTER
+			dateCell.api.Borders.Weight = XL_THICK
+			# dateCell.api.Borders.Color = 0xFFFFFF
+		else:
+			dateCell.api.merge()
+			dateCell.api.horizontal_alignment.set(XL_CENTER)
+			dateCell.api.border_around(color=0xFFFFFF, weight=XL_THICK)
 	machineNumRange = st2.range('A:A').options(transpose=True)
 	activityNumRange = st2.range('B:B').options(transpose=True)
 
@@ -90,14 +97,25 @@ def writeExcel(st2, wkList, eventData, palette, categories, startDate):
 				st2.range((addr, 3+(subTask.startDate - startDate).days)).value = subTask.task
 				mergedTaskCell = st2.range((addr, 3+(subTask.startDate - startDate).days), (addr, 3+(subTask.finishDate - startDate).days))
 				mergedTaskCell.color = (256*palette[categories.index(subTask.category)][2], 256*palette[categories.index(subTask.category)][1], 256*palette[categories.index(subTask.category)][0]) 
-				mergedTaskCell.api.merge()
+				if platform.system() == 'Windows':
+					mergedTaskCell.api.Merge()
+					mergedTaskCell.api.HorizontalAlignment = XL_CENTER
+					mergedTaskCell.api.Borders.Weight = XL_THICK
+					# mergedTaskCell.api.Borders.Color = 0xFFFFFF
+				else:
+					mergedTaskCell.api.merge()
+					mergedTaskCell.api.horizontal_alignment.set(XL_CENTER)
+					mergedTaskCell.api.border_around(color=0xFFFFFF, weight=XL_THICK)
 				mergedTaskCell.autofit()
-				mergedTaskCell.api.horizontal_alignment.set(XL_CENTER)
-				mergedTaskCell.api.border_around(color=0xFFFFFF, weight=XL_THICK)
 	except StopIteration:
 		machineNumRange.autofit()
 		activityNumRange.autofit()
 		print "Machine and Activity IDs populated..."
+	except Exception as e:
+		print e
+		sys.exit(1)
+	for i in range(1, 2+len(eventData)):
+		st2.range((i,1)).api.RowHeight *= 2
 
 #--------------------------------------------------------
 
@@ -129,7 +147,6 @@ while True:
 print("Generating calendar...")
 
 #--------------------------------------------------------
-
 wkList = generateCalendar(startDate, endDate)
 print("Calendar generated. Exporting to Excel...")
 
