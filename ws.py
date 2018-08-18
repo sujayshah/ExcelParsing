@@ -116,7 +116,7 @@ def writeExcel(st2, wkList, eventData, palette, categories, startDate):
 		sys.exit(1)
 	for i in range(1, 2+len(eventData)):
 		st2.range((i,1)).api.RowHeight *= 2
-
+		# st2.range((i,1)).autofit()
 #--------------------------------------------------------
 
 while True:
@@ -161,6 +161,7 @@ except Exception as e:
 	print type(e)
 	sheets = wb.sheets
 	sheets.add('calendar', after = st)
+	st2 = wb.sheets['calendar']
 
 try:
 	categories = []
