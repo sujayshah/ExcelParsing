@@ -2,6 +2,7 @@ import xlwings as xw
 from datetime import date, timedelta
 import re
 import sys
+import platform
 import colorsys
 import itertools
 import platform
@@ -99,14 +100,15 @@ def writeExcel(st2, wkList, eventData, palette, categories, startDate):
 				mergedTaskCell.color = (256*palette[categories.index(subTask.category)][2], 256*palette[categories.index(subTask.category)][1], 256*palette[categories.index(subTask.category)][0]) 
 				if platform.system() == 'Windows':
 					mergedTaskCell.api.Merge()
+					mergedTaskCell.autofit()
 					mergedTaskCell.api.HorizontalAlignment = XL_CENTER
 					mergedTaskCell.api.Borders.Weight = XL_THICK
-					# mergedTaskCell.api.Borders.Color = 0xFFFFFF
+					# dateCell.api.Borders.Color = 0xFFFFFF
 				else:
 					mergedTaskCell.api.merge()
+					mergedTaskCell.autofit()
 					mergedTaskCell.api.horizontal_alignment.set(XL_CENTER)
 					mergedTaskCell.api.border_around(color=0xFFFFFF, weight=XL_THICK)
-				mergedTaskCell.autofit()
 	except StopIteration:
 		machineNumRange.autofit()
 		activityNumRange.autofit()
