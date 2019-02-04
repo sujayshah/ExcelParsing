@@ -163,7 +163,7 @@ print("Generating calendar...")
 wkList = generateCalendar(startDate, endDate)
 print("Calendar generated. Exporting to Excel...")
 
-wb = xw.Book(args.file_name[0] + 'xlsx')
+wb = xw.Book(args.file_name[0] + '.xlsx')
 wb.app.display_alerts = False
 st = wb.sheets[0]
 
