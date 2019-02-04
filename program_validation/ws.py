@@ -6,6 +6,7 @@ import platform
 import colorsys
 import itertools
 import platform
+import argparse
 
 XL_CENTER = -4108
 XL_THICK = 4
@@ -121,6 +122,16 @@ def writeExcel(st2, wkList, eventData, palette, categories, startDate):
 		# st2.range((i,1)).autofit()
 #--------------------------------------------------------
 
+parser = argparse.ArgumentParser(description='Process file input name')
+parser.add_argument('file_name', type=str, nargs='+', help='Enter file name without .xlsx extension')
+try:
+	args = parser.parse_args()
+
+except:
+	print("Error while parsing argument...")
+	sys.exit(1)
+
+
 while True:
 	start = raw_input("Enter Start Date in the form MMDDYYYY: ")
 	if(re.match(yearMatch, start)):
@@ -152,7 +163,7 @@ print("Generating calendar...")
 wkList = generateCalendar(startDate, endDate)
 print("Calendar generated. Exporting to Excel...")
 
-wb = xw.Book('Program Validation Planning Tool.xlsx')
+wb = xw.Book(args.file_name[0] + 'xlsx')
 wb.app.display_alerts = False
 st = wb.sheets[0]
 
