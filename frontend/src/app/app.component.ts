@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {NgForm} from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,13 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'frontend';
+  
+
+  constructor() {
+
+  }
+
+  onSubmit(form) {
+    console.log(form);
+  }
 }
