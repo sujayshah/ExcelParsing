@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { NgForm, FormControl, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
+import { RGBRangeValidator } from './RGBRangeValidator';
 
 export interface Tile {
   color: string;
@@ -15,6 +16,13 @@ export interface Tile {
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+
+  clickedAddColor: boolean = false;
+  addNewColor: boolean = false;
+  validColorRed = new FormControl('', [Validators.required, RGBRangeValidator()]); 
+  validColorGreen = new FormControl('', [Validators.required, RGBRangeValidator()]);
+  validColorBlue = new FormControl('', [Validators.required, RGBRangeValidator()]);
+
   tiles: Tile[] = [
     {text: '1', color: 'lightblue'},
     {text: '2', color: 'lightgreen'},
@@ -27,9 +35,21 @@ export class AppComponent {
 
   }
   
-  addColor(color: string) {
-    let newTile : Tile = {color: color, text: (this.tiles.length + 1).toString()};
-    this.tiles.push(newTile);
+  addColor() {
+    if(this.validColorRed.valid && this.validColorGreen.valid && this.validColorBlue.valid) {
+      let color = this.rgbToHex(this.validColorRed.value, this.validColorGreen.value, this.validColorBlue.value);
+      let newTile : Tile = {color: color, text: (this.tiles.length + 1).toString()};
+      this.tiles.push(newTile);
+    }
+    this.clickedAddColor = true;
+  }
+
+  addColorDialog() {
+    this.addNewColor = true;
+  }
+
+  onNoClick() {
+    this.addNewColor = false;
   }
 
   resetDefault() {
@@ -39,4 +59,21 @@ export class AppComponent {
   onSubmit(form) {
     console.log(form);
   }
+
+  rgbToHex(r,g,b) { 
+    let red = Number(r).toString(16);
+    let green = Number(g).toString(16);
+    let blue = Number(b).toString(16);
+    if (red.length < 2) {
+      red = "0" + red;
+    }
+    if (green.length < 2) {
+      green = "0" + green;
+    }
+    if (blue.length < 2) {
+      blue = "0" + blue;
+    }
+    return '#'+red+green+blue;
+  };
+
 }

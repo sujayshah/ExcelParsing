@@ -1,39 +1,50 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
+<!-- <div style="text-align:center">
   <form (ngSubmit)="onSubmit(f)">
     <input name="first" ngModel required>
     <input name="last" ngModel>
     <button type="submit">Submit</button>
   </form>
-</div>
-<h1>Color Palette</h1>
-<mat-grid-list cols="4" rowHeight="100px">
-  <mat-grid-tile
-      *ngFor="let tile of tiles"
-      [style.background]="tile.color">
-    {{tile.text}}
-  </mat-grid-tile>
-</mat-grid-list>
-<br>
-<div class="palette-btn-bar">
-  <button mat-raised-button (click)="addColor('yellow')">
-    Add color
-  </button><br><br>
-  <button mat-raised-button (click)="resetDefault()">
-    Reset to Default
-  </button>
-</div>
+</div> -->
+<div>
+  <h1>Color Palette</h1>
+  <mat-grid-list cols="4" rowHeight="100px">
+    <mat-grid-tile
+        *ngFor="let tile of tiles"
+        [style.background]="tile.color">
+      {{tile.text}}
+    </mat-grid-tile>
+  </mat-grid-list>
+  <br>
+  <div class="palette-btn-bar">
+    <button mat-raised-button (click)="addColorDialog()">
+      Add color
+    </button><br><br>
+    
+    <!-- Dialog Palette Select -->
+    <div class="add-color-dialog "*ngIf="addNewColor">
+      <div mat-dialog-content>
+        <p>Enter a whole number between 0-255 for each RGB Value</p>
+        <mat-form-field>
+          <input matInput placeholder="Red" [formControl]="validColorRed">
+        </mat-form-field>&nbsp;
+        <mat-form-field>
+          <input matInput placeholder="Green" [formControl]="validColorGreen">
+        </mat-form-field>&nbsp;
+        <mat-form-field>
+          <input matInput placeholder="Blue" [formControl]="validColorBlue">
+        </mat-form-field>
+        <mat-error *ngIf="clickedAddColor && (validColorRed.invalid || validColorGreen.invalid || validColorBlue.invalid)">One or more colors are missing or invalid</mat-error>
+      </div>
+      <div mat-dialog-actions>
+        <button mat-button (click)="onNoClick()">Cancel</button>
+        <button mat-button (click)="addColor()" cdkFocusInitial>OK</button>
+      </div><br>
+    </div>
+    <!-- Dialog Palette Select -->
 
-<!-- Dialog Palette Select -->
-
-<h1 mat-dialog-title>Hi</h1>
-<div mat-dialog-content>
-  <p>What's your favorite animal?</p>
-  <mat-form-field>
-    <input matInput [(ngModel)]="">
-  </mat-form-field>
-</div>
-<div mat-dialog-actions>
-  <button mat-button (click)="onNoClick()">No Thanks</button>
-  <button mat-button [mat-dialog-close]="" cdkFocusInitial>Ok</button>
+    <button mat-raised-button (click)="resetDefault()">
+      Reset to Default
+    </button>
+  </div>
 </div>
