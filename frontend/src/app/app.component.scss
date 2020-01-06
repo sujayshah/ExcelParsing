@@ -9,3 +9,26 @@ h1 {
 .add-color-dialog {
     text-align: center;
 }
+
+form {
+    text-align: center;
+}
+
+.input-div {
+    display: inline-block;
+    max-width: 200px;
+}
+
+input {
+    margin-left: 2vw;
+}
+
+.select-file {
+    overflow: hidden;
+    margin-top: 0.5%;
+}
+
+.container {
+    text-align: center;
+    margin: auto;
+}

@@ -17,6 +17,12 @@ export interface Tile {
 })
 export class AppComponent {
 
+  excelFileGroup = new FormGroup({
+    excelFileValid: new FormControl(null, Validators.required)
+  })
+
+  excelFile: File;
+
   clickedAddColor: boolean = false;
   addNewColor: boolean = false;
   validColorRed = new FormControl('', [Validators.required, RGBRangeValidator()]); 
@@ -56,8 +62,17 @@ export class AppComponent {
     this.tiles = Object.assign([], this.defaultTiles);;
   }
 
+  processFile(fileList : FileList) {
+    if(fileList[0]) {
+      this.excelFile = fileList[0];
+    }
+    else {
+      alert("File was not successfully added. Please try again");
+    }
+  }
+
   onSubmit(form) {
-    console.log(form);
+    console.log(this.excelFile);
   }
 
   rgbToHex(r,g,b) { 

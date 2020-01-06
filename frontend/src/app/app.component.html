@@ -6,8 +6,17 @@
     <button type="submit">Submit</button>
   </form>
 </div> -->
-<div>
-  <h1>Color Palette</h1>
+<div class="container">
+  <h2>Select Input File</h2>
+  <form [formGroup]="excelFileGroup" (ngSubmit)="onSubmit(excelFileGroup)">
+    <div class="input-div">
+      <input #input class="select-file btn" (change)="processFile($event.target.files)"
+      id="input-file-id" type="file" name="excel-file" accept=".xlsx" formControlName="excelFileValid"  />
+    </div>
+    <br><br>
+    <button mat-raised-button type="submit" [disabled]="!excelFileGroup.valid">Upload</button>
+  </form>
+  <h2>Color Palette</h2>
   <mat-grid-list cols="4" rowHeight="100px">
     <mat-grid-tile
         *ngFor="let tile of tiles"
