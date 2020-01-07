@@ -20,11 +20,10 @@ export interface Tile {
 export class AppComponent {
 
   excelFileGroup = new FormGroup({
-    excelFileValid: new FormControl(null, Validators.required),
-    excelRenderMode: new FormControl(null, Validators.required)
+    excelFilePath: new FormControl(null, Validators.required),
+    excelRenderMode: new FormControl(null, Validators.required),
+    excelFile: new FormControl('')
   })
-
-  excelFile: File;
 
   clickedAddColor: boolean = false;
   addNewColor: boolean = false;
@@ -33,10 +32,10 @@ export class AppComponent {
   validColorBlue = new FormControl('', [Validators.required, RGBRangeValidator()]);
 
   tiles: Tile[] = [
-    // {text: '1', color: 'lightblue'},
-    // {text: '2', color: 'lightgreen'},
-    // {text: '3', color: 'lightpink'},
-    // {text: '4', color: '#DDBDF1'},
+    {text: '1', color: '#ADD8E6'},
+    {text: '2', color: '#90EE90'},
+    {text: '3', color: '#FFB6C1'},
+    {text: '4', color: '#DDBDF1'},
   ];
   defaultTiles = Object.assign([], this.tiles);
 
@@ -69,24 +68,31 @@ export class AppComponent {
 
   processFile(fileList : FileList) {
     if(fileList[0]) {
-      this.excelFile = fileList[0];
+      this.excelFileGroup.get('excelFile').setValue(fileList[0]);
     }
-    else {
-      alert("File was not successfully added. Please try again");
-    }
+  }
+
+  private prepareSave(): any {
+    let input = new FormData();
+    input.append('name', this.excelFileGroup.get('excelFile').value);
+    this.tiles.forEach(tile => {
+      input.append(tile.text, tile.color);
+    });
+    return input;
   }
 
   onSubmit(form) {
+    const formModel : FormData = this.prepareSave();
     if(form.value.excelRenderMode == "program") {
-      this.programValidation(this.excelFile);
+      this.programValidation(formModel);
     }
     else if(form.value.excelRenderMode == "resource") {
-      this.resourceValidation(this.excelFile);
+      this.resourceValidation(formModel);
     }
   }
 
-  programValidation(excelFile) {
-    this.excelService.sendProgramValidation(excelFile).subscribe( (res: File) => {
+  programValidation(formData) {
+    this.excelService.sendProgramValidation(formData).subscribe( (res) => {
       console.log(res);
     },
     err => {
@@ -94,8 +100,8 @@ export class AppComponent {
     });
   }
 
-  resourceValidation(excelFile) {
-    this.excelService.sendResourceValidation(excelFile).subscribe( (res: File) => {
+  resourceValidation(formData) {
+    this.excelService.sendResourceValidation(formData).subscribe( (res) => {
       console.log(res);
     },
     err => {
@@ -103,7 +109,7 @@ export class AppComponent {
     });
   }
 
-  rgbToHex(r,g,b) { 
+  rgbToHex(r,g,b) {
     let red = Number(r).toString(16);
     let green = Number(g).toString(16);
     let blue = Number(b).toString(16);

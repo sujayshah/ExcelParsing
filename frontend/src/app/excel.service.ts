@@ -14,11 +14,11 @@ export class ExcelService {
   ) {
   }
 
-  sendProgramValidation(excelFile: Excel) {
-    return this.http.post<File>(this.constants.BASE_URL + this.constants.BASE_HREF + '/program', excelFile);
+  sendProgramValidation(excelFile: FormData) {
+    return this.http.post(this.constants.BASE_URL + this.constants.BASE_HREF + '/program', excelFile);
   }
 
-  sendResourceValidation(excelFile: Excel) {
-    return this.http.post<File>(this.constants.BASE_URL + this.constants.BASE_HREF + '/resource', excelFile);
+  sendResourceValidation(excelFile: FormData) {
+    return this.http.post(this.constants.BASE_URL + this.constants.BASE_HREF + '/resource', excelFile);
   }
 }

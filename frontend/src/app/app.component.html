@@ -19,7 +19,7 @@
     </mat-radio-group><br>
     <div class="input-div">
       <input #input class="select-file btn" (change)="processFile($event.target.files)"
-      id="input-file-id" type="file" name="excel-file" accept=".xlsx" formControlName="excelFileValid"  />
+      id="input-file-id" type="file" name="excel-file" accept=".xlsx" formControlName="excelFilePath"  />
     </div>
     <br><br>
     <button mat-raised-button type="submit" [disabled]="!excelFileGroup.valid">Upload</button>
