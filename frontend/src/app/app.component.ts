@@ -4,6 +4,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { RGBRangeValidator } from './RGBRangeValidator';
+import { MatRadioChange } from '@angular/material/radio';
 
 export interface Tile {
   color: string;
@@ -18,29 +19,30 @@ export interface Tile {
 export class AppComponent {
 
   excelFileGroup = new FormGroup({
-    excelFileValid: new FormControl(null, Validators.required)
+    excelFileValid: new FormControl(null, Validators.required),
+    excelRenderMode: new FormControl(null, Validators.required)
   })
 
   excelFile: File;
 
   clickedAddColor: boolean = false;
   addNewColor: boolean = false;
-  validColorRed = new FormControl('', [Validators.required, RGBRangeValidator()]); 
+  validColorRed = new FormControl('', [Validators.required, RGBRangeValidator()]);
   validColorGreen = new FormControl('', [Validators.required, RGBRangeValidator()]);
   validColorBlue = new FormControl('', [Validators.required, RGBRangeValidator()]);
 
   tiles: Tile[] = [
-    {text: '1', color: 'lightblue'},
-    {text: '2', color: 'lightgreen'},
-    {text: '3', color: 'lightpink'},
-    {text: '4', color: '#DDBDF1'},
+    // {text: '1', color: 'lightblue'},
+    // {text: '2', color: 'lightgreen'},
+    // {text: '3', color: 'lightpink'},
+    // {text: '4', color: '#DDBDF1'},
   ];
   defaultTiles = Object.assign([], this.tiles);
 
   constructor() {
 
   }
-  
+
   addColor() {
     if(this.validColorRed.valid && this.validColorGreen.valid && this.validColorBlue.valid) {
       let color = this.rgbToHex(this.validColorRed.value, this.validColorGreen.value, this.validColorBlue.value);
@@ -72,6 +74,7 @@ export class AppComponent {
   }
 
   onSubmit(form) {
+    console.log(form);
     console.log(this.excelFile);
   }
 

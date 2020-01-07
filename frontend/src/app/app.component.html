@@ -9,6 +9,14 @@
 <div class="container">
   <h2>Select Input File</h2>
   <form [formGroup]="excelFileGroup" (ngSubmit)="onSubmit(excelFileGroup)">
+    <mat-radio-group class="radio-group" formControlName="excelRenderMode">
+      <mat-radio-button class="radio-btn" value="program">
+        Program Validation
+      </mat-radio-button><br>
+      <mat-radio-button class="radio-btn" value="resource">
+        Resource Validation
+      </mat-radio-button><br>
+    </mat-radio-group><br>
     <div class="input-div">
       <input #input class="select-file btn" (change)="processFile($event.target.files)"
       id="input-file-id" type="file" name="excel-file" accept=".xlsx" formControlName="excelFileValid"  />
@@ -29,7 +37,7 @@
     <button mat-raised-button (click)="addColorDialog()">
       Add color
     </button><br><br>
-    
+
     <!-- Dialog Palette Select -->
     <div class="add-color-dialog "*ngIf="addNewColor">
       <div mat-dialog-content>
