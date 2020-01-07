@@ -5,6 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { RGBRangeValidator } from './RGBRangeValidator';
 import { MatRadioChange } from '@angular/material/radio';
+import { ExcelService } from './excel.service';
 
 export interface Tile {
   color: string;
@@ -39,7 +40,9 @@ export class AppComponent {
   ];
   defaultTiles = Object.assign([], this.tiles);
 
-  constructor() {
+  constructor(
+    private excelService: ExcelService
+  ) {
 
   }
 
@@ -74,8 +77,30 @@ export class AppComponent {
   }
 
   onSubmit(form) {
-    console.log(form);
-    console.log(this.excelFile);
+    if(form.value.excelRenderMode == "program") {
+      this.programValidation(this.excelFile);
+    }
+    else if(form.value.excelRenderMode == "resource") {
+      this.resourceValidation(this.excelFile);
+    }
+  }
+
+  programValidation(excelFile) {
+    this.excelService.sendProgramValidation(excelFile).subscribe( (res: File) => {
+      console.log(res);
+    },
+    err => {
+      console.log(err);
+    });
+  }
+
+  resourceValidation(excelFile) {
+    this.excelService.sendResourceValidation(excelFile).subscribe( (res: File) => {
+      console.log(res);
+    },
+    err => {
+      console.log(err);
+    });
   }
 
   rgbToHex(r,g,b) { 

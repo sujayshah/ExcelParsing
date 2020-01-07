@@ -13,6 +13,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio'
 
+import { HttpClientModule } from '@angular/common/http';
+import { ExcelService } from './excel.service';
+import { Constants} from './constants';
+
 @NgModule({
   declarations: [
     AppComponent
@@ -28,9 +32,10 @@ import { MatRadioModule } from '@angular/material/radio'
     MatDialogModule,
     MatFormFieldModule,
     MatInputModule,
-    MatRadioModule
+    MatRadioModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [Constants, ExcelService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
