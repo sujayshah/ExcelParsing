@@ -1,4 +1,5 @@
 import xlwings as xw
+import openpyxl as pyxl
 from datetime import date, time, timedelta
 import re
 import sys
@@ -25,7 +26,7 @@ def generateCalendar(startDate, numWeeks):
 
 def getNames(st):
 	names = {}
-	nameRange = st.range('C:C').api.Find(' ') 
+	nameRange = st.range('C:C').api.Find(' ')
 	nameRange = st.range('C:C').api.FindNext(nameRange)
 	while nameRange != None:
 		if str(nameRange.value) == 'end line':
@@ -96,3 +97,10 @@ def testwork_init():
 
 	weekDay = st.range('D5').value
 	# for weekNo in range()
+
+def openfile(fileName):
+	# wb = xw.Book(fileName)
+	# print(wb)
+	with open(fileName) as w:
+		print(w.readline)
+
