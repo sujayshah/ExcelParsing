@@ -1,6 +1,7 @@
 from flask import Flask, render_template
 
-# from resource_validation import testwork
+from program_validation import ws
+from resource_validation import testwork
 
 app = Flask(__name__)
 
