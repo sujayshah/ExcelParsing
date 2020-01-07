@@ -58,9 +58,9 @@ while True:
 			startDate = date(int(start[4:]), int(start[0:2]), int(start[2:4]))
 			break
 		except:
-			print "Invalid Date, please try again"
+			print("Invalid Date, please try again")
 	else:
-		print "Invalid Input, please try again"
+		print("Invalid Input, please try again")
 
 ##########################################################
 

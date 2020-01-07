@@ -113,9 +113,9 @@ def writeExcel(st2, wkList, eventData, palette, categories, startDate):
 	except StopIteration:
 		machineNumRange.autofit()
 		activityNumRange.autofit()
-		print "Machine and Activity IDs populated..."
+		print("Machine and Activity IDs populated...")
 	except Exception as e:
-		print e
+		print(e)
 		sys.exit(1)
 	for i in range(1, 2+len(eventData)):
 		st2.range((i,1)).api.RowHeight *= 2
@@ -133,29 +133,29 @@ except:
 
 
 while True:
-	start = raw_input("Enter Start Date in the form MMDDYYYY: ")
+	start = input("Enter Start Date in the form MMDDYYYY: ")
 	if(re.match(yearMatch, start)):
 		try:
 			startDate = date(int(start[4:]), int(start[0:2]), int(start[2:4]))
 			break
 		except:
-			print "Invalid Date, please try again"
+			print("Invalid Date, please try again")
 	else:
-		print "Invalid Input, please try again"
+		print("Invalid Input, please try again")
 
 while True:
-	end = raw_input("Enter End Date in the form MMDDYYYY: ")
+	end = input("Enter End Date in the form MMDDYYYY: ")
 	if(re.match(yearMatch, end)):
 		try:
 			endDate = date(int(end[4:]), int(end[0:2]), int(end[2:4]))
 			if endDate <= startDate:
-				print "Invalid End Data - Must be a date after the start date"
+				print("Invalid End Data - Must be a date after the start date")
 				continue
 			break
 		except:
-			print "Invalid Date, please try again"
+			print("Invalid Date, please try again")
 	else:
-		print "Invalid Input, please try again"
+		print("Invalid Input, please try again")
 
 print("Generating calendar...")
 
@@ -171,7 +171,7 @@ try:
 	st2 = wb.sheets['calendar']
 	st2.clear()
 except Exception as e:
-	print type(e)
+	print(type(e))
 	sheets = wb.sheets
 	sheets.add('calendar', after = st)
 	st2 = wb.sheets['calendar']
@@ -181,10 +181,10 @@ try:
 	eventData = parseSchedule(st, categories, startDate, endDate)
 	palette = generatePalette(len(categories))
 except ValueError as e:
-	print "Error: Some events do not fit within your start and end dates. Please ensure that all events fit within the specifed timeframe."
+	print("Error: Some events do not fit within your start and end dates. Please ensure that all events fit within the specifed timeframe.")
 	sys.exit(1)
 except Exception as e:
-	print e
+	print(e)
 	sys.exit(1)
 
 writeExcel(st2, wkList, eventData, palette, categories, startDate)
