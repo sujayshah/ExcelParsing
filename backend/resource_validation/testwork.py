@@ -52,7 +52,7 @@ wb.app.display_alerts = False
 st = wb.sheets['Week Summary']
 
 while True:
-	start = raw_input("Enter Start Date in the form MMDDYYYY: ")
+	start = input("Enter Start Date in the form MMDDYYYY: ")
 	if(re.match(yearMatch, start)):
 		try:
 			startDate = date(int(start[4:]), int(start[0:2]), int(start[2:4]))
