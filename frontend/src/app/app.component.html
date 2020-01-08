@@ -17,6 +17,18 @@
         Resource Validation
       </mat-radio-button><br>
     </mat-radio-group><br>
+    <!-- ------------------- -->
+    <mat-form-field class="example-full-width">
+      <input matInput [min]="minDate" [matDatepicker]="picker" formControlName="minDate" placeholder="Choose a date">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <input matInput [min]="minDate" [matDatepicker]="picker" formControlName="maxDate" placeholder="Choose a date">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>     
+    <!-- ------------------- -->
     <div class="input-div">
       <input #input class="select-file btn" (change)="processFile($event.target.files)"
       id="input-file-id" type="file" name="excel-file" accept=".xlsx" formControlName="excelFilePath"  />

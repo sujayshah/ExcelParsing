@@ -11,7 +11,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { MatRadioModule } from '@angular/material/radio'
+import { MatRadioModule } from '@angular/material/radio';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 import { HttpClientModule } from '@angular/common/http';
 import { ExcelService } from './excel.service';
@@ -33,9 +34,10 @@ import { Constants} from './constants';
     MatFormFieldModule,
     MatInputModule,
     MatRadioModule,
+    MatDatepickerModule,
     HttpClientModule
   ],
-  providers: [Constants, ExcelService],
+  providers: [Constants, ExcelService, MatDatepickerModule],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

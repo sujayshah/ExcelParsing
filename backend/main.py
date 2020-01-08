@@ -60,4 +60,5 @@ def resource_validation():
 
 if __name__ == "__main__":
     app.config.from_object('configurations.DevelopmentConfig')
+    # app.config.from_object('configurations.ProductionConfig')
     app.run()
