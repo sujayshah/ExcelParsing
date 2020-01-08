@@ -3,14 +3,8 @@ from flask_cors import CORS, cross_origin
 from resource_validation import testwork
 from program_validation import ws
 
-from program_validation import ws
-from resource_validation import testwork
-
 app = Flask(__name__)
 CORS(app)
-
-LOCAL_URL = 'localhost:5000'
-PRODUCTION_URL = 'https://excel-parsing-258004.appspot.com'
 
 @app.route('/')
 # @cross_origin(origin='localhost')
