@@ -1,5 +1,291 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([["main"],{
 
+/***/ "./node_modules/moment/locale sync recursive ^\\.\\/.*$":
+/*!**************************************************!*\
+  !*** ./node_modules/moment/locale sync ^\.\/.*$ ***!
+  \**************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var map = {
+	"./af": "./node_modules/moment/locale/af.js",
+	"./af.js": "./node_modules/moment/locale/af.js",
+	"./ar": "./node_modules/moment/locale/ar.js",
+	"./ar-dz": "./node_modules/moment/locale/ar-dz.js",
+	"./ar-dz.js": "./node_modules/moment/locale/ar-dz.js",
+	"./ar-kw": "./node_modules/moment/locale/ar-kw.js",
+	"./ar-kw.js": "./node_modules/moment/locale/ar-kw.js",
+	"./ar-ly": "./node_modules/moment/locale/ar-ly.js",
+	"./ar-ly.js": "./node_modules/moment/locale/ar-ly.js",
+	"./ar-ma": "./node_modules/moment/locale/ar-ma.js",
+	"./ar-ma.js": "./node_modules/moment/locale/ar-ma.js",
+	"./ar-sa": "./node_modules/moment/locale/ar-sa.js",
+	"./ar-sa.js": "./node_modules/moment/locale/ar-sa.js",
+	"./ar-tn": "./node_modules/moment/locale/ar-tn.js",
+	"./ar-tn.js": "./node_modules/moment/locale/ar-tn.js",
+	"./ar.js": "./node_modules/moment/locale/ar.js",
+	"./az": "./node_modules/moment/locale/az.js",
+	"./az.js": "./node_modules/moment/locale/az.js",
+	"./be": "./node_modules/moment/locale/be.js",
+	"./be.js": "./node_modules/moment/locale/be.js",
+	"./bg": "./node_modules/moment/locale/bg.js",
+	"./bg.js": "./node_modules/moment/locale/bg.js",
+	"./bm": "./node_modules/moment/locale/bm.js",
+	"./bm.js": "./node_modules/moment/locale/bm.js",
+	"./bn": "./node_modules/moment/locale/bn.js",
+	"./bn.js": "./node_modules/moment/locale/bn.js",
+	"./bo": "./node_modules/moment/locale/bo.js",
+	"./bo.js": "./node_modules/moment/locale/bo.js",
+	"./br": "./node_modules/moment/locale/br.js",
+	"./br.js": "./node_modules/moment/locale/br.js",
+	"./bs": "./node_modules/moment/locale/bs.js",
+	"./bs.js": "./node_modules/moment/locale/bs.js",
+	"./ca": "./node_modules/moment/locale/ca.js",
+	"./ca.js": "./node_modules/moment/locale/ca.js",
+	"./cs": "./node_modules/moment/locale/cs.js",
+	"./cs.js": "./node_modules/moment/locale/cs.js",
+	"./cv": "./node_modules/moment/locale/cv.js",
+	"./cv.js": "./node_modules/moment/locale/cv.js",
+	"./cy": "./node_modules/moment/locale/cy.js",
+	"./cy.js": "./node_modules/moment/locale/cy.js",
+	"./da": "./node_modules/moment/locale/da.js",
+	"./da.js": "./node_modules/moment/locale/da.js",
+	"./de": "./node_modules/moment/locale/de.js",
+	"./de-at": "./node_modules/moment/locale/de-at.js",
+	"./de-at.js": "./node_modules/moment/locale/de-at.js",
+	"./de-ch": "./node_modules/moment/locale/de-ch.js",
+	"./de-ch.js": "./node_modules/moment/locale/de-ch.js",
+	"./de.js": "./node_modules/moment/locale/de.js",
+	"./dv": "./node_modules/moment/locale/dv.js",
+	"./dv.js": "./node_modules/moment/locale/dv.js",
+	"./el": "./node_modules/moment/locale/el.js",
+	"./el.js": "./node_modules/moment/locale/el.js",
+	"./en-SG": "./node_modules/moment/locale/en-SG.js",
+	"./en-SG.js": "./node_modules/moment/locale/en-SG.js",
+	"./en-au": "./node_modules/moment/locale/en-au.js",
+	"./en-au.js": "./node_modules/moment/locale/en-au.js",
+	"./en-ca": "./node_modules/moment/locale/en-ca.js",
+	"./en-ca.js": "./node_modules/moment/locale/en-ca.js",
+	"./en-gb": "./node_modules/moment/locale/en-gb.js",
+	"./en-gb.js": "./node_modules/moment/locale/en-gb.js",
+	"./en-ie": "./node_modules/moment/locale/en-ie.js",
+	"./en-ie.js": "./node_modules/moment/locale/en-ie.js",
+	"./en-il": "./node_modules/moment/locale/en-il.js",
+	"./en-il.js": "./node_modules/moment/locale/en-il.js",
+	"./en-nz": "./node_modules/moment/locale/en-nz.js",
+	"./en-nz.js": "./node_modules/moment/locale/en-nz.js",
+	"./eo": "./node_modules/moment/locale/eo.js",
+	"./eo.js": "./node_modules/moment/locale/eo.js",
+	"./es": "./node_modules/moment/locale/es.js",
+	"./es-do": "./node_modules/moment/locale/es-do.js",
+	"./es-do.js": "./node_modules/moment/locale/es-do.js",
+	"./es-us": "./node_modules/moment/locale/es-us.js",
+	"./es-us.js": "./node_modules/moment/locale/es-us.js",
+	"./es.js": "./node_modules/moment/locale/es.js",
+	"./et": "./node_modules/moment/locale/et.js",
+	"./et.js": "./node_modules/moment/locale/et.js",
+	"./eu": "./node_modules/moment/locale/eu.js",
+	"./eu.js": "./node_modules/moment/locale/eu.js",
+	"./fa": "./node_modules/moment/locale/fa.js",
+	"./fa.js": "./node_modules/moment/locale/fa.js",
+	"./fi": "./node_modules/moment/locale/fi.js",
+	"./fi.js": "./node_modules/moment/locale/fi.js",
+	"./fo": "./node_modules/moment/locale/fo.js",
+	"./fo.js": "./node_modules/moment/locale/fo.js",
+	"./fr": "./node_modules/moment/locale/fr.js",
+	"./fr-ca": "./node_modules/moment/locale/fr-ca.js",
+	"./fr-ca.js": "./node_modules/moment/locale/fr-ca.js",
+	"./fr-ch": "./node_modules/moment/locale/fr-ch.js",
+	"./fr-ch.js": "./node_modules/moment/locale/fr-ch.js",
+	"./fr.js": "./node_modules/moment/locale/fr.js",
+	"./fy": "./node_modules/moment/locale/fy.js",
+	"./fy.js": "./node_modules/moment/locale/fy.js",
+	"./ga": "./node_modules/moment/locale/ga.js",
+	"./ga.js": "./node_modules/moment/locale/ga.js",
+	"./gd": "./node_modules/moment/locale/gd.js",
+	"./gd.js": "./node_modules/moment/locale/gd.js",
+	"./gl": "./node_modules/moment/locale/gl.js",
+	"./gl.js": "./node_modules/moment/locale/gl.js",
+	"./gom-latn": "./node_modules/moment/locale/gom-latn.js",
+	"./gom-latn.js": "./node_modules/moment/locale/gom-latn.js",
+	"./gu": "./node_modules/moment/locale/gu.js",
+	"./gu.js": "./node_modules/moment/locale/gu.js",
+	"./he": "./node_modules/moment/locale/he.js",
+	"./he.js": "./node_modules/moment/locale/he.js",
+	"./hi": "./node_modules/moment/locale/hi.js",
+	"./hi.js": "./node_modules/moment/locale/hi.js",
+	"./hr": "./node_modules/moment/locale/hr.js",
+	"./hr.js": "./node_modules/moment/locale/hr.js",
+	"./hu": "./node_modules/moment/locale/hu.js",
+	"./hu.js": "./node_modules/moment/locale/hu.js",
+	"./hy-am": "./node_modules/moment/locale/hy-am.js",
+	"./hy-am.js": "./node_modules/moment/locale/hy-am.js",
+	"./id": "./node_modules/moment/locale/id.js",
+	"./id.js": "./node_modules/moment/locale/id.js",
+	"./is": "./node_modules/moment/locale/is.js",
+	"./is.js": "./node_modules/moment/locale/is.js",
+	"./it": "./node_modules/moment/locale/it.js",
+	"./it-ch": "./node_modules/moment/locale/it-ch.js",
+	"./it-ch.js": "./node_modules/moment/locale/it-ch.js",
+	"./it.js": "./node_modules/moment/locale/it.js",
+	"./ja": "./node_modules/moment/locale/ja.js",
+	"./ja.js": "./node_modules/moment/locale/ja.js",
+	"./jv": "./node_modules/moment/locale/jv.js",
+	"./jv.js": "./node_modules/moment/locale/jv.js",
+	"./ka": "./node_modules/moment/locale/ka.js",
+	"./ka.js": "./node_modules/moment/locale/ka.js",
+	"./kk": "./node_modules/moment/locale/kk.js",
+	"./kk.js": "./node_modules/moment/locale/kk.js",
+	"./km": "./node_modules/moment/locale/km.js",
+	"./km.js": "./node_modules/moment/locale/km.js",
+	"./kn": "./node_modules/moment/locale/kn.js",
+	"./kn.js": "./node_modules/moment/locale/kn.js",
+	"./ko": "./node_modules/moment/locale/ko.js",
+	"./ko.js": "./node_modules/moment/locale/ko.js",
+	"./ku": "./node_modules/moment/locale/ku.js",
+	"./ku.js": "./node_modules/moment/locale/ku.js",
+	"./ky": "./node_modules/moment/locale/ky.js",
+	"./ky.js": "./node_modules/moment/locale/ky.js",
+	"./lb": "./node_modules/moment/locale/lb.js",
+	"./lb.js": "./node_modules/moment/locale/lb.js",
+	"./lo": "./node_modules/moment/locale/lo.js",
+	"./lo.js": "./node_modules/moment/locale/lo.js",
+	"./lt": "./node_modules/moment/locale/lt.js",
+	"./lt.js": "./node_modules/moment/locale/lt.js",
+	"./lv": "./node_modules/moment/locale/lv.js",
+	"./lv.js": "./node_modules/moment/locale/lv.js",
+	"./me": "./node_modules/moment/locale/me.js",
+	"./me.js": "./node_modules/moment/locale/me.js",
+	"./mi": "./node_modules/moment/locale/mi.js",
+	"./mi.js": "./node_modules/moment/locale/mi.js",
+	"./mk": "./node_modules/moment/locale/mk.js",
+	"./mk.js": "./node_modules/moment/locale/mk.js",
+	"./ml": "./node_modules/moment/locale/ml.js",
+	"./ml.js": "./node_modules/moment/locale/ml.js",
+	"./mn": "./node_modules/moment/locale/mn.js",
+	"./mn.js": "./node_modules/moment/locale/mn.js",
+	"./mr": "./node_modules/moment/locale/mr.js",
+	"./mr.js": "./node_modules/moment/locale/mr.js",
+	"./ms": "./node_modules/moment/locale/ms.js",
+	"./ms-my": "./node_modules/moment/locale/ms-my.js",
+	"./ms-my.js": "./node_modules/moment/locale/ms-my.js",
+	"./ms.js": "./node_modules/moment/locale/ms.js",
+	"./mt": "./node_modules/moment/locale/mt.js",
+	"./mt.js": "./node_modules/moment/locale/mt.js",
+	"./my": "./node_modules/moment/locale/my.js",
+	"./my.js": "./node_modules/moment/locale/my.js",
+	"./nb": "./node_modules/moment/locale/nb.js",
+	"./nb.js": "./node_modules/moment/locale/nb.js",
+	"./ne": "./node_modules/moment/locale/ne.js",
+	"./ne.js": "./node_modules/moment/locale/ne.js",
+	"./nl": "./node_modules/moment/locale/nl.js",
+	"./nl-be": "./node_modules/moment/locale/nl-be.js",
+	"./nl-be.js": "./node_modules/moment/locale/nl-be.js",
+	"./nl.js": "./node_modules/moment/locale/nl.js",
+	"./nn": "./node_modules/moment/locale/nn.js",
+	"./nn.js": "./node_modules/moment/locale/nn.js",
+	"./pa-in": "./node_modules/moment/locale/pa-in.js",
+	"./pa-in.js": "./node_modules/moment/locale/pa-in.js",
+	"./pl": "./node_modules/moment/locale/pl.js",
+	"./pl.js": "./node_modules/moment/locale/pl.js",
+	"./pt": "./node_modules/moment/locale/pt.js",
+	"./pt-br": "./node_modules/moment/locale/pt-br.js",
+	"./pt-br.js": "./node_modules/moment/locale/pt-br.js",
+	"./pt.js": "./node_modules/moment/locale/pt.js",
+	"./ro": "./node_modules/moment/locale/ro.js",
+	"./ro.js": "./node_modules/moment/locale/ro.js",
+	"./ru": "./node_modules/moment/locale/ru.js",
+	"./ru.js": "./node_modules/moment/locale/ru.js",
+	"./sd": "./node_modules/moment/locale/sd.js",
+	"./sd.js": "./node_modules/moment/locale/sd.js",
+	"./se": "./node_modules/moment/locale/se.js",
+	"./se.js": "./node_modules/moment/locale/se.js",
+	"./si": "./node_modules/moment/locale/si.js",
+	"./si.js": "./node_modules/moment/locale/si.js",
+	"./sk": "./node_modules/moment/locale/sk.js",
+	"./sk.js": "./node_modules/moment/locale/sk.js",
+	"./sl": "./node_modules/moment/locale/sl.js",
+	"./sl.js": "./node_modules/moment/locale/sl.js",
+	"./sq": "./node_modules/moment/locale/sq.js",
+	"./sq.js": "./node_modules/moment/locale/sq.js",
+	"./sr": "./node_modules/moment/locale/sr.js",
+	"./sr-cyrl": "./node_modules/moment/locale/sr-cyrl.js",
+	"./sr-cyrl.js": "./node_modules/moment/locale/sr-cyrl.js",
+	"./sr.js": "./node_modules/moment/locale/sr.js",
+	"./ss": "./node_modules/moment/locale/ss.js",
+	"./ss.js": "./node_modules/moment/locale/ss.js",
+	"./sv": "./node_modules/moment/locale/sv.js",
+	"./sv.js": "./node_modules/moment/locale/sv.js",
+	"./sw": "./node_modules/moment/locale/sw.js",
+	"./sw.js": "./node_modules/moment/locale/sw.js",
+	"./ta": "./node_modules/moment/locale/ta.js",
+	"./ta.js": "./node_modules/moment/locale/ta.js",
+	"./te": "./node_modules/moment/locale/te.js",
+	"./te.js": "./node_modules/moment/locale/te.js",
+	"./tet": "./node_modules/moment/locale/tet.js",
+	"./tet.js": "./node_modules/moment/locale/tet.js",
+	"./tg": "./node_modules/moment/locale/tg.js",
+	"./tg.js": "./node_modules/moment/locale/tg.js",
+	"./th": "./node_modules/moment/locale/th.js",
+	"./th.js": "./node_modules/moment/locale/th.js",
+	"./tl-ph": "./node_modules/moment/locale/tl-ph.js",
+	"./tl-ph.js": "./node_modules/moment/locale/tl-ph.js",
+	"./tlh": "./node_modules/moment/locale/tlh.js",
+	"./tlh.js": "./node_modules/moment/locale/tlh.js",
+	"./tr": "./node_modules/moment/locale/tr.js",
+	"./tr.js": "./node_modules/moment/locale/tr.js",
+	"./tzl": "./node_modules/moment/locale/tzl.js",
+	"./tzl.js": "./node_modules/moment/locale/tzl.js",
+	"./tzm": "./node_modules/moment/locale/tzm.js",
+	"./tzm-latn": "./node_modules/moment/locale/tzm-latn.js",
+	"./tzm-latn.js": "./node_modules/moment/locale/tzm-latn.js",
+	"./tzm.js": "./node_modules/moment/locale/tzm.js",
+	"./ug-cn": "./node_modules/moment/locale/ug-cn.js",
+	"./ug-cn.js": "./node_modules/moment/locale/ug-cn.js",
+	"./uk": "./node_modules/moment/locale/uk.js",
+	"./uk.js": "./node_modules/moment/locale/uk.js",
+	"./ur": "./node_modules/moment/locale/ur.js",
+	"./ur.js": "./node_modules/moment/locale/ur.js",
+	"./uz": "./node_modules/moment/locale/uz.js",
+	"./uz-latn": "./node_modules/moment/locale/uz-latn.js",
+	"./uz-latn.js": "./node_modules/moment/locale/uz-latn.js",
+	"./uz.js": "./node_modules/moment/locale/uz.js",
+	"./vi": "./node_modules/moment/locale/vi.js",
+	"./vi.js": "./node_modules/moment/locale/vi.js",
+	"./x-pseudo": "./node_modules/moment/locale/x-pseudo.js",
+	"./x-pseudo.js": "./node_modules/moment/locale/x-pseudo.js",
+	"./yo": "./node_modules/moment/locale/yo.js",
+	"./yo.js": "./node_modules/moment/locale/yo.js",
+	"./zh-cn": "./node_modules/moment/locale/zh-cn.js",
+	"./zh-cn.js": "./node_modules/moment/locale/zh-cn.js",
+	"./zh-hk": "./node_modules/moment/locale/zh-hk.js",
+	"./zh-hk.js": "./node_modules/moment/locale/zh-hk.js",
+	"./zh-tw": "./node_modules/moment/locale/zh-tw.js",
+	"./zh-tw.js": "./node_modules/moment/locale/zh-tw.js"
+};
+
+
+function webpackContext(req) {
+	var id = webpackContextResolve(req);
+	return __webpack_require__(id);
+}
+function webpackContextResolve(req) {
+	if(!__webpack_require__.o(map, req)) {
+		var e = new Error("Cannot find module '" + req + "'");
+		e.code = 'MODULE_NOT_FOUND';
+		throw e;
+	}
+	return map[req];
+}
+webpackContext.keys = function webpackContextKeys() {
+	return Object.keys(map);
+};
+webpackContext.resolve = webpackContextResolve;
+module.exports = webpackContext;
+webpackContext.id = "./node_modules/moment/locale sync recursive ^\\.\\/.*$";
+
+/***/ }),
+
 /***/ "./node_modules/raw-loader/dist/cjs.js!./src/app/app.component.html":
 /*!**************************************************************************!*\
   !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/app.component.html ***!
@@ -9,7 +295,7 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<!--The content below is only a placeholder and can be replaced.-->\n<!-- <div style=\"text-align:center\">\n  <form (ngSubmit)=\"onSubmit(f)\">\n    <input name=\"first\" ngModel required>\n    <input name=\"last\" ngModel>\n    <button type=\"submit\">Submit</button>\n  </form>\n</div> -->\n<div class=\"container\">\n  <h2>Select Input File</h2>\n  <form [formGroup]=\"excelFileGroup\" (ngSubmit)=\"onSubmit(excelFileGroup)\">\n    <mat-radio-group class=\"radio-group\" formControlName=\"excelRenderMode\">\n      <mat-radio-button class=\"radio-btn\" value=\"program\">\n        Program Validation\n      </mat-radio-button><br>\n      <mat-radio-button class=\"radio-btn\" value=\"resource\">\n        Resource Validation\n      </mat-radio-button><br>\n    </mat-radio-group><br>\n    <!-- ------------------- -->\n    <mat-form-field class=\"datepicker\" *ngIf=\"excelFileGroup.value.excelRenderMode=='program'\">\n      <input matInput [matDatepicker]=\"minPicker\" formControlName=\"minDate\" placeholder=\"Choose a date\">\n      <mat-datepicker-toggle matSuffix [for]=\"minPicker\"></mat-datepicker-toggle>\n      <mat-datepicker #minPicker></mat-datepicker>\n    </mat-form-field>\n    <mat-form-field class=\"datepicker\" *ngIf=\"excelFileGroup.value.excelRenderMode=='program'\">\n      <input matInput [matDatepicker]=\"maxPicker\" formControlName=\"maxDate\" placeholder=\"Choose a date\">\n      <mat-datepicker-toggle matSuffix [for]=\"maxPicker\"></mat-datepicker-toggle>\n      <mat-datepicker #maxPicker></mat-datepicker>\n    </mat-form-field>     \n    <!-- ------------------- -->\n    <div class=\"input-div\">\n      <input #input class=\"select-file btn\" (change)=\"processFile($event.target.files)\"\n      id=\"input-file-id\" type=\"file\" name=\"excel-file\" accept=\".xlsx\" formControlName=\"excelFilePath\"  />\n    </div>\n    <br><br>\n    <button mat-raised-button type=\"submit\" [disabled]=\"!excelFileGroup.valid\">Upload</button>\n  </form>\n  <h2>Color Palette</h2>\n  <mat-grid-list cols=\"4\" rowHeight=\"100px\">\n    <mat-grid-tile\n        *ngFor=\"let tile of tiles\"\n        [style.background]=\"tile.color\">\n      {{tile.text}}\n    </mat-grid-tile>\n  </mat-grid-list>\n  <br>\n  <div class=\"palette-btn-bar\">\n    <button mat-raised-button (click)=\"addColorDialog()\">\n      Add color\n    </button><br><br>\n\n    <!-- Dialog Palette Select -->\n    <div class=\"add-color-dialog \"*ngIf=\"addNewColor\">\n      <div mat-dialog-content>\n        <p>Enter a whole number between 0-255 for each RGB Value</p>\n        <mat-form-field>\n          <input matInput placeholder=\"Red\" [formControl]=\"validColorRed\">\n        </mat-form-field>&nbsp;\n        <mat-form-field>\n          <input matInput placeholder=\"Green\" [formControl]=\"validColorGreen\">\n        </mat-form-field>&nbsp;\n        <mat-form-field>\n          <input matInput placeholder=\"Blue\" [formControl]=\"validColorBlue\">\n        </mat-form-field>\n        <mat-error *ngIf=\"clickedAddColor && (validColorRed.invalid || validColorGreen.invalid || validColorBlue.invalid)\">One or more colors are missing or invalid</mat-error>\n      </div>\n      <div mat-dialog-actions>\n        <button mat-button (click)=\"onNoClick()\">Cancel</button>\n        <button mat-button (click)=\"addColor()\" cdkFocusInitial>OK</button>\n      </div><br>\n    </div>\n    <!-- Dialog Palette Select -->\n\n    <button mat-raised-button (click)=\"resetDefault()\">\n      Reset to Default\n    </button>\n  </div>\n</div>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<!--The content below is only a placeholder and can be replaced.-->\n<!-- <div style=\"text-align:center\">\n  <form (ngSubmit)=\"onSubmit(f)\">\n    <input name=\"first\" ngModel required>\n    <input name=\"last\" ngModel>\n    <button type=\"submit\">Submit</button>\n  </form>\n</div> -->\n<div class=\"container\">\n  <h2>Select Input File</h2>\n  <form [formGroup]=\"excelFileGroup\" (ngSubmit)=\"onSubmit(excelFileGroup)\">\n    <mat-radio-group class=\"radio-group\" formControlName=\"excelRenderMode\" (change)=\"focusRenderMode($event)\">\n      <mat-radio-button class=\"radio-btn\" value=\"program\">\n        Program Validation\n      </mat-radio-button><br>\n      <mat-radio-button class=\"radio-btn\" value=\"resource\">\n        Resource Validation\n      </mat-radio-button><br>\n    </mat-radio-group><br>\n    <!-- ------------------- -->\n    <mat-form-field class=\"datepicker\">\n      <input matInput [matDatepicker]=\"minPicker\" formControlName=\"minDate\" placeholder=\"Choose a date\">\n      <mat-datepicker-toggle matSuffix [for]=\"minPicker\"></mat-datepicker-toggle>\n      <mat-datepicker #minPicker></mat-datepicker>\n    </mat-form-field>\n    <mat-form-field class=\"datepicker\">\n      <input matInput [matDatepicker]=\"maxPicker\" formControlName=\"maxDate\" placeholder=\"Choose a date\">\n      <mat-datepicker-toggle matSuffix [for]=\"maxPicker\"></mat-datepicker-toggle>\n      <mat-datepicker #maxPicker></mat-datepicker>\n    </mat-form-field>     \n    <!-- ------------------- -->\n    <div class=\"input-div\">\n      <input #input class=\"select-file btn\" (change)=\"processFile($event.target.files)\"\n      id=\"input-file-id\" type=\"file\" name=\"excel-file\" accept=\".xlsx\" formControlName=\"excelFilePath\"  />\n    </div>\n    <br><br>\n    <button mat-raised-button type=\"submit\" [disabled]=\"!excelFileGroup.valid\">Upload</button>\n  </form>\n  <h2>Color Palette</h2>\n  <mat-grid-list cols=\"4\" rowHeight=\"100px\">\n    <mat-grid-tile\n        *ngFor=\"let tile of tiles\"\n        [style.background]=\"tile.color\">\n      {{tile.text}}\n    </mat-grid-tile>\n  </mat-grid-list>\n  <br>\n  <div class=\"palette-btn-bar\">\n    <button mat-raised-button (click)=\"addColorDialog()\">\n      Add color\n    </button><br><br>\n\n    <!-- Dialog Palette Select -->\n    <div class=\"add-color-dialog \"*ngIf=\"addNewColor\">\n      <div mat-dialog-content>\n        <p>Enter a whole number between 0-255 for each RGB Value</p>\n        <mat-form-field>\n          <input matInput placeholder=\"Red\" [formControl]=\"validColorRed\">\n        </mat-form-field>&nbsp;\n        <mat-form-field>\n          <input matInput placeholder=\"Green\" [formControl]=\"validColorGreen\">\n        </mat-form-field>&nbsp;\n        <mat-form-field>\n          <input matInput placeholder=\"Blue\" [formControl]=\"validColorBlue\">\n        </mat-form-field>\n        <mat-error *ngIf=\"clickedAddColor && (validColorRed.invalid || validColorGreen.invalid || validColorBlue.invalid)\">One or more colors are missing or invalid</mat-error>\n      </div>\n      <div mat-dialog-actions>\n        <button mat-button (click)=\"onNoClick()\">Cancel</button>\n        <button mat-button (click)=\"addColor()\" cdkFocusInitial>OK</button>\n      </div><br>\n    </div>\n    <!-- Dialog Palette Select -->\n\n    <button mat-raised-button (click)=\"resetDefault()\">\n      Reset to Default\n    </button>\n  </div>\n</div>\n");
 
 /***/ }),
 
@@ -306,7 +592,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var routes = [];
+var routes = [
+    {
+        path: 'static',
+        redirectTo: '',
+        pathMatch: 'full'
+    }
+];
 var AppRoutingModule = /** @class */ (function () {
     function AppRoutingModule() {
     }
@@ -362,9 +654,9 @@ var AppComponent = /** @class */ (function () {
         this.excelFileGroup = new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormGroup"]({
             excelFilePath: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required),
             excelRenderMode: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required),
-            excelFile: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](''),
-            minDate: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](''),
-            maxDate: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"]('')
+            excelFile: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null),
+            minDate: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"]({ value: null, disabled: true }),
+            maxDate: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"]({ value: null, disabled: true })
         });
         this.clickedAddColor = false;
         this.addNewColor = false;
@@ -379,51 +671,64 @@ var AppComponent = /** @class */ (function () {
         ];
         this.defaultTiles = Object.assign([], this.tiles);
     }
-    AppComponent.prototype.addColor = function () {
-        if (this.validColorRed.valid && this.validColorGreen.valid && this.validColorBlue.valid) {
-            var color = this.rgbToHex(this.validColorRed.value, this.validColorGreen.value, this.validColorBlue.value);
-            var newTile = { color: color, text: (this.tiles.length + 1).toString() };
-            this.tiles.push(newTile);
+    AppComponent.prototype.focusRenderMode = function (event) {
+        var minDateControl = this.excelFileGroup.controls['minDate'];
+        var maxDateControl = this.excelFileGroup.controls['maxDate'];
+        if (event.value == "program") {
+            minDateControl.setValidators([_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required]);
+            minDateControl.enable();
+            maxDateControl.setValidators([_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required]);
+            maxDateControl.enable();
         }
-        this.clickedAddColor = true;
-    };
-    AppComponent.prototype.addColorDialog = function () {
-        this.addNewColor = true;
-    };
-    AppComponent.prototype.onNoClick = function () {
-        this.addNewColor = false;
-    };
-    AppComponent.prototype.resetDefault = function () {
-        this.tiles = Object.assign([], this.defaultTiles);
-        ;
+        else {
+            minDateControl.clearValidators();
+            minDateControl.disable();
+            maxDateControl.clearValidators();
+            maxDateControl.disable();
+        }
+        minDateControl.updateValueAndValidity();
+        maxDateControl.updateValueAndValidity();
     };
     AppComponent.prototype.processFile = function (fileList) {
         if (fileList[0]) {
             this.excelFileGroup.get('excelFile').setValue(fileList[0]);
         }
     };
-    AppComponent.prototype.prepareSave = function () {
+    AppComponent.prototype.prepareSave = function (form) {
         var input = new FormData();
-        input.append('name', this.excelFileGroup.get('excelFile').value);
+        if (form.get('excelRenderMode').value == "program") {
+            var startDate = form.controls['minDate'].value.format('MM-DD-YYYY');
+            var endDate = form.controls['maxDate'].value.format('MM-DD-YYYY');
+            input.append('start', startDate);
+            input.append('end', endDate);
+        }
+        input.append('name', form.controls['excelFile'].value);
         this.tiles.forEach(function (tile) {
             input.append(tile.text, tile.color);
         });
         return input;
     };
     AppComponent.prototype.onSubmit = function (form) {
-        var formModel = this.prepareSave();
-        if (form.value.excelRenderMode == "program") {
+        var formModel = this.prepareSave(form);
+        if (form.controls['excelRenderMode'].value == "program") {
             this.programValidation(formModel);
         }
-        else if (form.value.excelRenderMode == "resource") {
+        else if (form.controls['excelRenderMode'].value == "resource") {
             this.resourceValidation(formModel);
         }
     };
     AppComponent.prototype.programValidation = function (formData) {
         this.excelService.sendProgramValidation(formData).subscribe(function (res) {
-            console.log(res);
+            var blob = new Blob([res], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
+            var blobFile = new File([blob], "output.xlsx", { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
+            var url = window.URL.createObjectURL(blobFile);
+            var anchor = document.createElement("a");
+            anchor.download = "output.xlsx";
+            anchor.href = url;
+            anchor.click();
+            window.URL.revokeObjectURL(url);
         }, function (err) {
-            console.log(err);
+            console.log("Error", err);
         });
     };
     AppComponent.prototype.resourceValidation = function (formData) {
@@ -456,6 +761,24 @@ var AppComponent = /** @class */ (function () {
         return '#' + red + green + blue;
     };
     ;
+    AppComponent.prototype.addColor = function () {
+        if (this.validColorRed.valid && this.validColorGreen.valid && this.validColorBlue.valid) {
+            var color = this.rgbToHex(this.validColorRed.value, this.validColorGreen.value, this.validColorBlue.value);
+            var newTile = { color: color, text: (this.tiles.length + 1).toString() };
+            this.tiles.push(newTile);
+        }
+        this.clickedAddColor = true;
+    };
+    AppComponent.prototype.addColorDialog = function () {
+        this.addNewColor = true;
+    };
+    AppComponent.prototype.onNoClick = function () {
+        this.addNewColor = false;
+    };
+    AppComponent.prototype.resetDefault = function () {
+        this.tiles = Object.assign([], this.defaultTiles);
+        ;
+    };
     AppComponent.ctorParameters = function () { return [
         { type: _excel_service__WEBPACK_IMPORTED_MODULE_4__["ExcelService"] }
     ]; };
@@ -499,9 +822,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_material_radio__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/material/radio */ "./node_modules/@angular/material/esm5/radio.es5.js");
 /* harmony import */ var _angular_material_datepicker__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @angular/material/datepicker */ "./node_modules/@angular/material/esm5/datepicker.es5.js");
 /* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
-/* harmony import */ var _excel_service__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./excel.service */ "./src/app/excel.service.ts");
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./constants */ "./src/app/constants.ts");
+/* harmony import */ var _angular_material_moment_adapter__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @angular/material-moment-adapter */ "./node_modules/@angular/material-moment-adapter/esm5/material-moment-adapter.es5.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _excel_service__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./excel.service */ "./src/app/excel.service.ts");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./constants */ "./src/app/constants.ts");
+
 
 
 
@@ -542,9 +867,12 @@ var AppModule = /** @class */ (function () {
                 _angular_material_radio__WEBPACK_IMPORTED_MODULE_12__["MatRadioModule"],
                 _angular_material_datepicker__WEBPACK_IMPORTED_MODULE_13__["MatDatepickerModule"],
                 _angular_material__WEBPACK_IMPORTED_MODULE_14__["MatNativeDateModule"],
-                _angular_common_http__WEBPACK_IMPORTED_MODULE_15__["HttpClientModule"]
+                _angular_common_http__WEBPACK_IMPORTED_MODULE_16__["HttpClientModule"]
             ],
-            providers: [_constants__WEBPACK_IMPORTED_MODULE_17__["Constants"], _excel_service__WEBPACK_IMPORTED_MODULE_16__["ExcelService"], _angular_material_datepicker__WEBPACK_IMPORTED_MODULE_13__["MatDatepickerModule"]],
+            providers: [_constants__WEBPACK_IMPORTED_MODULE_18__["Constants"], _excel_service__WEBPACK_IMPORTED_MODULE_17__["ExcelService"], _angular_material_datepicker__WEBPACK_IMPORTED_MODULE_13__["MatDatepickerModule"],
+                { provide: _angular_material__WEBPACK_IMPORTED_MODULE_14__["DateAdapter"], useClass: _angular_material_moment_adapter__WEBPACK_IMPORTED_MODULE_15__["MomentDateAdapter"], deps: [_angular_material__WEBPACK_IMPORTED_MODULE_14__["MAT_DATE_LOCALE"]] },
+                { provide: _angular_material__WEBPACK_IMPORTED_MODULE_14__["MAT_DATE_FORMATS"], useValue: _constants__WEBPACK_IMPORTED_MODULE_18__["MY_FORMATS"] }
+            ],
             bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_5__["AppComponent"]]
         })
     ], AppModule);
@@ -559,23 +887,35 @@ var AppModule = /** @class */ (function () {
 /*!******************************!*\
   !*** ./src/app/constants.ts ***!
   \******************************/
-/*! exports provided: Constants */
+/*! exports provided: Constants, MY_FORMATS */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Constants", function() { return Constants; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MY_FORMATS", function() { return MY_FORMATS; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 
 var Constants = /** @class */ (function () {
     function Constants() {
         this.BASE_HREF = '/static';
-        // BASE_URL = 'http://localhost:5000'
+        // BASE_URL = 'http://localhost:8080'
         this.BASE_URL = 'https://excel-parsing-258004.appspot.com';
     }
     return Constants;
 }());
 
+var MY_FORMATS = {
+    parse: {
+        dateInput: 'L',
+    },
+    display: {
+        dateInput: 'L',
+        monthYearLabel: 'MMM YYYY',
+        dateA11yLabel: 'LL',
+        monthYearA11yLabel: 'MMMM YYYY',
+    },
+};
 
 
 /***/ }),

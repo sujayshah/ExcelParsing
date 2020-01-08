@@ -13,11 +13,12 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material';
+import { MatNativeDateModule, MAT_DATE_FORMATS, MAT_DATE_LOCALE, DateAdapter } from '@angular/material';
+import { MomentDateAdapter } from '@angular/material-moment-adapter';
 
 import { HttpClientModule } from '@angular/common/http';
 import { ExcelService } from './excel.service';
-import { Constants} from './constants';
+import { Constants, MY_FORMATS} from './constants';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,10 @@ import { Constants} from './constants';
     MatNativeDateModule,
     HttpClientModule
   ],
-  providers: [Constants, ExcelService, MatDatepickerModule],
+  providers: [Constants, ExcelService, MatDatepickerModule,
+    { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+    { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

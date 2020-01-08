@@ -9,7 +9,7 @@
 <div class="container">
   <h2>Select Input File</h2>
   <form [formGroup]="excelFileGroup" (ngSubmit)="onSubmit(excelFileGroup)">
-    <mat-radio-group class="radio-group" formControlName="excelRenderMode">
+    <mat-radio-group class="radio-group" formControlName="excelRenderMode" (change)="focusRenderMode($event)">
       <mat-radio-button class="radio-btn" value="program">
         Program Validation
       </mat-radio-button><br>
@@ -18,12 +18,12 @@
       </mat-radio-button><br>
     </mat-radio-group><br>
     <!-- ------------------- -->
-    <mat-form-field class="datepicker" *ngIf="excelFileGroup.value.excelRenderMode=='program'">
+    <mat-form-field class="datepicker">
       <input matInput [matDatepicker]="minPicker" formControlName="minDate" placeholder="Choose a date">
       <mat-datepicker-toggle matSuffix [for]="minPicker"></mat-datepicker-toggle>
       <mat-datepicker #minPicker></mat-datepicker>
     </mat-form-field>
-    <mat-form-field class="datepicker" *ngIf="excelFileGroup.value.excelRenderMode=='program'">
+    <mat-form-field class="datepicker">
       <input matInput [matDatepicker]="maxPicker" formControlName="maxDate" placeholder="Choose a date">
       <mat-datepicker-toggle matSuffix [for]="maxPicker"></mat-datepicker-toggle>
       <mat-datepicker #maxPicker></mat-datepicker>
