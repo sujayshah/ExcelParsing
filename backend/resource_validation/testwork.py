@@ -1,4 +1,4 @@
-import xlwings as xw
+# import xlwings as xw
 import openpyxl as pyxl
 from datetime import date, time, timedelta
 import re
@@ -8,6 +8,7 @@ import colorsys
 import itertools
 import platform
 import argparse
+from tempfile import NamedTemporaryFile as ntf
 
 yearMatch = re.compile(r'\d{8}')
 
@@ -98,9 +99,5 @@ def testwork_init():
 	weekDay = st.range('D5').value
 	# for weekNo in range()
 
-def openfile(fileName):
-	# wb = xw.Book(fileName)
-	# print(wb)
-	with open(fileName) as w:
-		print(w.readline)
-
+def openfile(file):
+	print(file)

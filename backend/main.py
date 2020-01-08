@@ -2,6 +2,8 @@ from flask import Flask, render_template, request
 from flask_cors import CORS, cross_origin
 from resource_validation import testwork
 from program_validation import ws
+from tempfile import NamedTemporaryFile as ntf
+from io import BytesIO as bio
 
 app = Flask(__name__)
 CORS(app)
@@ -20,9 +22,16 @@ def program_validation(origin='localhost'):
 # @cross_origin(origin='localhost')
 def resource_validation():
     fileStorage = request.files.get('name')
-    fileName = "new-excel.xlsx"
-    fileStorage.save(fileName)
-    testwork.openfile(fileName)
+    if fileStorage:
+        # fileName = "new-excel.xlsx"
+        # fileName = ntf()
+        # fileStorage.save(fileName)
+
+        # fileName = fileStorage.read()
+        with ntf() as file:
+            fileStorage.save(file)
+            file.seek(0)
+            testwork.openfile(file)
     return "resource"
 
 if __name__ == "__main__":

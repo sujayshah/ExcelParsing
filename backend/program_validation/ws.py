@@ -1,4 +1,4 @@
-import xlwings as xw
+# import xlwings as xw
 from datetime import date, timedelta
 import re
 import sys
@@ -191,4 +191,4 @@ def ws_init():
 
 	sys.exit(0)
 
-ws_init()
+# ws_init()
