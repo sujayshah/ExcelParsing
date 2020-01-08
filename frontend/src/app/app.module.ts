@@ -13,6 +13,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material';
 
 import { HttpClientModule } from '@angular/common/http';
 import { ExcelService } from './excel.service';
@@ -35,6 +36,7 @@ import { Constants} from './constants';
     MatInputModule,
     MatRadioModule,
     MatDatepickerModule,
+    MatNativeDateModule,
     HttpClientModule
   ],
   providers: [Constants, ExcelService, MatDatepickerModule],

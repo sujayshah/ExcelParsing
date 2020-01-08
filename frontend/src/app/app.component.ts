@@ -23,7 +23,9 @@ export class AppComponent {
   excelFileGroup = new FormGroup({
     excelFilePath: new FormControl(null, Validators.required),
     excelRenderMode: new FormControl(null, Validators.required),
-    excelFile: new FormControl('')
+    excelFile: new FormControl(''),
+    minDate: new FormControl(''),
+    maxDate: new FormControl('')
   })
 
   clickedAddColor: boolean = false;

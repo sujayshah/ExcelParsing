@@ -18,15 +18,15 @@
       </mat-radio-button><br>
     </mat-radio-group><br>
     <!-- ------------------- -->
-    <mat-form-field class="example-full-width">
-      <input matInput [min]="minDate" [matDatepicker]="picker" formControlName="minDate" placeholder="Choose a date">
-      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
+    <mat-form-field class="datepicker" *ngIf="excelFileGroup.value.excelRenderMode=='program'">
+      <input matInput [matDatepicker]="minPicker" formControlName="minDate" placeholder="Choose a date">
+      <mat-datepicker-toggle matSuffix [for]="minPicker"></mat-datepicker-toggle>
+      <mat-datepicker #minPicker></mat-datepicker>
     </mat-form-field>
-    <mat-form-field class="example-full-width">
-      <input matInput [min]="minDate" [matDatepicker]="picker" formControlName="maxDate" placeholder="Choose a date">
-      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
+    <mat-form-field class="datepicker" *ngIf="excelFileGroup.value.excelRenderMode=='program'">
+      <input matInput [matDatepicker]="maxPicker" formControlName="maxDate" placeholder="Choose a date">
+      <mat-datepicker-toggle matSuffix [for]="maxPicker"></mat-datepicker-toggle>
+      <mat-datepicker #maxPicker></mat-datepicker>
     </mat-form-field>     
     <!-- ------------------- -->
     <div class="input-div">
