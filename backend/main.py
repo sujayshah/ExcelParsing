@@ -59,6 +59,6 @@ def resource_validation():
     return resp, resp_code
 
 if __name__ == "__main__":
-    app.config.from_object('configurations.DevelopmentConfig')
-    # app.config.from_object('configurations.ProductionConfig')
+    # app.config.from_object('configurations.DevelopmentConfig')
+    app.config.from_object('configurations.ProductionConfig')
     app.run()

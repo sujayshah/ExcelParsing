@@ -570,8 +570,8 @@ __webpack_require__.r(__webpack_exports__);
 var Constants = /** @class */ (function () {
     function Constants() {
         this.BASE_HREF = '/static';
-        this.BASE_URL = 'http://localhost:5000';
-        // var BASE_URL = 'https://excel-parsing-258004.appspot.com'
+        // BASE_URL = 'http://localhost:5000'
+        this.BASE_URL = 'https://excel-parsing-258004.appspot.com';
     }
     return Constants;
 }());
