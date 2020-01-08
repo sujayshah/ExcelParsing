@@ -4,7 +4,6 @@ import re
 import sys
 import platform
 import colorsys
-import itertools
 import platform
 import argparse
 
@@ -51,7 +50,7 @@ def parseSchedule(st, categories, userStartDate, userEndDate):
 
 	eventList = []
 	row = 0
-	for a, b, c, d in itertools.izip(st.range('A:A'), st.range('B:B'), st.range('C:C'), st.range('D:D')):
+	for a, b, c, d in zip(st.range('A:A'), st.range('B:B'), st.range('C:C'), st.range('D:D')):
 		row += 1
 		if row == 1:
 			continue
@@ -88,7 +87,7 @@ def writeExcel(st2, wkList, eventData, palette, categories, startDate):
 
 	dataIter = iter(eventData)
 	try:
-		for i, j in itertools.izip(machineNumRange, activityNumRange):
+		for i, j in zip(machineNumRange, activityNumRange):
 			addr = int(re.sub('[^0-9]','', i.get_address()))
 			if i.get_address() == '$A$1':
 				continue
@@ -191,3 +190,5 @@ def ws_init():
 	writeExcel(st2, wkList, eventData, palette, categories, startDate)
 
 	sys.exit(0)
+
+ws_init()
