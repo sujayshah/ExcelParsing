@@ -104,10 +104,7 @@ export class AppComponent {
 
   resourceValidation(formData) {
     this.excelService.sendResourceValidation(formData).subscribe( (res : any) => {
-      console.log(res);
-      // let blob = new Blob([this.s2ab(atob(res))], {type: "application/vnd.ms-excel"});
       let blob = new Blob([res], {type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"});
-
       let blobFile = new File([blob], "output.xlsx", {type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"});
 
       let url = window.URL.createObjectURL(blobFile);
@@ -121,13 +118,6 @@ export class AppComponent {
     console.log("Error", err);
     });
   }
-
-  // s2ab(s) {
-  //   let buf = new ArrayBuffer(s.length);
-  //   let view = new Uint8Array(buf);
-  //   for (let i=0; i!=s.length; ++i) view[i] = s.charCodeAt(i) & 0xFF;
-  //   return buf;
-  // }
 
   rgbToHex(r,g,b) {
     let red = Number(r).toString(16);

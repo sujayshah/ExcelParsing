@@ -4,7 +4,6 @@ from resource_validation import testwork
 from program_validation import ws
 from tempfile import NamedTemporaryFile as ntf
 from io import BytesIO as bio
-import base64
 
 app = Flask(__name__)
 CORS(app)
@@ -38,28 +37,25 @@ def resource_validation():
         if color not in palette:
             palette.append(color)
     fileStorage = request.files.get('name')
-    # with ntf() as file:
-    #     if fileStorage:
-    #         fileStorage.save(file)
-    #         file.seek(0)
-    #         # testwork.openfile(file, palette)
-    #         resp = send_file(file.name, mimetype="application/vnd.ms-excel")
-    #         resp_code = 200
-    #     else:
-    #         resp = None 
-    #         resp_code = 400
-    fileName = "new-excel.xlsx"
-    fileStorage.save(fileName)
-    
-    # with open(fileName, 'rb') as output:
-    #     output.seek(0)
-    #     output_blob = output.read()
-    #     base64str = base64.b64encode(output_blob)
-    
+    with ntf() as file:
+        if fileStorage:
+            fileStorage.save(file)
+            # file.seek(0)
+            # testwork.openfile(file, palette)
+            resp = send_file(file.name, as_attachment=True, attachment_filename=file.name, mimetype="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+            # resp = send_from_directory('', file.name, as_attachment=True, mimetype="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+            resp_code = 200
+            resp.headers['Access-Control-Allow-Origin'] = "*"
+        else:
+            resp = {} 
+            resp_code = 400
+
+    # fileName = "new-excel.xlsx"
+    # fileStorage.save(fileName)
     # resp = send_file(fileName, mimetype="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
-    resp = send_from_directory('', fileName, as_attachment=True, mimetype="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
-    resp_code = 200
-    resp.headers['Access-Control-Allow-Origin'] = "*"
+    # resp = send_from_directory('', fileName, as_attachment=True, mimetype="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+    # resp_code = 200
+
     return resp, resp_code
 
 if __name__ == "__main__":
