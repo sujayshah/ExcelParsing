@@ -15,10 +15,10 @@ export class ExcelService {
   }
 
   sendProgramValidation(excelFile: FormData) {
-    return this.http.post(this.constants.BASE_URL + this.constants.BASE_HREF + '/program', excelFile);
+    return this.http.post(this.constants.BASE_URL + this.constants.BASE_HREF + '/program', excelFile, {responseType: "blob"});
   }
 
   sendResourceValidation(excelFile: FormData) {
-    return this.http.post(this.constants.BASE_URL + this.constants.BASE_HREF + '/resource', excelFile);
+    return this.http.post(this.constants.BASE_URL + this.constants.BASE_HREF + '/resource', excelFile, {responseType: "blob"});
   }
 }

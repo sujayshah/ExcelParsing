@@ -6,6 +6,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { RGBRangeValidator } from './RGBRangeValidator';
 import { MatRadioChange } from '@angular/material/radio';
 import { ExcelService } from './excel.service';
+import { HexBase64BinaryEncoding } from 'crypto';
+import { anchorDef } from '@angular/core/src/view';
 
 export interface Tile {
   color: string;
@@ -101,13 +103,31 @@ export class AppComponent {
   }
 
   resourceValidation(formData) {
-    this.excelService.sendResourceValidation(formData).subscribe( (res) => {
+    this.excelService.sendResourceValidation(formData).subscribe( (res : any) => {
       console.log(res);
+      // let blob = new Blob([this.s2ab(atob(res))], {type: "application/vnd.ms-excel"});
+      let blob = new Blob([res], {type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"});
+
+      let blobFile = new File([blob], "output.xlsx", {type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"});
+
+      let url = window.URL.createObjectURL(blobFile);
+      let anchor = document.createElement("a");
+      anchor.download = "output.xlsx"
+      anchor.href = url
+      anchor.click()
+      window.URL.revokeObjectURL(url)
     },
     err => {
-      console.log(err);
+    console.log("Error", err);
     });
   }
+
+  // s2ab(s) {
+  //   let buf = new ArrayBuffer(s.length);
+  //   let view = new Uint8Array(buf);
+  //   for (let i=0; i!=s.length; ++i) view[i] = s.charCodeAt(i) & 0xFF;
+  //   return buf;
+  // }
 
   rgbToHex(r,g,b) {
     let red = Number(r).toString(16);
