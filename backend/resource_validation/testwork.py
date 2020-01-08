@@ -99,5 +99,6 @@ def testwork_init():
 	weekDay = st.range('D5').value
 	# for weekNo in range()
 
-def openfile(file):
+def openfile(file, palette):
 	print(file)
+	# wb = xw.Book(file.name)
