@@ -295,7 +295,7 @@ webpackContext.id = "./node_modules/moment/locale sync recursive ^\\.\\/.*$";
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<!--The content below is only a placeholder and can be replaced.-->\n<!-- <div style=\"text-align:center\">\n  <form (ngSubmit)=\"onSubmit(f)\">\n    <input name=\"first\" ngModel required>\n    <input name=\"last\" ngModel>\n    <button type=\"submit\">Submit</button>\n  </form>\n</div> -->\n<div class=\"container\">\n  <h2>Select Input File</h2>\n  <form [formGroup]=\"excelFileGroup\" (ngSubmit)=\"onSubmit(excelFileGroup)\">\n    <mat-radio-group class=\"radio-group\" formControlName=\"excelRenderMode\" (change)=\"focusRenderMode($event)\">\n      <mat-radio-button class=\"radio-btn\" value=\"program\">\n        Program Validation\n      </mat-radio-button><br>\n      <mat-radio-button class=\"radio-btn\" value=\"resource\">\n        Resource Validation\n      </mat-radio-button><br>\n    </mat-radio-group><br>\n    <!-- ------------------- -->\n    <mat-form-field class=\"datepicker\">\n      <input matInput [matDatepicker]=\"minPicker\" formControlName=\"minDate\" placeholder=\"Choose a date\">\n      <mat-datepicker-toggle matSuffix [for]=\"minPicker\"></mat-datepicker-toggle>\n      <mat-datepicker #minPicker></mat-datepicker>\n    </mat-form-field>\n    <mat-form-field class=\"datepicker\">\n      <input matInput [matDatepicker]=\"maxPicker\" formControlName=\"maxDate\" placeholder=\"Choose a date\">\n      <mat-datepicker-toggle matSuffix [for]=\"maxPicker\"></mat-datepicker-toggle>\n      <mat-datepicker #maxPicker></mat-datepicker>\n    </mat-form-field>     \n    <!-- ------------------- -->\n    <div class=\"input-div\">\n      <input #input class=\"select-file btn\" (change)=\"processFile($event.target.files)\"\n      id=\"input-file-id\" type=\"file\" name=\"excel-file\" accept=\".xlsx\" formControlName=\"excelFilePath\"  />\n    </div>\n    <br><br>\n    <button mat-raised-button type=\"submit\" [disabled]=\"!excelFileGroup.valid\">Upload</button>\n  </form>\n  <h2>Color Palette</h2>\n  <mat-grid-list cols=\"4\" rowHeight=\"100px\">\n    <mat-grid-tile\n        *ngFor=\"let tile of tiles\"\n        [style.background]=\"tile.color\">\n      {{tile.text}}\n    </mat-grid-tile>\n  </mat-grid-list>\n  <br>\n  <div class=\"palette-btn-bar\">\n    <button mat-raised-button (click)=\"addColorDialog()\">\n      Add color\n    </button><br><br>\n\n    <!-- Dialog Palette Select -->\n    <div class=\"add-color-dialog \"*ngIf=\"addNewColor\">\n      <div mat-dialog-content>\n        <p>Enter a whole number between 0-255 for each RGB Value</p>\n        <mat-form-field>\n          <input matInput placeholder=\"Red\" [formControl]=\"validColorRed\">\n        </mat-form-field>&nbsp;\n        <mat-form-field>\n          <input matInput placeholder=\"Green\" [formControl]=\"validColorGreen\">\n        </mat-form-field>&nbsp;\n        <mat-form-field>\n          <input matInput placeholder=\"Blue\" [formControl]=\"validColorBlue\">\n        </mat-form-field>\n        <mat-error *ngIf=\"clickedAddColor && (validColorRed.invalid || validColorGreen.invalid || validColorBlue.invalid)\">One or more colors are missing or invalid</mat-error>\n      </div>\n      <div mat-dialog-actions>\n        <button mat-button (click)=\"onNoClick()\">Cancel</button>\n        <button mat-button (click)=\"addColor()\" cdkFocusInitial>OK</button>\n      </div><br>\n    </div>\n    <!-- Dialog Palette Select -->\n\n    <button mat-raised-button (click)=\"resetDefault()\">\n      Reset to Default\n    </button>\n  </div>\n</div>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<!--The content below is only a placeholder and can be replaced.-->\n<!-- <div style=\"text-align:center\">\n  <form (ngSubmit)=\"onSubmit(f)\">\n    <input name=\"first\" ngModel required>\n    <input name=\"last\" ngModel>\n    <button type=\"submit\">Submit</button>\n  </form>\n</div> -->\n<div class=\"container\">\n  <h2>Select Input File</h2>\n  <form [formGroup]=\"excelFileGroup\" (ngSubmit)=\"onSubmit(excelFileGroup)\">\n    <mat-radio-group class=\"radio-group\" formControlName=\"excelRenderMode\" (change)=\"focusRenderMode($event)\">\n      <mat-radio-button class=\"radio-btn\" value=\"program\">\n        Program Validation\n      </mat-radio-button><br>\n      <mat-radio-button class=\"radio-btn\" value=\"resource\">\n        Resource Validation\n      </mat-radio-button><br>\n    </mat-radio-group><br>\n    <!-- ------------------- -->\n    <mat-form-field class=\"datepicker\">\n      <input matInput [matDatepicker]=\"minPicker\" formControlName=\"minDate\" placeholder=\"Choose a start date\">\n      <mat-datepicker-toggle matSuffix [for]=\"minPicker\"></mat-datepicker-toggle>\n      <mat-datepicker #minPicker></mat-datepicker>\n    </mat-form-field>\n    <mat-form-field class=\"datepicker\">\n      <input matInput [matDatepicker]=\"maxPicker\" formControlName=\"maxDate\" placeholder=\"Choose an end date\">\n      <mat-datepicker-toggle matSuffix [for]=\"maxPicker\"></mat-datepicker-toggle>\n      <mat-datepicker #maxPicker></mat-datepicker>\n    </mat-form-field><br>\n    <span class=\"error-message\" *ngIf=\"excelFileGroup.errors\">Please select a valid date range</span><br><br>\n    <!-- ------------------- -->\n    <div class=\"input-div\">\n      <input #input class=\"select-file btn\" (change)=\"processFile($event.target.files)\"\n      id=\"input-file-id\" type=\"file\" name=\"excel-file\" accept=\".xlsx\" formControlName=\"excelFilePath\"  />\n    </div>\n    <br><br>\n    <button mat-raised-button type=\"submit\" [disabled]=\"!excelFileGroup.valid\">Upload</button>\n  </form>\n  <h2>Color Palette</h2>\n  <mat-grid-list cols=\"4\" rowHeight=\"100px\">\n    <mat-grid-tile\n        *ngFor=\"let tile of tiles\"\n        [style.background]=\"tile.color\">\n      {{tile.text}}\n    </mat-grid-tile>\n  </mat-grid-list>\n  <br>\n  <div class=\"palette-btn-bar\">\n    <button mat-raised-button (click)=\"addColorDialog()\">\n      Add color\n    </button><br><br>\n\n    <!-- Dialog Palette Select -->\n    <div class=\"add-color-dialog \"*ngIf=\"addNewColor\">\n      <div mat-dialog-content>\n        <p>Enter a whole number between 0-255 for each RGB Value</p>\n        <mat-form-field>\n          <input matInput placeholder=\"Red\" [formControl]=\"validColorRed\">\n        </mat-form-field>&nbsp;\n        <mat-form-field>\n          <input matInput placeholder=\"Green\" [formControl]=\"validColorGreen\">\n        </mat-form-field>&nbsp;\n        <mat-form-field>\n          <input matInput placeholder=\"Blue\" [formControl]=\"validColorBlue\">\n        </mat-form-field>\n        <mat-error *ngIf=\"clickedAddColor && (validColorRed.invalid || validColorGreen.invalid || validColorBlue.invalid)\">One or more colors are missing or invalid</mat-error>\n      </div>\n      <div mat-dialog-actions>\n        <button mat-button (click)=\"onNoClick()\">Cancel</button>\n        <button mat-button (click)=\"addColor()\" cdkFocusInitial>OK</button>\n      </div><br>\n    </div>\n    <!-- Dialog Palette Select -->\n\n    <button mat-raised-button (click)=\"resetDefault()\">\n      Reset to Default\n    </button>\n  </div>\n</div>\n");
 
 /***/ }),
 
@@ -624,7 +624,7 @@ var AppRoutingModule = /** @class */ (function () {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("h1 {\n  text-align: center;\n}\n\n.radio-btn {\n  margin-top: 10px;\n  margin-bottom: 10px;\n}\n\n.palette-btn-bar {\n  text-align: center;\n}\n\n.add-color-dialog {\n  text-align: center;\n}\n\nform {\n  text-align: center;\n}\n\n.input-div {\n  display: inline-block;\n  max-width: 200px;\n}\n\ninput {\n  margin-left: 2vw;\n}\n\n.select-file {\n  overflow: hidden;\n  margin-top: 0.5%;\n}\n\n.container {\n  text-align: center;\n  margin: auto;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9zdWpheXNoYWgvRXhjZWxQYXJzaW5nL2Zyb250ZW5kL3NyYy9hcHAvYXBwLmNvbXBvbmVudC5zY3NzIiwic3JjL2FwcC9hcHAuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxrQkFBQTtBQ0NKOztBREVBO0VBQ0ksZ0JBQUE7RUFDQSxtQkFBQTtBQ0NKOztBREVBO0VBQ0ksa0JBQUE7QUNDSjs7QURFQTtFQUNJLGtCQUFBO0FDQ0o7O0FERUE7RUFDSSxrQkFBQTtBQ0NKOztBREVBO0VBQ0kscUJBQUE7RUFDQSxnQkFBQTtBQ0NKOztBREVBO0VBQ0ksZ0JBQUE7QUNDSjs7QURFQTtFQUNJLGdCQUFBO0VBQ0EsZ0JBQUE7QUNDSjs7QURFQTtFQUNJLGtCQUFBO0VBQ0EsWUFBQTtBQ0NKIiwiZmlsZSI6InNyYy9hcHAvYXBwLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiaDEge1xuICAgIHRleHQtYWxpZ246IGNlbnRlcjtcbn1cblxuLnJhZGlvLWJ0biB7XG4gICAgbWFyZ2luLXRvcDogMTBweDtcbiAgICBtYXJnaW4tYm90dG9tOiAxMHB4O1xufVxuXG4ucGFsZXR0ZS1idG4tYmFyIHtcbiAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XG59XG5cbi5hZGQtY29sb3ItZGlhbG9nIHtcbiAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XG59XG5cbmZvcm0ge1xuICAgIHRleHQtYWxpZ246IGNlbnRlcjtcbn1cblxuLmlucHV0LWRpdiB7XG4gICAgZGlzcGxheTogaW5saW5lLWJsb2NrO1xuICAgIG1heC13aWR0aDogMjAwcHg7XG59XG5cbmlucHV0IHtcbiAgICBtYXJnaW4tbGVmdDogMnZ3O1xufVxuXG4uc2VsZWN0LWZpbGUge1xuICAgIG92ZXJmbG93OiBoaWRkZW47XG4gICAgbWFyZ2luLXRvcDogMC41JTtcbn1cblxuLmNvbnRhaW5lciB7XG4gICAgdGV4dC1hbGlnbjogY2VudGVyO1xuICAgIG1hcmdpbjogYXV0bztcbn0iLCJoMSB7XG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbn1cblxuLnJhZGlvLWJ0biB7XG4gIG1hcmdpbi10b3A6IDEwcHg7XG4gIG1hcmdpbi1ib3R0b206IDEwcHg7XG59XG5cbi5wYWxldHRlLWJ0bi1iYXIge1xuICB0ZXh0LWFsaWduOiBjZW50ZXI7XG59XG5cbi5hZGQtY29sb3ItZGlhbG9nIHtcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xufVxuXG5mb3JtIHtcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xufVxuXG4uaW5wdXQtZGl2IHtcbiAgZGlzcGxheTogaW5saW5lLWJsb2NrO1xuICBtYXgtd2lkdGg6IDIwMHB4O1xufVxuXG5pbnB1dCB7XG4gIG1hcmdpbi1sZWZ0OiAydnc7XG59XG5cbi5zZWxlY3QtZmlsZSB7XG4gIG92ZXJmbG93OiBoaWRkZW47XG4gIG1hcmdpbi10b3A6IDAuNSU7XG59XG5cbi5jb250YWluZXIge1xuICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gIG1hcmdpbjogYXV0bztcbn0iXX0= */");
+/* harmony default export */ __webpack_exports__["default"] = ("h1 {\n  text-align: center;\n}\n\n.error-message {\n  color: red;\n  font-size: 12px;\n}\n\n.radio-btn {\n  margin-top: 10px;\n  margin-bottom: 10px;\n}\n\n.palette-btn-bar {\n  text-align: center;\n}\n\n.add-color-dialog {\n  text-align: center;\n}\n\nform {\n  text-align: center;\n}\n\n.input-div {\n  display: inline-block;\n  max-width: 200px;\n}\n\ninput {\n  margin-left: 2vw;\n}\n\n.select-file {\n  overflow: hidden;\n  margin-top: 0.5%;\n}\n\n.container {\n  text-align: center;\n  margin: auto;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9zdWpheXNoYWgvRXhjZWxQYXJzaW5nL2Zyb250ZW5kL3NyYy9hcHAvYXBwLmNvbXBvbmVudC5zY3NzIiwic3JjL2FwcC9hcHAuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxrQkFBQTtBQ0NKOztBREVBO0VBQ0ksVUFBQTtFQUNBLGVBQUE7QUNDSjs7QURFQTtFQUNJLGdCQUFBO0VBQ0EsbUJBQUE7QUNDSjs7QURFQTtFQUNJLGtCQUFBO0FDQ0o7O0FERUE7RUFDSSxrQkFBQTtBQ0NKOztBREVBO0VBQ0ksa0JBQUE7QUNDSjs7QURFQTtFQUNJLHFCQUFBO0VBQ0EsZ0JBQUE7QUNDSjs7QURFQTtFQUNJLGdCQUFBO0FDQ0o7O0FERUE7RUFDSSxnQkFBQTtFQUNBLGdCQUFBO0FDQ0o7O0FERUE7RUFDSSxrQkFBQTtFQUNBLFlBQUE7QUNDSiIsImZpbGUiOiJzcmMvYXBwL2FwcC5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbImgxIHtcbiAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XG59XG5cbi5lcnJvci1tZXNzYWdlIHtcbiAgICBjb2xvcjogcmVkO1xuICAgIGZvbnQtc2l6ZTogMTJweDtcbn1cblxuLnJhZGlvLWJ0biB7XG4gICAgbWFyZ2luLXRvcDogMTBweDtcbiAgICBtYXJnaW4tYm90dG9tOiAxMHB4O1xufVxuXG4ucGFsZXR0ZS1idG4tYmFyIHtcbiAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XG59XG5cbi5hZGQtY29sb3ItZGlhbG9nIHtcbiAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XG59XG5cbmZvcm0ge1xuICAgIHRleHQtYWxpZ246IGNlbnRlcjtcbn1cblxuLmlucHV0LWRpdiB7XG4gICAgZGlzcGxheTogaW5saW5lLWJsb2NrO1xuICAgIG1heC13aWR0aDogMjAwcHg7XG59XG5cbmlucHV0IHtcbiAgICBtYXJnaW4tbGVmdDogMnZ3O1xufVxuXG4uc2VsZWN0LWZpbGUge1xuICAgIG92ZXJmbG93OiBoaWRkZW47XG4gICAgbWFyZ2luLXRvcDogMC41JTtcbn1cblxuLmNvbnRhaW5lciB7XG4gICAgdGV4dC1hbGlnbjogY2VudGVyO1xuICAgIG1hcmdpbjogYXV0bztcbn0iLCJoMSB7XG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbn1cblxuLmVycm9yLW1lc3NhZ2Uge1xuICBjb2xvcjogcmVkO1xuICBmb250LXNpemU6IDEycHg7XG59XG5cbi5yYWRpby1idG4ge1xuICBtYXJnaW4tdG9wOiAxMHB4O1xuICBtYXJnaW4tYm90dG9tOiAxMHB4O1xufVxuXG4ucGFsZXR0ZS1idG4tYmFyIHtcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xufVxuXG4uYWRkLWNvbG9yLWRpYWxvZyB7XG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbn1cblxuZm9ybSB7XG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbn1cblxuLmlucHV0LWRpdiB7XG4gIGRpc3BsYXk6IGlubGluZS1ibG9jaztcbiAgbWF4LXdpZHRoOiAyMDBweDtcbn1cblxuaW5wdXQge1xuICBtYXJnaW4tbGVmdDogMnZ3O1xufVxuXG4uc2VsZWN0LWZpbGUge1xuICBvdmVyZmxvdzogaGlkZGVuO1xuICBtYXJnaW4tdG9wOiAwLjUlO1xufVxuXG4uY29udGFpbmVyIHtcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xuICBtYXJnaW46IGF1dG87XG59Il19 */");
 
 /***/ }),
 
@@ -643,6 +643,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
 /* harmony import */ var _RGBRangeValidator__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./RGBRangeValidator */ "./src/app/RGBRangeValidator.ts");
 /* harmony import */ var _excel_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./excel.service */ "./src/app/excel.service.ts");
+/* harmony import */ var _validators_date_validator__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./validators/date.validator */ "./src/app/validators/date.validator.ts");
+
 
 
 
@@ -657,7 +659,7 @@ var AppComponent = /** @class */ (function () {
             excelFile: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null),
             minDate: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"]({ value: null, disabled: true }),
             maxDate: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"]({ value: null, disabled: true })
-        });
+        }, Object(_validators_date_validator__WEBPACK_IMPORTED_MODULE_5__["ValidateDate"])());
         this.clickedAddColor = false;
         this.addNewColor = false;
         this.validColorRed = new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"]('', [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, Object(_RGBRangeValidator__WEBPACK_IMPORTED_MODULE_3__["RGBRangeValidator"])()]);
@@ -745,6 +747,7 @@ var AppComponent = /** @class */ (function () {
             console.log("Error", err);
         });
     };
+    /////////////////////////////////////////////////
     AppComponent.prototype.rgbToHex = function (r, g, b) {
         var red = Number(r).toString(16);
         var green = Number(g).toString(16);
@@ -963,6 +966,37 @@ var ExcelService = /** @class */ (function () {
     return ExcelService;
 }());
 
+
+
+/***/ }),
+
+/***/ "./src/app/validators/date.validator.ts":
+/*!**********************************************!*\
+  !*** ./src/app/validators/date.validator.ts ***!
+  \**********************************************/
+/*! exports provided: ValidateDate */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ValidateDate", function() { return ValidateDate; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+
+function ValidateDate() {
+    return function (group) {
+        var control1 = group.controls['minDate'];
+        var control2 = group.controls['maxDate'];
+        var mode = group.controls['excelRenderMode'];
+        var invalid = false;
+        if (control1.value && control2.value && mode.value == 'program') {
+            if (control1.value.format('YYYYMMDD')
+                >= control2.value.format('YYYYMMDD')) {
+                invalid = true;
+            }
+        }
+        return invalid ? { 'invalidDateRange': true } : null;
+    };
+}
 
 
 /***/ }),
