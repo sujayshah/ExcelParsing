@@ -6,6 +6,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { RGBRangeValidator } from './RGBRangeValidator';
 import { MatRadioChange } from '@angular/material/radio';
 import { ExcelService } from './excel.service';
+import { ValidateDate } from './validators/date.validator';
 
 export interface Tile {
   color: string;
@@ -25,7 +26,7 @@ export class AppComponent {
     excelFile: new FormControl(null),
     minDate: new FormControl({value: null, disabled: true}),
     maxDate: new FormControl({value: null, disabled: true})
-  })
+  }, ValidateDate())
 
   clickedAddColor: boolean = false;
   addNewColor: boolean = false;
@@ -130,6 +131,8 @@ export class AppComponent {
     console.log("Error", err);
     });
   }
+  
+/////////////////////////////////////////////////
 
   rgbToHex(r,g,b) {
     let red = Number(r).toString(16);

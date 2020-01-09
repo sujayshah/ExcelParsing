@@ -35,7 +35,6 @@ def program_validation():
             end = datetime.strptime(value, "%m-%d-%Y").date()
         elif value not in palette:
             palette.append(value)
-    print(palette, start, end)
     fileStorage = request.files.get('name')
     
     fileName = "output.xlsx"
@@ -81,7 +80,7 @@ def resource_validation():
 
 if __name__ == "__main__":
     # app.config.from_object('configurations.DevelopmentConfig')
-    # app.run(host='0.0.0.0', port=8080)
+    # app.config.from_object('configurations.ProductionConfig')
 
-    app.config.from_object('configurations.ProductionConfig')
+    # app.run(host='0.0.0.0', port=8080)
     app.run()

@@ -19,15 +19,16 @@
     </mat-radio-group><br>
     <!-- ------------------- -->
     <mat-form-field class="datepicker">
-      <input matInput [matDatepicker]="minPicker" formControlName="minDate" placeholder="Choose a date">
+      <input matInput [matDatepicker]="minPicker" formControlName="minDate" placeholder="Choose a start date">
       <mat-datepicker-toggle matSuffix [for]="minPicker"></mat-datepicker-toggle>
       <mat-datepicker #minPicker></mat-datepicker>
     </mat-form-field>
     <mat-form-field class="datepicker">
-      <input matInput [matDatepicker]="maxPicker" formControlName="maxDate" placeholder="Choose a date">
+      <input matInput [matDatepicker]="maxPicker" formControlName="maxDate" placeholder="Choose an end date">
       <mat-datepicker-toggle matSuffix [for]="maxPicker"></mat-datepicker-toggle>
       <mat-datepicker #maxPicker></mat-datepicker>
-    </mat-form-field>     
+    </mat-form-field><br>
+    <span class="error-message" *ngIf="excelFileGroup.errors">Please select a valid date range</span><br><br>
     <!-- ------------------- -->
     <div class="input-div">
       <input #input class="select-file btn" (change)="processFile($event.target.files)"
