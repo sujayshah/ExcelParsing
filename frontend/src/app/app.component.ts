@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { NgForm, FormControl, FormGroup, Validators, AbstractControl } from '@angular/forms';
+import { NgForm, FormControl, FormGroup, Validators, AbstractControl, ValidatorFn, ValidationErrors } from '@angular/forms';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { RGBRangeValidator } from './RGBRangeValidator';
 import { MatRadioChange } from '@angular/material/radio';
 import { ExcelService } from './excel.service';
-import { ValidateDate } from './validators/date.validator';
+// import { ValidateDate } from './validators/date.validator';
 
 export interface Tile {
   color: string;
@@ -20,13 +20,29 @@ export interface Tile {
 })
 export class AppComponent {
 
+  ValidateDate(): ValidatorFn {
+    return (group: FormGroup): ValidationErrors => {
+      const control1 = group.controls['minDate'];
+      const control2 = group.controls['maxDate'];
+      const mode = group.controls['excelRenderMode']
+      let invalid = false
+      if(control1.value && control2.value && mode.value == 'program') {
+         if( control1.value.format('YYYYMMDD')
+          >= control2.value.format('YYYYMMDD')) {
+            invalid = true;
+          }
+      }
+      return invalid ? {'invalidDateRange': true} : null;
+    };
+  }
+
   excelFileGroup = new FormGroup({
     excelFilePath: new FormControl(null, Validators.required),
     excelRenderMode: new FormControl(null, Validators.required),
     excelFile: new FormControl(null),
     minDate: new FormControl({value: null, disabled: true}),
     maxDate: new FormControl({value: null, disabled: true})
-  }, ValidateDate())
+  }, this.ValidateDate())
 
   clickedAddColor: boolean = false;
   addNewColor: boolean = false;

@@ -643,8 +643,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
 /* harmony import */ var _RGBRangeValidator__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./RGBRangeValidator */ "./src/app/RGBRangeValidator.ts");
 /* harmony import */ var _excel_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./excel.service */ "./src/app/excel.service.ts");
-/* harmony import */ var _validators_date_validator__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./validators/date.validator */ "./src/app/validators/date.validator.ts");
-
 
 
 
@@ -659,7 +657,7 @@ var AppComponent = /** @class */ (function () {
             excelFile: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null),
             minDate: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"]({ value: null, disabled: true }),
             maxDate: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"]({ value: null, disabled: true })
-        }, Object(_validators_date_validator__WEBPACK_IMPORTED_MODULE_5__["ValidateDate"])());
+        }, this.ValidateDate());
         this.clickedAddColor = false;
         this.addNewColor = false;
         this.validColorRed = new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"]('', [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, Object(_RGBRangeValidator__WEBPACK_IMPORTED_MODULE_3__["RGBRangeValidator"])()]);
@@ -673,6 +671,21 @@ var AppComponent = /** @class */ (function () {
         ];
         this.defaultTiles = Object.assign([], this.tiles);
     }
+    AppComponent.prototype.ValidateDate = function () {
+        return function (group) {
+            var control1 = group.controls['minDate'];
+            var control2 = group.controls['maxDate'];
+            var mode = group.controls['excelRenderMode'];
+            var invalid = false;
+            if (control1.value && control2.value && mode.value == 'program') {
+                if (control1.value.format('YYYYMMDD')
+                    >= control2.value.format('YYYYMMDD')) {
+                    invalid = true;
+                }
+            }
+            return invalid ? { 'invalidDateRange': true } : null;
+        };
+    };
     AppComponent.prototype.focusRenderMode = function (event) {
         var minDateControl = this.excelFileGroup.controls['minDate'];
         var maxDateControl = this.excelFileGroup.controls['maxDate'];
@@ -966,37 +979,6 @@ var ExcelService = /** @class */ (function () {
     return ExcelService;
 }());
 
-
-
-/***/ }),
-
-/***/ "./src/app/validators/date.validator.ts":
-/*!**********************************************!*\
-  !*** ./src/app/validators/date.validator.ts ***!
-  \**********************************************/
-/*! exports provided: ValidateDate */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ValidateDate", function() { return ValidateDate; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-
-function ValidateDate() {
-    return function (group) {
-        var control1 = group.controls['minDate'];
-        var control2 = group.controls['maxDate'];
-        var mode = group.controls['excelRenderMode'];
-        var invalid = false;
-        if (control1.value && control2.value && mode.value == 'program') {
-            if (control1.value.format('YYYYMMDD')
-                >= control2.value.format('YYYYMMDD')) {
-                invalid = true;
-            }
-        }
-        return invalid ? { 'invalidDateRange': true } : null;
-    };
-}
 
 
 /***/ }),
