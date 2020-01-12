@@ -22,12 +22,14 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.excelService.getColorPalette().subscribe( res => {
-      console.log(res);
-    }, err => {
-      console.log(err);
-    })
-    this.excelService.getColorPalette().subscribe( res => {
-      console.log(res);
+      for(let k in res) {
+        let newTile: Tile = {
+          text: res[k],
+          color: res[k]
+        }
+        this.tiles.push(newTile);
+      }
+      this.defaultTiles = Object.assign([], this.tiles);
     }, err => {
       console.log(err);
     })
@@ -63,19 +65,8 @@ export class AppComponent implements OnInit {
   validColorGreen = new FormControl('', [Validators.required, RGBRangeValidator()]);
   validColorBlue = new FormControl('', [Validators.required, RGBRangeValidator()]);
 
-  tiles: Tile[] = [
-    {text: '1', color: '#ADD8E6'},
-    {text: '2', color: '#7CFC00'},
-    {text: '3', color: '#FFB6C1'},
-    {text: '4', color: '#DDBDF1'},
-    {text: '5', color: '#FFD700'},
-    {text: '6', color: '#FFDAB9'},
-    {text: '7', color: '#FF69B4'},
-    {text: '8', color: '#7FFFD4'},
-    {text: '9', color: '#DEB887'},
-    {text: '10', color: '#C0C0C0'}
-  ];
-  defaultTiles = Object.assign([], this.tiles);
+  tiles: Tile[] = [];
+  defaultTiles: Tile[] = [];
 
   constructor(
     private excelService: ExcelService
@@ -188,7 +179,7 @@ export class AppComponent implements OnInit {
   addColor() {
     if(this.validColorRed.valid && this.validColorGreen.valid && this.validColorBlue.valid) {
       let color = this.rgbToHex(this.validColorRed.value, this.validColorGreen.value, this.validColorBlue.value);
-      let newTile : Tile = {color: color, text: (this.tiles.length + 1).toString()};
+      let newTile : Tile = {color: color, text: color.toUpperCase()};
       this.tiles.push(newTile);
     }
     this.clickedAddColor = true;
