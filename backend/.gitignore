@@ -6,3 +6,4 @@ requirements.txt
 __pycache__/
 input/
 /excel/
+/accounts/

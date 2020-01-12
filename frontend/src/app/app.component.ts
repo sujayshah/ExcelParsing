@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgForm, FormControl, FormGroup, Validators, AbstractControl, ValidatorFn, ValidationErrors } from '@angular/forms';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatButtonModule } from '@angular/material/button';
@@ -18,7 +18,20 @@ export interface Tile {
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
+
+  ngOnInit() {
+    this.excelService.getColorPalette().subscribe( res => {
+      console.log(res);
+    }, err => {
+      console.log(err);
+    })
+    this.excelService.getColorPalette().subscribe( res => {
+      console.log(res);
+    }, err => {
+      console.log(err);
+    })
+  }
 
   ValidateDate(): ValidatorFn {
     return (group: FormGroup): ValidationErrors => {
@@ -52,9 +65,15 @@ export class AppComponent {
 
   tiles: Tile[] = [
     {text: '1', color: '#ADD8E6'},
-    {text: '2', color: '#90EE90'},
+    {text: '2', color: '#7CFC00'},
     {text: '3', color: '#FFB6C1'},
     {text: '4', color: '#DDBDF1'},
+    {text: '5', color: '#FFD700'},
+    {text: '6', color: '#FFDAB9'},
+    {text: '7', color: '#FF69B4'},
+    {text: '8', color: '#7FFFD4'},
+    {text: '9', color: '#DEB887'},
+    {text: '10', color: '#C0C0C0'}
   ];
   defaultTiles = Object.assign([], this.tiles);
 

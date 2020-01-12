@@ -21,4 +21,9 @@ export class ExcelService {
   sendResourceValidation(excelFile: FormData) {
     return this.http.post(this.constants.BASE_URL + this.constants.BASE_HREF + '/resource', excelFile, {responseType: "blob"});
   }
+
+  getColorPalette() {
+    return this.http.get(this.constants.BASE_URL + '/excel');
+  }
+
 }
