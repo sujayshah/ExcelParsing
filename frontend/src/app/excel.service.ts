@@ -22,8 +22,11 @@ export class ExcelService {
     return this.http.post(this.constants.BASE_URL + this.constants.BASE_HREF + '/resource', excelFile, {responseType: "blob"});
   }
 
-  getColorPalette() {
-    return this.http.get(this.constants.BASE_URL + '/excel');
+  getColorPalette(document?: string) {
+    let urlParams = document ? {doc: document} : {};
+    return this.http.get(this.constants.BASE_URL + '/excel', {
+      params: urlParams
+    });
   }
 
 }

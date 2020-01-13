@@ -33,10 +33,14 @@ def index():
 @app.route('/excel', methods=['GET'])
 @cross_origin()
 def get_color_palette():
+    docType = request.args.get('doc')
+    if not docType:
+        docType = 'default'
+    print(docType)
     resp = ""
     resp_code = 200
     try:
-        docRef = users_ref.document('default')
+        docRef = users_ref.document(docType)
         doc = docRef.get()
         resp = doc.to_dict().get('palette')
     except:

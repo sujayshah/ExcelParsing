@@ -22,6 +22,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.excelService.getColorPalette().subscribe( res => {
+      this.tiles = [];
       for(let k in res) {
         let newTile: Tile = {
           text: res[k],
@@ -75,6 +76,19 @@ export class AppComponent implements OnInit {
   }
 
   focusRenderMode(event : MatRadioChange) {
+    this.excelService.getColorPalette(event.value).subscribe( res => {
+      this.tiles = [];
+      for(let k in res) {
+        let newTile: Tile = {
+          text: res[k],
+          color: res[k]
+        }
+        this.tiles.push(newTile);
+      }
+      this.defaultTiles = Object.assign([], this.tiles);
+    }, err => {
+      console.log(err);
+    })
     let minDateControl = this.excelFileGroup.controls['minDate'];
     let maxDateControl = this.excelFileGroup.controls['maxDate'];
     if(event.value == "program") {
