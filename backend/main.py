@@ -14,12 +14,12 @@ CORS(app)
 project_id = 'excel-parsing-258004'
 firestoreServiceJson = 'firestore-service-account.json'
 
-# cred = credentials.ApplicationDefault()
-# firebase_admin.initialize_app(cred, {
-#     'projectId' : project_id
-# })
-cred = credentials.Certificate('./accounts/' + firestoreServiceJson)
-firebase_admin.initialize_app(cred)
+cred = credentials.ApplicationDefault()
+firebase_admin.initialize_app(cred, {
+    'projectId' : project_id
+})
+# cred = credentials.Certificate('./accounts/' + firestoreServiceJson)
+# firebase_admin.initialize_app(cred)
 
 db = firestore.client()
 users_ref = db.collection(u'excel')
@@ -103,10 +103,10 @@ def resource_validation():
 
 if __name__ == "__main__":
     # app.config.from_object('configurations.ProductionConfig')
-    app.config.from_object('configurations.DevelopmentConfig')
-    app.run(host='0.0.0.0', port=8080)
+    # app.config.from_object('configurations.DevelopmentConfig')
+    # app.run(host='0.0.0.0', port=8080)
 
-    # app.run()
+    app.run()
 
 #######
 # def tempfile:

@@ -1,7 +1,7 @@
 export class Constants {
     BASE_HREF = '/static'
-    BASE_URL = 'http://localhost:8080'
-    // BASE_URL = 'https://excel-parsing-258004.appspot.com'
+    // BASE_URL = 'http://localhost:8080'
+    BASE_URL = 'https://excel-parsing-258004.appspot.com'
 }
 
 export const MY_FORMATS = {
