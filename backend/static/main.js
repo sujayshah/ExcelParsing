@@ -663,14 +663,25 @@ var AppComponent = /** @class */ (function () {
         this.validColorRed = new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"]('', [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, Object(_RGBRangeValidator__WEBPACK_IMPORTED_MODULE_3__["RGBRangeValidator"])()]);
         this.validColorGreen = new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"]('', [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, Object(_RGBRangeValidator__WEBPACK_IMPORTED_MODULE_3__["RGBRangeValidator"])()]);
         this.validColorBlue = new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"]('', [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, Object(_RGBRangeValidator__WEBPACK_IMPORTED_MODULE_3__["RGBRangeValidator"])()]);
-        this.tiles = [
-            { text: '1', color: '#ADD8E6' },
-            { text: '2', color: '#90EE90' },
-            { text: '3', color: '#FFB6C1' },
-            { text: '4', color: '#DDBDF1' },
-        ];
-        this.defaultTiles = Object.assign([], this.tiles);
+        this.tiles = [];
+        this.defaultTiles = [];
     }
+    AppComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.excelService.getColorPalette().subscribe(function (res) {
+            _this.tiles = [];
+            for (var k in res) {
+                var newTile = {
+                    text: res[k],
+                    color: res[k]
+                };
+                _this.tiles.push(newTile);
+            }
+            _this.defaultTiles = Object.assign([], _this.tiles);
+        }, function (err) {
+            console.log(err);
+        });
+    };
     AppComponent.prototype.ValidateDate = function () {
         return function (group) {
             var control1 = group.controls['minDate'];
@@ -687,6 +698,20 @@ var AppComponent = /** @class */ (function () {
         };
     };
     AppComponent.prototype.focusRenderMode = function (event) {
+        var _this = this;
+        this.excelService.getColorPalette(event.value).subscribe(function (res) {
+            _this.tiles = [];
+            for (var k in res) {
+                var newTile = {
+                    text: res[k],
+                    color: res[k]
+                };
+                _this.tiles.push(newTile);
+            }
+            _this.defaultTiles = Object.assign([], _this.tiles);
+        }, function (err) {
+            console.log(err);
+        });
         var minDateControl = this.excelFileGroup.controls['minDate'];
         var maxDateControl = this.excelFileGroup.controls['maxDate'];
         if (event.value == "program") {
@@ -780,7 +805,7 @@ var AppComponent = /** @class */ (function () {
     AppComponent.prototype.addColor = function () {
         if (this.validColorRed.valid && this.validColorGreen.valid && this.validColorBlue.valid) {
             var color = this.rgbToHex(this.validColorRed.value, this.validColorGreen.value, this.validColorBlue.value);
-            var newTile = { color: color, text: (this.tiles.length + 1).toString() };
+            var newTile = { color: color, text: color.toUpperCase() };
             this.tiles.push(newTile);
         }
         this.clickedAddColor = true;
@@ -915,8 +940,8 @@ __webpack_require__.r(__webpack_exports__);
 var Constants = /** @class */ (function () {
     function Constants() {
         this.BASE_HREF = '/static';
-        // BASE_URL = 'http://localhost:8080'
-        this.BASE_URL = 'https://excel-parsing-258004.appspot.com';
+        this.BASE_URL = 'http://localhost:8080';
+        // BASE_URL = 'https://excel-parsing-258004.appspot.com'
     }
     return Constants;
 }());
@@ -964,6 +989,12 @@ var ExcelService = /** @class */ (function () {
     };
     ExcelService.prototype.sendResourceValidation = function (excelFile) {
         return this.http.post(this.constants.BASE_URL + this.constants.BASE_HREF + '/resource', excelFile, { responseType: "blob" });
+    };
+    ExcelService.prototype.getColorPalette = function (document) {
+        var urlParams = document ? { doc: document } : {};
+        return this.http.get(this.constants.BASE_URL + '/excel', {
+            params: urlParams
+        });
     };
     ExcelService.ctorParameters = function () { return [
         { type: _constants__WEBPACK_IMPORTED_MODULE_2__["Constants"] },
