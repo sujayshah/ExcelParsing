@@ -1,18 +1,30 @@
-# import xlwings as xw
 import openpyxl as pyxl
+from openpyxl import formula
 from datetime import date, timedelta
-import re
-import sys
 import platform
 import colorsys
-import platform
-import argparse
+import pandas as pd
 
-XL_CENTER = -4108
-XL_THICK = 4
-XL_JUSTIFY = -4130
+class EXCEL_FUNCS:
+	def __init__(self, func_type):
+		self.func_type = func_type
 
-yearMatch = re.compile(r'\d{8}')
+	def runFunction(self, st, range): 
+		if self.func_type == 'MIN(':
+			return self.getMin(st, range)
+		elif self.func_type == 'MAX(':
+			return self.getMax(st, range)
+
+	def getMin(self, st, range):
+		try:
+			for cell in st[range]:
+				print(cell.value)
+		except Exception as e:
+			print(e)
+		return range
+
+	def getMax(self, st, range):
+		return range
 
 def generatePalette(N):
 	HSV_tuples = [(x*1.0/N, 0.5, 0.8) for x in range(N)]
@@ -34,7 +46,9 @@ def generateCalendar(startDate, endDate):
 		curDate += timedelta(days = 1)
 	return startToEnd
 
-def parseSchedule(st, categories, userStartDate, userEndDate):
+def parseSchedule(st, userStartDate, userEndDate):
+	categories = []
+	eventList = []
 	class Event():
 		def __init__(self, activity, start, finish): 
 			self.machineID = activity[activity.find('(')+1:activity.find(')')]
@@ -49,23 +63,31 @@ def parseSchedule(st, categories, userStartDate, userEndDate):
 			self.startDate = start
 			self.finishDate = finish
 
-	eventList = []
+	# tok = formula.Tokenizer(st['C2'].value)
+	# for t in tok.items:
+	# 	print(t.value, t.type, t.subtype)
 	row = 0
-	for a, b, c, d in zip(st.range('A:A'), st.range('B:B'), st.range('C:C'), st.range('D:D')):
+	for a, b, c, d in zip(st['A'], st['B'], st['C'], st['D']):
 		row += 1
 		if row == 1:
 			continue
-		if b.value == None:
-			break
-		if c.value.date() < userStartDate or c.value.date() > userEndDate or d.value.date() < userStartDate or d.value.date() > userEndDate:
-			raise ValueError
+		tok = formula.Tokenizer(c.value)
+		if not tok.items:
+			print("Actual Date", c.value)
+			if c.value.date() < userStartDate or c.value.date() > userEndDate or d.value.date() < userStartDate or d.value.date() > userEndDate:
+				raise ValueError
+		else:
+			func_type = next(t for t in tok.items if t.type == 'FUNC' and t.subtype == 'OPEN').value
+			operand_range = next(t for t in tok.items if t.type == 'OPERAND' and t.subtype == 'RANGE').value
+			formula_func = EXCEL_FUNCS(func_type)
+			formula_func.runFunction(st, operand_range)
 		if a.value == None:
 			eventList.append(Event(b.value, c.value.date(), d.value.date()))
 		if a.value != None:
 			eventList[-1].subTasks.append(Task(a.value, b.value, c.value.date(), d.value.date()))
 			if a.value not in categories:
 				categories.append(a.value)
-	return eventList
+	return categories, eventList
 
 def writeExcel(st2, wkList, eventData, palette, categories, startDate):
 	st2.range('A1').value = 'Machine S/N'
@@ -116,80 +138,20 @@ def writeExcel(st2, wkList, eventData, palette, categories, startDate):
 		print("Machine and Activity IDs populated...")
 	except Exception as e:
 		print(e)
-		sys.exit(1)
 	for i in range(1, 2+len(eventData)):
 		st2.range((i,1)).api.RowHeight *= 2
 		# st2.range((i,1)).autofit()
 #--------------------------------------------------------
 
-def ws_init():
-	parser = argparse.ArgumentParser(description='Process file input name')
-	parser.add_argument('file_name', type=str, nargs='+', help='Enter file name without .xlsx extension')
+def program_validation(file_path, palette, start, end):
+	wkList = generateCalendar(start, end)
+	wb = pyxl.load_workbook(file_path)
+	st = wb[wb.sheetnames[0]]
 	try:
-		args = parser.parse_args()
-
-	except:
-		print("Error while parsing argument...")
-		sys.exit(1)
-
-
-	while True:
-		start = input("Enter Start Date in the form MMDDYYYY: ")
-		if(re.match(yearMatch, start)):
-			try:
-				startDate = date(int(start[4:]), int(start[0:2]), int(start[2:4]))
-				break
-			except:
-				print("Invalid Date, please try again")
-		else:
-			print("Invalid Input, please try again")
-
-	while True:
-		end = input("Enter End Date in the form MMDDYYYY: ")
-		if(re.match(yearMatch, end)):
-			try:
-				endDate = date(int(end[4:]), int(end[0:2]), int(end[2:4]))
-				if endDate <= startDate:
-					print("Invalid End Data - Must be a date after the start date")
-					continue
-				break
-			except:
-				print("Invalid Date, please try again")
-		else:
-			print("Invalid Input, please try again")
-
-	print("Generating calendar...")
-
-	#--------------------------------------------------------
-	wkList = generateCalendar(startDate, endDate)
-	print("Calendar generated. Exporting to Excel...")
-
-	wb = xw.Book(args.file_name[0] + '.xlsx')
-	wb.app.display_alerts = False
-	st = wb.sheets[0]
-
-	try:
-		st2 = wb.sheets['calendar']
-		st2.clear()
-	except Exception as e:
-		print(type(e))
-		sheets = wb.sheets
-		sheets.add('calendar', after = st)
-		st2 = wb.sheets['calendar']
-
-	try:
-		categories = []
-		eventData = parseSchedule(st, categories, startDate, endDate)
-		palette = generatePalette(len(categories))
-	except ValueError as e:
-		print("Error: Some events do not fit within your start and end dates. Please ensure that all events fit within the specifed timeframe.")
-		sys.exit(1)
-	except Exception as e:
-		print(e)
-		sys.exit(1)
-
-	writeExcel(st2, wkList, eventData, palette, categories, startDate)
-
-	sys.exit(0)
-
-# ws_init()
+		categories, eventData = parseSchedule(st, start, end)
+	except ValueError as ve:
+		raise Exception('Invalid Date Range')
+	# print(categories, eventData)
+	ws = wb.create_sheet("Calendar")
+	# writeExcel(st, wkList, eventData, palette, start)
+	wb.save(file_path)

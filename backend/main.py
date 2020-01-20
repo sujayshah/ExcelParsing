@@ -14,12 +14,12 @@ CORS(app)
 project_id = 'excel-parsing-258004'
 firestoreServiceJson = 'firestore-service-account.json'
 
-cred = credentials.ApplicationDefault()
-firebase_admin.initialize_app(cred, {
-    'projectId' : project_id
-})
-# cred = credentials.Certificate('./accounts/' + firestoreServiceJson)
-# firebase_admin.initialize_app(cred)
+# cred = credentials.ApplicationDefault()
+# firebase_admin.initialize_app(cred, {
+#     'projectId' : project_id
+# })
+cred = credentials.Certificate('./accounts/' + firestoreServiceJson)
+firebase_admin.initialize_app(cred)
 
 db = firestore.client()
 users_ref = db.collection(u'excel')
@@ -36,7 +36,6 @@ def get_color_palette():
     docType = request.args.get('doc')
     if not docType:
         docType = 'default'
-    print(docType)
     resp = ""
     resp_code = 200
     try:
@@ -68,7 +67,7 @@ def program_validation():
         
         fileName = "output.xlsx"
         fileStorage.save('/tmp/' + fileName)
-        # ws.openfile(file, palette, start, end)
+        ws.program_validation('/tmp/' + fileName, palette, start, end)
         # resp = send_file(fileName, mimetype="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
         resp = send_from_directory('/tmp', fileName, as_attachment=True, mimetype="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
         resp_code = 200
@@ -103,10 +102,10 @@ def resource_validation():
 
 if __name__ == "__main__":
     # app.config.from_object('configurations.ProductionConfig')
-    # app.config.from_object('configurations.DevelopmentConfig')
-    # app.run(host='0.0.0.0', port=8080)
+    app.config.from_object('configurations.DevelopmentConfig')
+    app.run(host='0.0.0.0', port=8080)
 
-    app.run()
+    # app.run()
 
 #######
 # def tempfile:
