@@ -1,6 +1,6 @@
 import openpyxl as pyxl
 from openpyxl import formula
-from datetime import date, timedelta
+from datetime import date, timedelta, datetime
 import platform
 import colorsys
 import pandas as pd
@@ -9,27 +9,73 @@ class EXCEL_FUNCS:
 	def __init__(self, func_type):
 		self.func_type = func_type
 
-	def runFunction(self, st, range): 
+	def runFunction(self, st, range, cellCache, offset = 0, secondary_range = None): 
 		if self.func_type == 'MIN(':
-			return self.getMin(st, range)
+			# print("getMin")
+			return self.getMin(st, range, cellCache)
 		elif self.func_type == 'MAX(':
-			return self.getMax(st, range)
+			return self.getMax(st, range, cellCache)
+			# print("getMax")
+		elif self.func_type == 'WORKDAY(':
+			# print("getWorkday")
+			return self.getWorkday(st, range, cellCache, offset, secondary_range)
+		elif range:
+			# print("getCellValue")
+			return self.getCellValue(st, range.replace(':',''))
+		else:
+			return None
 
-	def getMin(self, st, range):
+	def getCellValue(self, st, range):
+		return st[range].value
+
+	def getMin(self, st, range, cellCache):
+		min = None
 		try:
-			for cell in st[range]:
-				print(cell.value)
+			for row in st[range]:
+				for cell in row:
+					if not min:
+						min = cell.value
+					elif isinstance(cell.value, datetime) and cell.value < min:
+						min = cell.value
+					else:
+						evalCell = evaluateFormulaToDate(st, cell.value, cellCache)
+						if evalCell < min:
+							min = evalCell
 		except Exception as e:
 			print(e)
-		return range
+		return min
 
-	def getMax(self, st, range):
-		return range
-
-def generatePalette(N):
-	HSV_tuples = [(x*1.0/N, 0.5, 0.8) for x in range(N)]
-	RGB_tuples = map(lambda x: colorsys.hsv_to_rgb(*x), HSV_tuples)
-	return RGB_tuples
+	def getMax(self, st, range, cellCache):
+		max = None
+		try:
+			for row in st[range]:
+				for cell in row:
+					if not max:
+						max = cell.value
+					elif isinstance(cell.value, datetime) and cell.value > max:
+						max = cell.value
+					else:
+						evalCell = evaluateFormulaToDate(st, cell.value, cellCache)
+						if evalCell > max:
+							max = evalCell
+		except Exception as e:
+			print(e)
+		return min
+	
+	def getWorkday(self, st, range, cellCache, offset, secondary_range):
+		workday = st[range].value
+		print(workday, secondary_range)
+		try:
+			if isinstance(workday, datetime):
+				for i in range(0, offset):
+					if workday.weekday() >= 5:
+						workday += timedelta(days = 7 - workday.weekday())
+					workday += timedelta(days = 1)
+			else:
+				pass
+				# evalCell = evaluateFormulaToDate(st, workday, cellCache)
+		except Exception as e:
+			print(e)
 
 def generateCalendar(startDate, endDate):
 	startToEnd = []
@@ -46,9 +92,40 @@ def generateCalendar(startDate, endDate):
 		curDate += timedelta(days = 1)
 	return startToEnd
 
+def evaluateFormulaToDate(st, evalString, cellCache):
+	print(evalString)
+	if isinstance(evalString, datetime):
+		return evalString
+	else:
+		tok = formula.Tokenizer(evalString)
+		func_type = next((t for t in tok.items if t.type == 'FUNC' and t.subtype == 'OPEN'), None)
+		operand_range_iter = (t for t in tok.items if t.type == 'OPERAND' and t.subtype == 'RANGE')
+		operand_range = next(operand_range_iter, None)
+		secondary_range = next(operand_range_iter, None)
+		offset = next((t for t in tok.items if t.type == 'OPERAND' and t.subtype == 'NUMBER'), 0)
+
+		if func_type:
+			func_type = func_type.value
+		formula_func = EXCEL_FUNCS(func_type)
+
+		if operand_range:
+			operand_range = operand_range.value
+
+		if secondary_range:
+			secondary_range = secondary_range.value
+
+		if isinstance(offset.value, str):
+			offset = int(float(offset.value))
+
+		funcOutput = formula_func.runFunction(st=st, range=operand_range, cellCache=cellCache, 
+		offset=offset, secondary_range=secondary_range)
+
+		# return evaluateFormulaToDate(st, funcOutput, cellCache)
+
 def parseSchedule(st, userStartDate, userEndDate):
 	categories = []
 	eventList = []
+	cellCache = {}
 	class Event():
 		def __init__(self, activity, start, finish): 
 			self.machineID = activity[activity.find('(')+1:activity.find(')')]
@@ -63,30 +140,41 @@ def parseSchedule(st, userStartDate, userEndDate):
 			self.startDate = start
 			self.finishDate = finish
 
-	# tok = formula.Tokenizer(st['C2'].value)
+	# tok = formula.Tokenizer(st['C47'].value)
+	# func_type = next((t for t in tok.items if t.type == 'FUNC' and t.subtype == 'OPEN'), None)
 	# for t in tok.items:
-	# 	print(t.value, t.type, t.subtype)
-	row = 0
-	for a, b, c, d in zip(st['A'], st['B'], st['C'], st['D']):
-		row += 1
-		if row == 1:
-			continue
-		tok = formula.Tokenizer(c.value)
-		if not tok.items:
-			print("Actual Date", c.value)
-			if c.value.date() < userStartDate or c.value.date() > userEndDate or d.value.date() < userStartDate or d.value.date() > userEndDate:
-				raise ValueError
-		else:
-			func_type = next(t for t in tok.items if t.type == 'FUNC' and t.subtype == 'OPEN').value
-			operand_range = next(t for t in tok.items if t.type == 'OPERAND' and t.subtype == 'RANGE').value
-			formula_func = EXCEL_FUNCS(func_type)
-			formula_func.runFunction(st, operand_range)
-		if a.value == None:
-			eventList.append(Event(b.value, c.value.date(), d.value.date()))
-		if a.value != None:
-			eventList[-1].subTasks.append(Task(a.value, b.value, c.value.date(), d.value.date()))
-			if a.value not in categories:
-				categories.append(a.value)
+	# print(t.value, t.type, t.subtype)
+	output = evaluateFormulaToDate(st, st['C47'].value, cellCache)
+	# print(output)
+
+	########################################
+	# row = 0
+	# for a, b, c, d in zip(st['A'], st['B'], st['C'], st['D']):
+	# 	row += 1
+	# 	# Title Row
+	# 	if row == 1:
+	# 		continue
+	# 	# Check if Date
+	# 	if isinstance(c.value, datetime):
+	# 		cellCache[c.coordinate] = c.value
+	# 		# c.value.date() < userStartDate or c.value.date() > userEndDate or d.value.date() < userStartDate or d.value.date() > userEndDate:
+	# 		# raise ValueError
+
+	# 	# Check if formula
+	# 	elif isinstance(c.value, str) and c.value.startswith('='):
+	# 		return evaluateFormulaToDate(st, c.value, cellCache)
+
+	# 	# Unknown Type in Column C/D
+	# 	else:
+	# 		raise TypeError
+		##############################
+		# if a.value == None:
+		# 	eventList.append(Event(b.value, c.value.date(), d.value.date()))
+		# if a.value != None:
+		# 	eventList[-1].subTasks.append(Task(a.value, b.value, c.value.date(), d.value.date()))
+		# 	if a.value not in categories:
+		# 		categories.append(a.value)
+
 	return categories, eventList
 
 def writeExcel(st2, wkList, eventData, palette, categories, startDate):
@@ -147,10 +235,13 @@ def program_validation(file_path, palette, start, end):
 	wkList = generateCalendar(start, end)
 	wb = pyxl.load_workbook(file_path)
 	st = wb[wb.sheetnames[0]]
-	try:
-		categories, eventData = parseSchedule(st, start, end)
-	except ValueError as ve:
-		raise Exception('Invalid Date Range')
+	# try:
+	# 	categories, eventData = parseSchedule(st, start, end)
+	# except ValueError as ve:
+	# 	raise Exception('Invalid Date or Offset')
+	# except TypeError as te:
+	# 	raise Exception('A cell in column C or D has an invalid date or formula')
+	categories, eventData = parseSchedule(st, start, end)
 	# print(categories, eventData)
 	ws = wb.create_sheet("Calendar")
 	# writeExcel(st, wkList, eventData, palette, start)
