@@ -9,73 +9,76 @@ class EXCEL_FUNCS:
 	def __init__(self, func_type):
 		self.func_type = func_type
 
-	def runFunction(self, st, range, cellCache, offset = 0, secondary_range = None): 
+	def runFunction(self, st, op_range, cellCache, offset = 0, secondary_range = None): 
 		if self.func_type == 'MIN(':
 			# print("getMin")
-			return self.getMin(st, range, cellCache)
+			return self.getMin(st, op_range, cellCache)
 		elif self.func_type == 'MAX(':
-			return self.getMax(st, range, cellCache)
+			return self.getMax(st, op_range, cellCache)
 			# print("getMax")
 		elif self.func_type == 'WORKDAY(':
 			# print("getWorkday")
-			return self.getWorkday(st, range, cellCache, offset, secondary_range)
-		elif range:
+			return self.getWorkday(st, op_range, cellCache, offset, secondary_range)
+		elif op_range:
 			# print("getCellValue")
-			return self.getCellValue(st, range.replace(':',''))
+			return self.getCellValue(st, op_range, offset, cellCache)
 		else:
 			return None
 
-	def getCellValue(self, st, range):
-		return st[range].value
+	def getCellValue(self, st, op_range, offset, cellCache):
+		cellValue = st[op_range].value
+		if not isinstance(cellValue, datetime):
+			cellValue = evaluateFormulaToDate(st, cellValue, cellCache)
+		return cellValue + timedelta(days = offset)
 
-	def getMin(self, st, range, cellCache):
+	def getMin(self, st, op_range, cellCache):
 		min = None
 		try:
-			for row in st[range]:
+			for row in st[op_range]:
 				for cell in row:
-					if not min:
-						min = cell.value
-					elif isinstance(cell.value, datetime) and cell.value < min:
-						min = cell.value
-					else:
+					evalCell = cell.value
+					if not isinstance(cell.value, datetime):
 						evalCell = evaluateFormulaToDate(st, cell.value, cellCache)
-						if evalCell < min:
-							min = evalCell
+					if not min:
+						min = evalCell
+					elif evalCell < min:
+						min = evalCell
 		except Exception as e:
 			print(e)
 		return min
 
-	def getMax(self, st, range, cellCache):
+	def getMax(self, st, op_range, cellCache):
 		max = None
 		try:
-			for row in st[range]:
+			for row in st[op_range]:
 				for cell in row:
-					if not max:
-						max = cell.value
-					elif isinstance(cell.value, datetime) and cell.value > max:
-						max = cell.value
-					else:
+					evalCell = cell.value
+					if not isinstance(cell.value, datetime):
 						evalCell = evaluateFormulaToDate(st, cell.value, cellCache)
-						if evalCell > max:
-							max = evalCell
+					if not max:
+						max = evalCell
+					elif evalCell > max:
+						max = evalCell
 		except Exception as e:
 			print(e)
-		return min
+		return max
 	
-	def getWorkday(self, st, range, cellCache, offset, secondary_range):
-		workday = st[range].value
-		print(workday, secondary_range)
+	def getWorkday(self, st, op_range, cellCache, offset, secondary_range):
+		workday = st[op_range].value
 		try:
-			if isinstance(workday, datetime):
-				for i in range(0, offset):
-					if workday.weekday() >= 5:
-						workday += timedelta(days = 7 - workday.weekday())
-					workday += timedelta(days = 1)
-			else:
-				pass
-				# evalCell = evaluateFormulaToDate(st, workday, cellCache)
+			if not isinstance(workday, datetime):
+				workday = evaluateFormulaToDate(st, workday, cellCache)
+			if workday.weekday() >= 5:
+				workday -= timedelta(days = workday.weekday() - 4)
+			for i in range(0, offset):
+				if workday.weekday() >= 5:
+					workday += timedelta(days = 7 - workday.weekday())
+				workday += timedelta(days = 1)
 		except Exception as e:
 			print(e)
+		while workday.weekday() >= 5:
+			workday += timedelta(days = 1)
+		return workday
 
 def generateCalendar(startDate, endDate):
 	startToEnd = []
@@ -93,7 +96,6 @@ def generateCalendar(startDate, endDate):
 	return startToEnd
 
 def evaluateFormulaToDate(st, evalString, cellCache):
-	print(evalString)
 	if isinstance(evalString, datetime):
 		return evalString
 	else:
@@ -103,6 +105,9 @@ def evaluateFormulaToDate(st, evalString, cellCache):
 		operand_range = next(operand_range_iter, None)
 		secondary_range = next(operand_range_iter, None)
 		offset = next((t for t in tok.items if t.type == 'OPERAND' and t.subtype == 'NUMBER'), 0)
+		offset_infix = next((t for t in tok.items if t.type == 'OPERATOR-INFIX'), 0)
+		# print(func_type, operand_range, secondary_range, offset)
+		# print("\n".join("%12s%11s%9s" % (t.value, t.type, t.subtype) for t in tok.items))
 
 		if func_type:
 			func_type = func_type.value
@@ -114,13 +119,14 @@ def evaluateFormulaToDate(st, evalString, cellCache):
 		if secondary_range:
 			secondary_range = secondary_range.value
 
-		if isinstance(offset.value, str):
+		if isinstance(offset, pyxl.formula.tokenizer.Token) and isinstance(offset.value, str):
 			offset = int(float(offset.value))
+			if offset_infix and offset_infix.value == '-':
+				offset *= -1
 
-		funcOutput = formula_func.runFunction(st=st, range=operand_range, cellCache=cellCache, 
+		funcOutput = formula_func.runFunction(st=st, op_range=operand_range, cellCache=cellCache, 
 		offset=offset, secondary_range=secondary_range)
-
-		# return evaluateFormulaToDate(st, funcOutput, cellCache)
+		return funcOutput
 
 def parseSchedule(st, userStartDate, userEndDate):
 	categories = []
@@ -243,6 +249,7 @@ def program_validation(file_path, palette, start, end):
 	# 	raise Exception('A cell in column C or D has an invalid date or formula')
 	categories, eventData = parseSchedule(st, start, end)
 	# print(categories, eventData)
-	ws = wb.create_sheet("Calendar")
+	if "Calendar" not in wb.sheetnames:	
+		ws = wb.create_sheet("Calendar")
 	# writeExcel(st, wkList, eventData, palette, start)
 	wb.save(file_path)
