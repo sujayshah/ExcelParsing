@@ -6,3 +6,5 @@ Writes an Excel Calendar for different systems and start and end dates for proje
 - Recursion Timeout
 - Add cell cache
 - Write Excel
+- Add support for workday holidays
+- Color Palette Non-Solid Scheme?

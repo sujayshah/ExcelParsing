@@ -150,7 +150,7 @@ def parseSchedule(st, userStartDate, userEndDate):
 	# func_type = next((t for t in tok.items if t.type == 'FUNC' and t.subtype == 'OPEN'), None)
 	# for t in tok.items:
 	# print(t.value, t.type, t.subtype)
-	output = evaluateFormulaToDate(st, st['C47'].value, cellCache)
+	# output = evaluateFormulaToDate(st, st['C47'].value, cellCache)
 	# print(output)
 
 	########################################
