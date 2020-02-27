@@ -221,10 +221,13 @@ def writeExcel(st, wkList, eventData, palette, categories, startDate, endDate):
 			# 	raise IndexError("Task " + task.task + " has an starting date before your specified start date. Please choose an earlier start date.")
 			# else:
 			taskLength = (taskEnd - taskStart).days
-			offsetCell = calendarStartCol.offset(column = (taskStart - startDate).days)
-			offsetCell.value = task.task
-			if taskLength > 0:
-				st.merge_cells(start_column = offsetCell.column, end_column = offsetCell.column + taskLength, start_row = offsetCell.row, end_row = offsetCell.row)
+			try:
+				offsetCell = calendarStartCol.offset(column = (taskStart - startDate).days)
+				offsetCell.value = task.task
+				if taskLength > 0:
+					st.merge_cells(start_column = offsetCell.column, end_column = offsetCell.column + taskLength, start_row = offsetCell.row, end_row = offsetCell.row)
+			except:
+				raise AttributeError("Task " + task.task + " is overlapping with another task in activity " + activityCol.value)
 
 		machineCol = machineCol.offset(row = 1)
 		activityCol = activityCol.offset(row = 1)
@@ -245,6 +248,8 @@ def program_validation(file_path, palette, start, end):
 		writeExcel(ws, wkList, eventList, palette, categories, start, end)
 		# writeExcel(ws, wkList, eventList, palette, categories, start.strftime("X%m/X%d/%Y").replace('X0','X').replace('X',''))
 		wb.save(file_path)
+	except AttributeError as ae:
+		raise ae
 	except IndexError as ie:
 		raise ie
 	except ValueError as ve:
@@ -254,4 +259,4 @@ def program_validation(file_path, palette, start, end):
 
 if __name__ == "__main__":
 	palette = ['#ADD8E6', ' #90EE90', '#FFB6C1',  '#DDBDF1','#FFD700','#FFDAB9','#FF69B4','#7FFFD4', '#DEB887', '#C0C0C0' ]
-	program_validation('./sample.xlsx', palette, date(year=2019, month=8, day=1), date(year=2022, month=3, day=1))
+	program_validation('./backend/program_validation/input/sample.xlsx', palette, date(year=2019, month=8, day=1), date(year=2022, month=3, day=1))
