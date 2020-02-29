@@ -165,16 +165,17 @@ def parseSchedule(st, userStartDate, userEndDate):
 
 	return categories, eventList
 
-def styleCell(curCell, fillColor, autofit = False, mergedCells = True):
+def styleCell(curCell, fillColor, cellRange = 0, autofit = False):
 	curCell.fill = PatternFill(fill_type='solid', start_color=fillColor, end_color=fillColor)	
 	curCell.font = Font(name='Arial', size=14)
 	curCell.alignment = Alignment(horizontal = 'center', vertical='center')
 
 	curSide = Side(color='00000000', border_style='thick')
 	curCell.border = Border(top = curSide, bottom = curSide, left = curSide, right = curSide)
-	if mergedCells:
-		for i in range(1, 7):
-			curCell.offset(column = i).border = Border(top = curSide, bottom = curSide)
+	for i in range(1, cellRange):
+		curCell.offset(column = i).border = Border(top = curSide, bottom = curSide)
+	if cellRange > 0:
+		curCell.offset(column = cellRange).border = Border(top = curSide, bottom = curSide, right = curSide)
 	if autofit:
 		autoLength = len(curCell.value)*1.8
 		col_dim = curCell.parent.column_dimensions[curCell.column_letter]
@@ -184,19 +185,18 @@ def styleCell(curCell, fillColor, autofit = False, mergedCells = True):
 			col_dim.min = autoLength
 		curCell.parent.column_dimensions[curCell.column_letter].width = col_dim.min
 
-
 def writeExcel(st, wkList, eventData, palette, categories, startDate, endDate):
 	st['A1'] = 'Machine S/N'
 	st['B1'] = 'Phase'
-	styleCell(st['A1'], "FFFFFFFF", autofit = True, mergedCells=False)
-	styleCell(st['B1'], "FFFFFFFF", autofit = True, mergedCells=False)
+	styleCell(st['A1'], "FFFFFFFF", autofit = True)
+	styleCell(st['B1'], "FFFFFFFF", autofit = True)
 
 	curCell = st['C1']
 	st.row_dimensions[1] = dimensions.RowDimension(worksheet = st, height = 50)
 	for idx, wkCell in enumerate(wkList):
 		curCell.value = wkList[idx].strftime("X%m/X%d/%Y").replace('X0','X').replace('X','')
 		st.merge_cells(start_column = curCell.column, end_column = curCell.column + 6, start_row = curCell.row, end_row = curCell.row)		
-		styleCell(curCell, "FFFFA500")
+		styleCell(curCell, "FFFFA500", cellRange = 6)
 		curCell = curCell.offset(column = 7)
 
 	machineCol = st['A2']
@@ -207,9 +207,10 @@ def writeExcel(st, wkList, eventData, palette, categories, startDate, endDate):
 	for event in iter(eventData):
 		machineCol.value = event.machineID
 		activityCol.value = event.activityID
-		styleCell(machineCol, "00FFFF00", autofit=True, mergedCells=False)
-		styleCell(activityCol, "00FFFF00", autofit=True, mergedCells=False)
+		styleCell(machineCol, "00FFFF00", autofit=True)
+		styleCell(activityCol, "00FFFF00", autofit=True)
 		
+		paletteIdx = 0
 		for task in event.subTasks:
 			taskStart = task.startDate
 			taskEnd = task.finishDate
@@ -217,15 +218,20 @@ def writeExcel(st, wkList, eventData, palette, categories, startDate, endDate):
 				taskStart = taskStart.date()
 			if isinstance(taskEnd, datetime):
 				taskEnd = taskEnd.date()
-			# if taskStart < startDate:
-			# 	raise IndexError("Task " + task.task + " has an starting date before your specified start date. Please choose an earlier start date.")
-			# else:
 			taskLength = (taskEnd - taskStart).days
+			calendarLength = (endDate - startDate).days
+			
+			if taskStart < startDate:
+				raise IndexError("Task " + task.task + " has an starting date before your specified start date. Please choose an earlier start date.")
+			elif taskEnd > (endDate + timedelta(7 - (calendarLength % 7))):
+				raise IndexError("Task " + task.task + " has an ending date after your specified end date. Please choose a later end date.")
 			try:
 				offsetCell = calendarStartCol.offset(column = (taskStart - startDate).days)
 				offsetCell.value = task.task
 				if taskLength > 0:
 					st.merge_cells(start_column = offsetCell.column, end_column = offsetCell.column + taskLength, start_row = offsetCell.row, end_row = offsetCell.row)
+				styleCell(offsetCell, palette[paletteIdx], cellRange = taskLength)
+				paletteIdx = (paletteIdx + 1) % len(palette)
 			except:
 				raise AttributeError("Task " + task.task + " is overlapping with another task in activity " + activityCol.value)
 
@@ -240,23 +246,18 @@ def program_validation(file_path, palette, start, end):
 	wkList = generateCalendar(start, end)
 	wb = pyxl.load_workbook(file_path)
 	st = wb[wb.sheetnames[0]]
-	try:
-		categories, eventList = parseSchedule(st, start, end)
-		if "Calendar" in wb.sheetnames:
-			wb.remove(wb["Calendar"])
-		ws = wb.create_sheet("Calendar")
-		writeExcel(ws, wkList, eventList, palette, categories, start, end)
-		# writeExcel(ws, wkList, eventList, palette, categories, start.strftime("X%m/X%d/%Y").replace('X0','X').replace('X',''))
-		wb.save(file_path)
-	except AttributeError as ae:
-		raise ae
-	except IndexError as ie:
-		raise ie
-	except ValueError as ve:
-		raise Exception('Invalid date or offset')
-	except TypeError as te:
-		raise Exception('A cell in column C or D has an invalid date or formula')
+	categories, eventList = parseSchedule(st, start, end)
+	if "Calendar" in wb.sheetnames:
+		wb.remove(wb["Calendar"])
+	ws = wb.create_sheet("Calendar")
+	writeExcel(ws, wkList, eventList, palette, categories, start, end)
+	# writeExcel(ws, wkList, eventList, palette, categories, start.strftime("X%m/X%d/%Y").replace('X0','X').replace('X',''))
+	wb.save(file_path)
+	# except ValueError as ve:
+	# 	raise Exception('Invalid date or offset')
+	# except TypeError as te:
+	# 	raise Exception('A cell in column C or D has an invalid date or formula')
 
 if __name__ == "__main__":
-	palette = ['#ADD8E6', ' #90EE90', '#FFB6C1',  '#DDBDF1','#FFD700','#FFDAB9','#FF69B4','#7FFFD4', '#DEB887', '#C0C0C0' ]
-	program_validation('./backend/program_validation/input/sample.xlsx', palette, date(year=2019, month=8, day=1), date(year=2022, month=3, day=1))
+	palette = ['00ADD8E6','0090EE90','00FFB6C1','00DDBDF1','00FFD700','00FFDAB9','00FF69B4','007FFFD4','00DEB887','00C0C0C0','0000BBFF']
+	program_validation('./backend/program_validation/input/sample.xlsx', palette, date(year=2019, month=8, day=1), date(year=2022, month=5, day=4))

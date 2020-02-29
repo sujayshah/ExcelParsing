@@ -8,3 +8,4 @@ Writes an Excel Calendar for different systems and start and end dates for proje
 - Write Excel
 - Add support for workday holidays
 - Color Palette Non-Solid Scheme?
+- Add quarterly format
