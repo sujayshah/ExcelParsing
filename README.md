@@ -11,3 +11,4 @@ Writes an Excel Calendar for different systems and start and end dates for proje
 - Color Palette Non-Solid Scheme?
 - Add quarterly format
 - Error Reporting on Frontend
+- Write to palette
