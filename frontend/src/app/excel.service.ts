@@ -29,4 +29,11 @@ export class ExcelService {
     });
   }
 
+  addColorPalette(color: String, document?: string) {
+    let urlParams = document ? {doc: document} : {};
+    return this.http.post(this.constants.BASE_URL + '/excel/add', color, {
+      params: urlParams
+    });
+  }
+
 }
