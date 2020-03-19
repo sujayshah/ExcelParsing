@@ -41,7 +41,8 @@ def get_color_palette():
 	try:
 		docRef = users_ref.document(docType)
 		doc = docRef.get()
-		resp = doc.to_dict().get('palette')
+		paletteList = doc.to_dict().get('palette')
+		resp = {i : paletteList[i] for i in range(0, len(paletteList))}
 	except:
 		resp = "Error"
 		resp_code = 400
@@ -58,8 +59,6 @@ def add_color_palette():
 	resp_code = 200
 	try:
 		docRef = users_ref.document(docType)
-		doc = docRef.get()
-		print(doc)
 	except:
 		resp = "Error"
 		resp_code = 400
