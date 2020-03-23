@@ -61,6 +61,12 @@ export class AppComponent implements OnInit {
   }, this.ValidateDate())
 
   clickedAddColor: boolean = false;
+  colorExists: boolean = false;
+  colorErrors: {} = {
+    INVALID_COLOR: 'One or more colors are missing or invalid',
+    COLOR_EXISTS: 'This color already exists in your palette. Please modify your color selection.'
+  };
+  colorError : string;
   addNewColor: boolean = false;
   validColorRed = new FormControl('', [Validators.required, RGBRangeValidator()]);
   validColorGreen = new FormControl('', [Validators.required, RGBRangeValidator()]);
@@ -194,12 +200,22 @@ export class AppComponent implements OnInit {
     this.clickedAddColor = true;
     if(this.validColorRed.valid && this.validColorGreen.valid && this.validColorBlue.valid) {
       let color = this.rgbToHex(this.validColorRed.value, this.validColorGreen.value, this.validColorBlue.value);
-			let newTile : Tile = {color: color, text: color.toUpperCase()};
-      this.excelService.addColorPalette(color, this.excelFileGroup.controls.excelRenderMode.value).subscribe( res => {
-        this.tiles.push(newTile);
-      }, err => {
-        console.log(err);
-      })
+      let newTile : Tile = {color: color, text: color.toUpperCase()};
+      if(this.tiles.find(function(tile) { return color.toUpperCase() == tile.color.toUpperCase() } )) {
+        this.colorError = this.colorErrors['COLOR_EXISTS'];
+        this.colorExists = true;
+      }
+      else {
+        this.colorExists = false;
+        this.excelService.addColorPalette(color, this.excelFileGroup.controls.excelRenderMode.value).subscribe( res => {
+          this.tiles.push(newTile);
+        }, err => {
+          console.log(err);
+        })
+      }
+    }
+    else {
+      this.colorError = this.colorErrors['INVALID_COLOR']
     }
   }
 

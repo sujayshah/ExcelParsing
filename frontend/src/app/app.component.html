@@ -64,7 +64,10 @@
         <mat-form-field>
           <input matInput placeholder="Blue" [formControl]="validColorBlue">
         </mat-form-field>
-        <mat-error *ngIf="clickedAddColor && (validColorRed.invalid || validColorGreen.invalid || validColorBlue.invalid)">One or more colors are missing or invalid</mat-error>
+        <mat-error *ngIf="clickedAddColor && (
+                        (validColorRed.invalid || validColorGreen.invalid || validColorBlue.invalid) ||
+                        (validColorRed.valid && validColorGreen.valid && validColorBlue.valid && colorExists)
+                        )">{{colorError}}</mat-error>
       </div>
       <div mat-dialog-actions>
         <button mat-button (click)="onNoClick()">Cancel</button>
