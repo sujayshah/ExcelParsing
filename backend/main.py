@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, send_file, send_from_directory, redirect, url_for
+from flask import Flask, render_template, request, send_file, send_from_directory, redirect, url_for, jsonify
 from flask_cors import CORS, cross_origin
 from resource_validation import testwork
 from program_validation import ws
@@ -41,7 +41,7 @@ def get_color_palette():
 	try:
 		docRef = users_ref.document(docType)
 		doc = docRef.get()
-		paletteList = doc.to_dict().get('palette')
+		paletteList = doc.get('palette')
 		resp = {i : paletteList[i] for i in range(0, len(paletteList))}
 	except:
 		resp = "Error"
@@ -51,7 +51,7 @@ def get_color_palette():
 @app.route('/excel/add', methods=['POST'])
 @cross_origin()
 def add_color_palette():
-	new_color = request.get_data().decode("utf-8")
+	new_color = request.get_data().decode("utf-8").upper()
 	docType = request.args.get('doc')
 	if not docType:
 		docType = 'default'
@@ -59,6 +59,8 @@ def add_color_palette():
 	resp_code = 200
 	try:
 		docRef = users_ref.document(docType)
+		docRef.update({u'palette': firestore.ArrayUnion([new_color])})
+		resp = jsonify(docRef.path + '/palette')
 	except:
 		resp = "Error"
 		resp_code = 400
