@@ -18,8 +18,8 @@ cred = credentials.ApplicationDefault()
 firebase_admin.initialize_app(cred, {
     'projectId' : project_id
 })
-cred = credentials.Certificate('./accounts/' + firestoreServiceJson)
-firebase_admin.initialize_app(cred)
+# cred = credentials.Certificate('./accounts/' + firestoreServiceJson)
+# firebase_admin.initialize_app(cred)
 
 db = firestore.client()
 users_ref = db.collection(u'excel')
