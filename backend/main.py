@@ -18,8 +18,8 @@ cred = credentials.ApplicationDefault()
 firebase_admin.initialize_app(cred, {
     'projectId' : project_id
 })
-# cred = credentials.Certificate('./accounts/' + firestoreServiceJson)
-# firebase_admin.initialize_app(cred)
+cred = credentials.Certificate('./accounts/' + firestoreServiceJson)
+firebase_admin.initialize_app(cred)
 
 db = firestore.client()
 users_ref = db.collection(u'excel')
@@ -60,6 +60,24 @@ def add_color_palette():
 	try:
 		docRef = users_ref.document(docType)
 		docRef.update({u'palette': firestore.ArrayUnion([new_color])})
+		resp = jsonify(docRef.path + '/palette')
+	except:
+		resp = "Error"
+		resp_code = 400
+	return resp, resp_code
+
+@app.route('/excel/remove', methods=['POST'])
+@cross_origin()
+def remove_color_palette():
+	new_color = request.get_data().decode("utf-8").upper()
+	docType = request.args.get('doc')
+	if not docType:
+		docType = 'default'
+	resp = ""
+	resp_code = 200
+	try:
+		docRef = users_ref.document(docType)
+		docRef.update({u'palette': firestore.ArrayRemove([new_color])})
 		resp = jsonify(docRef.path + '/palette')
 	except:
 		resp = "Error"

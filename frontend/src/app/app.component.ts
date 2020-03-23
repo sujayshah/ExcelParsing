@@ -228,9 +228,14 @@ export class AppComponent implements OnInit {
     this.addNewColor = false;
   }
 
-  deleteColor(tile) {
-    this.excelService.removeColorPalette(tile.text, this.excelFileGroup.controls.excelRenderMode.value).subscribe( res => {
-
+  deleteColor(deleteTile) {
+    this.excelService.removeColorPalette(deleteTile.text, this.excelFileGroup.controls.excelRenderMode.value).subscribe( res => {
+      const idx = this.tiles.findIndex(function(tile) {
+        return deleteTile.text == tile.text;
+      });
+      if(idx > -1) {
+        this.tiles.splice(idx, 1);
+      }
     }, err => {
       console.log(err);
     })
