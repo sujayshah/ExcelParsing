@@ -55,6 +55,7 @@ export class AppComponent implements OnInit {
   excelFileGroup = new FormGroup({
     excelFilePath: new FormControl(null, Validators.required),
     excelRenderMode: new FormControl(null, Validators.required),
+    excelCalendarInterval: new FormControl(null, Validators.required),
     excelFile: new FormControl(null),
     minDate: new FormControl({value: null, disabled: true}),
     maxDate: new FormControl({value: null, disabled: true})
