@@ -295,7 +295,7 @@ webpackContext.id = "./node_modules/moment/locale sync recursive ^\\.\\/.*$";
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<!--The content below is only a placeholder and can be replaced.-->\n<!-- <div style=\"text-align:center\">\n  <form (ngSubmit)=\"onSubmit(f)\">\n    <input name=\"first\" ngModel required>\n    <input name=\"last\" ngModel>\n    <button type=\"submit\">Submit</button>\n  </form>\n</div> -->\n<div class=\"container\">\n  <h2>Select Input File</h2>\n  <form [formGroup]=\"excelFileGroup\" (ngSubmit)=\"onSubmit(excelFileGroup)\">\n    <mat-radio-group class=\"radio-group\" formControlName=\"excelRenderMode\" (change)=\"focusRenderMode($event)\">\n      <mat-radio-button class=\"radio-btn\" value=\"program\">\n        Program Validation\n      </mat-radio-button><br>\n      <mat-radio-button class=\"radio-btn\" value=\"resource\">\n        Resource Validation\n      </mat-radio-button><br>\n    </mat-radio-group><br>\n    <!-- ------------------- -->\n    <mat-form-field class=\"datepicker\">\n      <input matInput [matDatepicker]=\"minPicker\" formControlName=\"minDate\" placeholder=\"Choose a start date\">\n      <mat-datepicker-toggle matSuffix [for]=\"minPicker\"></mat-datepicker-toggle>\n      <mat-datepicker #minPicker></mat-datepicker>\n    </mat-form-field>\n    <mat-form-field class=\"datepicker\">\n      <input matInput [matDatepicker]=\"maxPicker\" formControlName=\"maxDate\" placeholder=\"Choose an end date\">\n      <mat-datepicker-toggle matSuffix [for]=\"maxPicker\"></mat-datepicker-toggle>\n      <mat-datepicker #maxPicker></mat-datepicker>\n    </mat-form-field><br>\n    <span class=\"error-message\" *ngIf=\"excelFileGroup.errors\">Please select a valid date range</span><br><br>\n    <!-- ------------------- -->\n    <div class=\"input-div\">\n      <input #input class=\"select-file btn\" (change)=\"processFile($event.target.files)\"\n      id=\"input-file-id\" type=\"file\" name=\"excel-file\" accept=\".xlsx\" formControlName=\"excelFilePath\"  />\n    </div>\n    <br><br>\n    <button mat-raised-button type=\"submit\" [disabled]=\"!excelFileGroup.valid\">Upload</button>\n  </form>\n  <h2>Color Palette</h2>\n  <mat-grid-list cols=\"4\" rowHeight=\"100px\">\n    <mat-grid-tile\n        *ngFor=\"let tile of tiles\"\n        [style.background]=\"tile.color\">\n      {{tile.text}}\n    </mat-grid-tile>\n  </mat-grid-list>\n  <br>\n  <div class=\"palette-btn-bar\">\n    <button mat-raised-button (click)=\"addColorDialog()\">\n      Add color\n    </button><br><br>\n\n    <!-- Dialog Palette Select -->\n    <div class=\"add-color-dialog \"*ngIf=\"addNewColor\">\n      <div mat-dialog-content>\n        <p>Enter a whole number between 0-255 for each RGB Value</p>\n        <mat-form-field>\n          <input matInput placeholder=\"Red\" [formControl]=\"validColorRed\">\n        </mat-form-field>&nbsp;\n        <mat-form-field>\n          <input matInput placeholder=\"Green\" [formControl]=\"validColorGreen\">\n        </mat-form-field>&nbsp;\n        <mat-form-field>\n          <input matInput placeholder=\"Blue\" [formControl]=\"validColorBlue\">\n        </mat-form-field>\n        <mat-error *ngIf=\"clickedAddColor && (validColorRed.invalid || validColorGreen.invalid || validColorBlue.invalid)\">One or more colors are missing or invalid</mat-error>\n      </div>\n      <div mat-dialog-actions>\n        <button mat-button (click)=\"onNoClick()\">Cancel</button>\n        <button mat-button (click)=\"addColor()\" cdkFocusInitial>OK</button>\n      </div><br>\n    </div>\n    <!-- Dialog Palette Select -->\n\n    <button mat-raised-button (click)=\"resetDefault()\">\n      Reset to Default\n    </button>\n  </div>\n</div>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<!--The content below is only a placeholder and can be replaced.-->\n<!-- <div style=\"text-align:center\">\n  <form (ngSubmit)=\"onSubmit(f)\">\n    <input name=\"first\" ngModel required>\n    <input name=\"last\" ngModel>\n    <button type=\"submit\">Submit</button>\n  </form>\n</div> -->\n<div class=\"container\">\n  <h2>Select Input File</h2>\n  <form [formGroup]=\"excelFileGroup\" (ngSubmit)=\"onSubmit(excelFileGroup)\">\n    <mat-radio-group class=\"radio-group\" formControlName=\"excelRenderMode\" (change)=\"focusRenderMode($event)\">\n      <mat-radio-button class=\"radio-btn\" value=\"program\">\n        Program Validation\n      </mat-radio-button><br>\n      <mat-radio-button class=\"radio-btn\" value=\"resource\">\n        Resource Validation\n      </mat-radio-button><br>\n    </mat-radio-group><br>\n    <!-- ------------------- -->\n    <mat-form-field class=\"datepicker\">\n      <input matInput [matDatepicker]=\"minPicker\" formControlName=\"minDate\" placeholder=\"Choose a start date\">\n      <mat-datepicker-toggle matSuffix [for]=\"minPicker\"></mat-datepicker-toggle>\n      <mat-datepicker #minPicker></mat-datepicker>\n    </mat-form-field>\n    <mat-form-field class=\"datepicker\">\n      <input matInput [matDatepicker]=\"maxPicker\" formControlName=\"maxDate\" placeholder=\"Choose an end date\">\n      <mat-datepicker-toggle matSuffix [for]=\"maxPicker\"></mat-datepicker-toggle>\n      <mat-datepicker #maxPicker></mat-datepicker>\n    </mat-form-field><br>\n    <span class=\"error-message\" *ngIf=\"excelFileGroup.errors\">Please select a valid date range</span><br><br>\n    <!-- ------------------- -->\n    <div class=\"input-div\">\n      <input #input class=\"select-file btn\" (change)=\"processFile($event.target.files)\"\n      id=\"input-file-id\" type=\"file\" name=\"excel-file\" accept=\".xlsx\" formControlName=\"excelFilePath\"  />\n    </div>\n    <br><br>\n    <button mat-raised-button type=\"submit\" [disabled]=\"!excelFileGroup.valid\">Upload</button>\n  </form>\n  <h2>Color Palette</h2>\n  <mat-grid-list cols=\"4\" rowHeight=\"100px\">\n    <mat-grid-tile\n        *ngFor=\"let tile of tiles\"\n        [style.background]=\"tile.color\">\n      {{tile.text}}\n    </mat-grid-tile>\n  </mat-grid-list>\n  <br>\n  <div class=\"palette-btn-bar\">\n    <button mat-raised-button (click)=\"addColorDialog()\">\n      Add color\n    </button><br><br>\n\n    <!-- Dialog Palette Select -->\n    <div class=\"add-color-dialog \"*ngIf=\"addNewColor\">\n      <div mat-dialog-content>\n        <p>Enter a whole number between 0-255 for each RGB Value</p>\n        <mat-form-field>\n          <input matInput placeholder=\"Red\" [formControl]=\"validColorRed\">\n        </mat-form-field>&nbsp;\n        <mat-form-field>\n          <input matInput placeholder=\"Green\" [formControl]=\"validColorGreen\">\n        </mat-form-field>&nbsp;\n        <mat-form-field>\n          <input matInput placeholder=\"Blue\" [formControl]=\"validColorBlue\">\n        </mat-form-field>\n        <mat-error *ngIf=\"clickedAddColor && (\n                        (validColorRed.invalid || validColorGreen.invalid || validColorBlue.invalid) ||\n                        (validColorRed.valid && validColorGreen.valid && validColorBlue.valid && colorExists)\n                        )\">{{colorError}}</mat-error>\n      </div>\n      <div mat-dialog-actions>\n        <button mat-button (click)=\"onNoClick()\">Cancel</button>\n        <button mat-button (click)=\"addColor()\" cdkFocusInitial>OK</button>\n      </div><br>\n    </div>\n    <!-- Dialog Palette Select -->\n\n    <button mat-raised-button (click)=\"resetDefault()\">\n      Reset to Default\n    </button>\n  </div>\n</div>\n");
 
 /***/ }),
 
@@ -678,6 +678,11 @@ var AppComponent = /** @class */ (function () {
             maxDate: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"]({ value: null, disabled: true })
         }, this.ValidateDate());
         this.clickedAddColor = false;
+        this.colorExists = false;
+        this.colorErrors = {
+            INVALID_COLOR: 'One or more colors are missing or invalid',
+            COLOR_EXISTS: 'This color already exists in your palette. Please modify your color selection.'
+        };
         this.addNewColor = false;
         this.validColorRed = new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"]('', [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, Object(_RGBRangeValidator__WEBPACK_IMPORTED_MODULE_3__["RGBRangeValidator"])()]);
         this.validColorGreen = new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"]('', [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, Object(_RGBRangeValidator__WEBPACK_IMPORTED_MODULE_3__["RGBRangeValidator"])()]);
@@ -825,13 +830,23 @@ var AppComponent = /** @class */ (function () {
         var _this = this;
         this.clickedAddColor = true;
         if (this.validColorRed.valid && this.validColorGreen.valid && this.validColorBlue.valid) {
-            var color = this.rgbToHex(this.validColorRed.value, this.validColorGreen.value, this.validColorBlue.value);
-            var newTile_1 = { color: color, text: color.toUpperCase() };
-            this.excelService.addColorPalette(color, this.excelFileGroup.controls.excelRenderMode.value).subscribe(function (res) {
-                _this.tiles.push(newTile_1);
-            }, function (err) {
-                console.log(err);
-            });
+            var color_1 = this.rgbToHex(this.validColorRed.value, this.validColorGreen.value, this.validColorBlue.value);
+            var newTile_1 = { color: color_1, text: color_1.toUpperCase() };
+            if (this.tiles.find(function (tile) { return color_1.toUpperCase() == tile.color.toUpperCase(); })) {
+                this.colorError = this.colorErrors['COLOR_EXISTS'];
+                this.colorExists = true;
+            }
+            else {
+                this.colorExists = false;
+                this.excelService.addColorPalette(color_1, this.excelFileGroup.controls.excelRenderMode.value).subscribe(function (res) {
+                    _this.tiles.push(newTile_1);
+                }, function (err) {
+                    console.log(err);
+                });
+            }
+        }
+        else {
+            this.colorError = this.colorErrors['INVALID_COLOR'];
         }
     };
     AppComponent.prototype.addColorDialog = function () {
