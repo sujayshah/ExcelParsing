@@ -965,7 +965,7 @@ var Constants = /** @class */ (function () {
     function Constants() {
         this.BASE_HREF = '/static';
         // BASE_URL = 'http://localhost:8080'
-        this.BASE_URL = 'https://excel-parsing-258004.appspot.com';
+        this.BASE_URL = 'https://excel-parsing-272004.appspot.com';
     }
     return Constants;
 }());

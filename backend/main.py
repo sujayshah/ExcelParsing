@@ -11,7 +11,7 @@ from firebase_admin import credentials, firestore
 app = Flask(__name__)
 CORS(app)
 
-project_id = 'excel-parsing-258004'
+project_id = 'excel-parsing-272004'
 firestoreServiceJson = 'firestore-service-account.json'
 
 cred = credentials.ApplicationDefault()
