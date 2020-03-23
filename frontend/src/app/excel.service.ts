@@ -36,4 +36,11 @@ export class ExcelService {
     });
   }
 
+  removeColorPalette(color: String, document?: string) {
+    let urlParams = document ? {doc: document} : {};
+    return this.http.post(this.constants.BASE_URL + '/excel/remove', color, {
+      params: urlParams
+    });
+  }
+
 }

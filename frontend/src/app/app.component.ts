@@ -228,6 +228,14 @@ export class AppComponent implements OnInit {
     this.addNewColor = false;
   }
 
+  deleteColor(tile) {
+    this.excelService.removeColorPalette(tile.text, this.excelFileGroup.controls.excelRenderMode.value).subscribe( res => {
+
+    }, err => {
+      console.log(err);
+    })
+  }
+
   resetDefault() {
     this.tiles = Object.assign([], this.defaultTiles);;
   }

@@ -50,11 +50,15 @@
   </form>
   <h2>{{ excelFileGroup.controls["excelRenderMode"].value || "default" }} color palette</h2>
   <mat-grid-list cols="4" rowHeight="100px">
-    <mat-grid-tile
-        *ngFor="let tile of tiles"
-        [style.background]="tile.color">
-      {{tile.text}}
-    </mat-grid-tile>
+    <div class="color-tile" *ngFor="let tile of tiles">
+      <mat-grid-tile
+          [style.background]="tile.color">
+        <div class="tile-content">{{tile.text}}</div>
+        <div class="delete-tile">
+          <button mat-stroked-button (click)="deleteColor(tile)">X</button>
+        </div>
+      </mat-grid-tile>
+  </div>
   </mat-grid-list>
   <br>
   <div class="palette-btn-bar">

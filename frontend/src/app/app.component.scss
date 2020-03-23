@@ -53,6 +53,27 @@ input {
     margin-top: 0.5%;
 }
 
+.color-tile {
+    :hover {
+        opacity: 0.8;
+        .tile-content {
+            display: none;
+        }
+        .delete-tile {
+            opacity: 1;
+            display: block;
+        }
+    }
+    .tile-content {
+        opacity: 1;
+        width: 100%;
+    }
+    .delete-tile {
+        opacity: 1;
+        display: none;
+    }
+}
+
 .container {
     text-align: center;
     margin: auto;
