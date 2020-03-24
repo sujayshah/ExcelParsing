@@ -237,8 +237,7 @@ def writeExcel(st, wkList, eventData, palette, categories, startDate, endDate):
 				styleCell(offsetCell, palette[paletteIdx], cellRange = taskLength)
 				paletteIdx = (paletteIdx + 1) % len(palette)
 			except Exception as e:
-				print(e)
-				raise AttributeError("Task " + task.task + " is overlapping with another task in activity " + activityCol.value)
+				raise(e)
 
 		machineCol = machineCol.offset(row = 1)
 		activityCol = activityCol.offset(row = 1)
@@ -249,8 +248,7 @@ def writeExcel(st, wkList, eventData, palette, categories, startDate, endDate):
 
 def program_validation(file_path, palette, start, end):
 	try:
-		for color in palette:
-			color.replace("#", "00")
+		palette = [color.replace("#", "00") for color in palette]
 		wkList = generateCalendar(start, end)
 		wb = pyxl.load_workbook(file_path)
 		st = wb[wb.sheetnames[0]]
