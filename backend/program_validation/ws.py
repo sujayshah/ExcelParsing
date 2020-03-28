@@ -83,7 +83,7 @@ class EXCEL_FUNCS:
 			workday += timedelta(days = 1)
 		return workday
 
-def generateCalendar(startDate, endDate):
+def generateCalendar(startDate, endDate, interval):
 	startToEnd = []
 	curDate = startDate
 	while curDate <= endDate:
@@ -246,10 +246,10 @@ def writeExcel(st, wkList, eventData, palette, categories, startDate, endDate):
 
 #--------------------------------------------------------
 
-def program_validation(file_path, palette, start, end):
+def program_validation(file_path, palette, start, end, interval = "monthly"):
 	try:
 		palette = [color.replace("#", "00") for color in palette]
-		wkList = generateCalendar(start, end)
+		wkList = generateCalendar(start, end, interval)
 		wb = pyxl.load_workbook(file_path)
 		st = wb[wb.sheetnames[0]]
 		categories, eventList = parseSchedule(st, start, end)

@@ -93,18 +93,20 @@ def program_validation():
 		palette = []
 		start = None
 		end = None
+		value = None
 		for key, value in request.form.items():
 			if key == 'start':
 				start = datetime.strptime(value, "%m-%d-%Y").date()
 			elif key == 'end':
 				end = datetime.strptime(value, "%m-%d-%Y").date()
+			elif key == 'interval':
+				interval = value
 			elif value not in palette:
 				palette.append(value)
 		fileStorage = request.files.get('name')
-
 		fileName = "output.xlsx"
 		fileStorage.save('/tmp/' + fileName)
-		ws.program_validation('/tmp/' + fileName, palette, start, end)
+		ws.program_validation('/tmp/' + fileName, palette, start, end, interval)
 		# resp = send_file(fileName, mimetype="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
 		resp = send_from_directory('/tmp', fileName, as_attachment=True, mimetype="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
 		resp_code = 200

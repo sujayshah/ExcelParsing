@@ -128,6 +128,7 @@ export class AppComponent implements OnInit {
       input.append('start', startDate);
       input.append('end', endDate);
     }
+    input.append('interval', form.controls['excelCalendarInterval'].value)
     input.append('name', form.controls['excelFile'].value);
     this.tiles.forEach(tile => {
       input.append(tile.text, tile.color);
