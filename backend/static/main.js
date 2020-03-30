@@ -295,7 +295,7 @@ webpackContext.id = "./node_modules/moment/locale sync recursive ^\\.\\/.*$";
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<!--The content below is only a placeholder and can be replaced.-->\n<!-- <div style=\"text-align:center\">\n  <form (ngSubmit)=\"onSubmit(f)\">\n    <input name=\"first\" ngModel required>\n    <input name=\"last\" ngModel>\n    <button type=\"submit\">Submit</button>\n  </form>\n</div> -->\n<div class=\"container\">\n  <h2>Select Input File</h2>\n  <form [formGroup]=\"excelFileGroup\" (ngSubmit)=\"onSubmit(excelFileGroup)\">\n    <mat-radio-group class=\"radio-group\" formControlName=\"excelRenderMode\" (change)=\"focusRenderMode($event)\">\n      <mat-radio-button class=\"radio-btn\" value=\"program\">\n        Program Validation\n      </mat-radio-button><br>\n      <mat-radio-button class=\"radio-btn\" value=\"resource\">\n        Resource Validation\n      </mat-radio-button><br>\n    </mat-radio-group><br>\n    <!-- ------------------- -->\n    <mat-form-field class=\"datepicker\">\n      <input matInput [matDatepicker]=\"minPicker\" formControlName=\"minDate\" placeholder=\"Choose a start date\">\n      <mat-datepicker-toggle matSuffix [for]=\"minPicker\"></mat-datepicker-toggle>\n      <mat-datepicker #minPicker></mat-datepicker>\n    </mat-form-field>\n    <mat-form-field class=\"datepicker\">\n      <input matInput [matDatepicker]=\"maxPicker\" formControlName=\"maxDate\" placeholder=\"Choose an end date\">\n      <mat-datepicker-toggle matSuffix [for]=\"maxPicker\"></mat-datepicker-toggle>\n      <mat-datepicker #maxPicker></mat-datepicker>\n    </mat-form-field><br>\n    <span class=\"error-message\" *ngIf=\"excelFileGroup.errors\">Please select a valid date range</span><br><br>\n    <!-- ------------------- -->\n    <div class=\"input-div\">\n      <input #input class=\"select-file btn\" (change)=\"processFile($event.target.files)\"\n      id=\"input-file-id\" type=\"file\" name=\"excel-file\" accept=\".xlsx\" formControlName=\"excelFilePath\"  />\n    </div>\n    <br><br>\n    <button mat-raised-button type=\"submit\" [disabled]=\"!excelFileGroup.valid\">Upload</button>\n  </form>\n  <h2>Color Palette</h2>\n  <mat-grid-list cols=\"4\" rowHeight=\"100px\">\n    <mat-grid-tile\n        *ngFor=\"let tile of tiles\"\n        [style.background]=\"tile.color\">\n      {{tile.text}}\n    </mat-grid-tile>\n  </mat-grid-list>\n  <br>\n  <div class=\"palette-btn-bar\">\n    <button mat-raised-button (click)=\"addColorDialog()\">\n      Add color\n    </button><br><br>\n\n    <!-- Dialog Palette Select -->\n    <div class=\"add-color-dialog \"*ngIf=\"addNewColor\">\n      <div mat-dialog-content>\n        <p>Enter a whole number between 0-255 for each RGB Value</p>\n        <mat-form-field>\n          <input matInput placeholder=\"Red\" [formControl]=\"validColorRed\">\n        </mat-form-field>&nbsp;\n        <mat-form-field>\n          <input matInput placeholder=\"Green\" [formControl]=\"validColorGreen\">\n        </mat-form-field>&nbsp;\n        <mat-form-field>\n          <input matInput placeholder=\"Blue\" [formControl]=\"validColorBlue\">\n        </mat-form-field>\n        <mat-error *ngIf=\"clickedAddColor && (\n                        (validColorRed.invalid || validColorGreen.invalid || validColorBlue.invalid) ||\n                        (validColorRed.valid && validColorGreen.valid && validColorBlue.valid && colorExists)\n                        )\">{{colorError}}</mat-error>\n      </div>\n      <div mat-dialog-actions>\n        <button mat-button (click)=\"onNoClick()\">Cancel</button>\n        <button mat-button (click)=\"addColor()\" cdkFocusInitial>OK</button>\n      </div><br>\n    </div>\n    <!-- Dialog Palette Select -->\n\n    <button mat-raised-button (click)=\"resetDefault()\">\n      Reset to Default\n    </button>\n  </div>\n</div>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<!--The content below is only a placeholder and can be replaced.-->\n<!-- <div style=\"text-align:center\">\n  <form (ngSubmit)=\"onSubmit(f)\">\n    <input name=\"first\" ngModel required>\n    <input name=\"last\" ngModel>\n    <button type=\"submit\">Submit</button>\n  </form>\n</div> -->\n<div class=\"container\">\n  <h2>Select Input File</h2>\n  <form [formGroup]=\"excelFileGroup\" (ngSubmit)=\"onSubmit(excelFileGroup)\">\n    <div class=\"radio-family\">\n      <mat-radio-group class=\"radio-group\" formControlName=\"excelRenderMode\" (change)=\"focusRenderMode($event)\">\n        <mat-radio-button class=\"radio-btn\" value=\"program\">\n          Program Validation\n        </mat-radio-button><br>\n        <mat-radio-button class=\"radio-btn\" value=\"resource\">\n          Resource Validation\n        </mat-radio-button><br>\n      </mat-radio-group><br>\n      <hr class=\"horiz-line\">\n      <mat-radio-group class=\"radio-group\" formControlName=\"excelCalendarInterval\">\n        <mat-radio-button class=\"radio-btn\" value=\"monthly\">\n          Monthly\n        </mat-radio-button><br>\n        <mat-radio-button class=\"radio-btn\" value=\"quarterly\">\n          Quarterly\n        </mat-radio-button><br>\n      </mat-radio-group><br>\n    </div><br>\n    <!-- ------------------- -->\n    <mat-form-field class=\"datepicker\">\n      <input matInput [matDatepicker]=\"minPicker\" formControlName=\"minDate\" placeholder=\"Choose a start date\">\n      <mat-datepicker-toggle matSuffix [for]=\"minPicker\"></mat-datepicker-toggle>\n      <mat-datepicker #minPicker></mat-datepicker>\n    </mat-form-field>\n    <mat-form-field class=\"datepicker\">\n      <input matInput [matDatepicker]=\"maxPicker\" formControlName=\"maxDate\" placeholder=\"Choose an end date\">\n      <mat-datepicker-toggle matSuffix [for]=\"maxPicker\"></mat-datepicker-toggle>\n      <mat-datepicker #maxPicker></mat-datepicker>\n    </mat-form-field><br>\n    <span class=\"error-message\" *ngIf=\"excelFileGroup.errors\">Please select a valid date range</span><br><br>\n    <!-- ------------------- -->\n    <div class=\"input-div\">\n      <input #input class=\"select-file btn\" (change)=\"processFile($event.target.files)\"\n      id=\"input-file-id\" type=\"file\" name=\"excel-file\" accept=\".xlsx\" formControlName=\"excelFilePath\"  />\n    </div>\n    <br><br>\n    <button mat-raised-button type=\"submit\" [disabled]=\"!excelFileGroup.valid\">Upload</button>\n  </form>\n  <h2>{{ excelFileGroup.controls[\"excelRenderMode\"].value || \"default\" }} color palette</h2>\n  <mat-grid-list cols=\"4\" rowHeight=\"100px\">\n    <div class=\"color-tile\" *ngFor=\"let tile of tiles\">\n      <mat-grid-tile\n          [style.background]=\"tile.color\">\n        <div class=\"tile-content\">{{tile.text}}</div>\n        <div class=\"delete-tile\">\n          <button mat-stroked-button (click)=\"deleteColor(tile)\">X</button>\n        </div>\n      </mat-grid-tile>\n  </div>\n  </mat-grid-list>\n  <br>\n  <div class=\"palette-btn-bar\">\n    <button mat-raised-button (click)=\"addColorDialog()\">\n      Add color\n    </button><br><br>\n\n    <!-- Dialog Palette Select -->\n    <div class=\"add-color-dialog \"*ngIf=\"addNewColor\">\n      <div mat-dialog-content>\n        <p>Enter a whole number between 0-255 for each RGB Value</p>\n        <mat-form-field>\n          <input matInput placeholder=\"Red\" [formControl]=\"validColorRed\">\n        </mat-form-field>&nbsp;\n        <mat-form-field>\n          <input matInput placeholder=\"Green\" [formControl]=\"validColorGreen\">\n        </mat-form-field>&nbsp;\n        <mat-form-field>\n          <input matInput placeholder=\"Blue\" [formControl]=\"validColorBlue\">\n        </mat-form-field>\n        <mat-error *ngIf=\"clickedAddColor && (\n                        (validColorRed.invalid || validColorGreen.invalid || validColorBlue.invalid) ||\n                        (validColorRed.valid && validColorGreen.valid && validColorBlue.valid && colorExists)\n                        )\">{{colorError}}</mat-error>\n      </div>\n      <div mat-dialog-actions>\n        <button mat-button (click)=\"onNoClick()\">Cancel</button>\n        <button mat-button (click)=\"addColor()\" cdkFocusInitial>OK</button>\n      </div><br>\n    </div>\n    <!-- Dialog Palette Select -->\n\n    <button mat-raised-button (click)=\"resetDefault()\">\n      Reset to Default\n    </button>\n  </div>\n</div>\n");
 
 /***/ }),
 
@@ -643,7 +643,7 @@ var AppRoutingModule = /** @class */ (function () {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("h1 {\n  text-align: center;\n}\n\n.error-message {\n  color: red;\n  font-size: 12px;\n}\n\n.radio-btn {\n  margin-top: 10px;\n  margin-bottom: 10px;\n}\n\n.palette-btn-bar {\n  text-align: center;\n}\n\n.add-color-dialog {\n  text-align: center;\n}\n\nform {\n  text-align: center;\n}\n\n.input-div {\n  display: inline-block;\n  max-width: 200px;\n}\n\ninput {\n  margin-left: 2vw;\n}\n\n.select-file {\n  overflow: hidden;\n  margin-top: 0.5%;\n}\n\n.container {\n  text-align: center;\n  margin: auto;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9zdWpheXNoYWgvRXhjZWxQYXJzaW5nL2Zyb250ZW5kL3NyYy9hcHAvYXBwLmNvbXBvbmVudC5zY3NzIiwic3JjL2FwcC9hcHAuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxrQkFBQTtBQ0NKOztBREVBO0VBQ0ksVUFBQTtFQUNBLGVBQUE7QUNDSjs7QURFQTtFQUNJLGdCQUFBO0VBQ0EsbUJBQUE7QUNDSjs7QURFQTtFQUNJLGtCQUFBO0FDQ0o7O0FERUE7RUFDSSxrQkFBQTtBQ0NKOztBREVBO0VBQ0ksa0JBQUE7QUNDSjs7QURFQTtFQUNJLHFCQUFBO0VBQ0EsZ0JBQUE7QUNDSjs7QURFQTtFQUNJLGdCQUFBO0FDQ0o7O0FERUE7RUFDSSxnQkFBQTtFQUNBLGdCQUFBO0FDQ0o7O0FERUE7RUFDSSxrQkFBQTtFQUNBLFlBQUE7QUNDSiIsImZpbGUiOiJzcmMvYXBwL2FwcC5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbImgxIHtcbiAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XG59XG5cbi5lcnJvci1tZXNzYWdlIHtcbiAgICBjb2xvcjogcmVkO1xuICAgIGZvbnQtc2l6ZTogMTJweDtcbn1cblxuLnJhZGlvLWJ0biB7XG4gICAgbWFyZ2luLXRvcDogMTBweDtcbiAgICBtYXJnaW4tYm90dG9tOiAxMHB4O1xufVxuXG4ucGFsZXR0ZS1idG4tYmFyIHtcbiAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XG59XG5cbi5hZGQtY29sb3ItZGlhbG9nIHtcbiAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XG59XG5cbmZvcm0ge1xuICAgIHRleHQtYWxpZ246IGNlbnRlcjtcbn1cblxuLmlucHV0LWRpdiB7XG4gICAgZGlzcGxheTogaW5saW5lLWJsb2NrO1xuICAgIG1heC13aWR0aDogMjAwcHg7XG59XG5cbmlucHV0IHtcbiAgICBtYXJnaW4tbGVmdDogMnZ3O1xufVxuXG4uc2VsZWN0LWZpbGUge1xuICAgIG92ZXJmbG93OiBoaWRkZW47XG4gICAgbWFyZ2luLXRvcDogMC41JTtcbn1cblxuLmNvbnRhaW5lciB7XG4gICAgdGV4dC1hbGlnbjogY2VudGVyO1xuICAgIG1hcmdpbjogYXV0bztcbn0iLCJoMSB7XG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbn1cblxuLmVycm9yLW1lc3NhZ2Uge1xuICBjb2xvcjogcmVkO1xuICBmb250LXNpemU6IDEycHg7XG59XG5cbi5yYWRpby1idG4ge1xuICBtYXJnaW4tdG9wOiAxMHB4O1xuICBtYXJnaW4tYm90dG9tOiAxMHB4O1xufVxuXG4ucGFsZXR0ZS1idG4tYmFyIHtcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xufVxuXG4uYWRkLWNvbG9yLWRpYWxvZyB7XG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbn1cblxuZm9ybSB7XG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbn1cblxuLmlucHV0LWRpdiB7XG4gIGRpc3BsYXk6IGlubGluZS1ibG9jaztcbiAgbWF4LXdpZHRoOiAyMDBweDtcbn1cblxuaW5wdXQge1xuICBtYXJnaW4tbGVmdDogMnZ3O1xufVxuXG4uc2VsZWN0LWZpbGUge1xuICBvdmVyZmxvdzogaGlkZGVuO1xuICBtYXJnaW4tdG9wOiAwLjUlO1xufVxuXG4uY29udGFpbmVyIHtcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xuICBtYXJnaW46IGF1dG87XG59Il19 */");
+/* harmony default export */ __webpack_exports__["default"] = ("h1 {\n  text-align: center;\n}\n\n.error-message {\n  color: red;\n  font-size: 12px;\n}\n\n.horiz-line {\n  width: 100%;\n  color: #A8A8A8;\n}\n\n.radio-family {\n  width: 40%;\n  display: inline-block;\n  text-align: left;\n}\n\n.radio-btn {\n  margin-top: 10px;\n  margin-bottom: 10px;\n}\n\n.palette-btn-bar {\n  text-align: center;\n}\n\n.add-color-dialog {\n  text-align: center;\n}\n\nform {\n  text-align: center;\n}\n\n.input-div {\n  display: inline-block;\n  max-width: 200px;\n}\n\ninput {\n  margin-left: 2vw;\n}\n\n.select-file {\n  overflow: hidden;\n  margin-top: 0.5%;\n}\n\n.color-tile :hover {\n  opacity: 0.8;\n}\n\n.color-tile :hover .tile-content {\n  display: none;\n}\n\n.color-tile :hover .delete-tile {\n  opacity: 1;\n  display: block;\n}\n\n.color-tile .tile-content {\n  opacity: 1;\n  width: 100%;\n}\n\n.color-tile .delete-tile {\n  opacity: 1;\n  display: none;\n}\n\n.container {\n  text-align: center;\n  margin: auto;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9zdWpheXNoYWgvRXhjZWxQYXJzaW5nL2Zyb250ZW5kL3NyYy9hcHAvYXBwLmNvbXBvbmVudC5zY3NzIiwic3JjL2FwcC9hcHAuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxrQkFBQTtBQ0NKOztBREVBO0VBQ0ksVUFBQTtFQUNBLGVBQUE7QUNDSjs7QURFQTtFQUNJLFdBQUE7RUFDQSxjQUFBO0FDQ0o7O0FERUE7RUFDSSxVQUFBO0VBQ0EscUJBQUE7RUFDQSxnQkFBQTtBQ0NKOztBRE1BO0VBQ0ksZ0JBQUE7RUFDQSxtQkFBQTtBQ0hKOztBRE1BO0VBQ0ksa0JBQUE7QUNISjs7QURNQTtFQUNJLGtCQUFBO0FDSEo7O0FETUE7RUFDSSxrQkFBQTtBQ0hKOztBRE1BO0VBQ0kscUJBQUE7RUFDQSxnQkFBQTtBQ0hKOztBRE1BO0VBQ0ksZ0JBQUE7QUNISjs7QURNQTtFQUNJLGdCQUFBO0VBQ0EsZ0JBQUE7QUNISjs7QURPSTtFQUNJLFlBQUE7QUNKUjs7QURLUTtFQUNJLGFBQUE7QUNIWjs7QURLUTtFQUNJLFVBQUE7RUFDQSxjQUFBO0FDSFo7O0FETUk7RUFDSSxVQUFBO0VBQ0EsV0FBQTtBQ0pSOztBRE1JO0VBQ0ksVUFBQTtFQUNBLGFBQUE7QUNKUjs7QURRQTtFQUNJLGtCQUFBO0VBQ0EsWUFBQTtBQ0xKIiwiZmlsZSI6InNyYy9hcHAvYXBwLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiaDEge1xuICAgIHRleHQtYWxpZ246IGNlbnRlcjtcbn1cblxuLmVycm9yLW1lc3NhZ2Uge1xuICAgIGNvbG9yOiByZWQ7XG4gICAgZm9udC1zaXplOiAxMnB4O1xufVxuXG4uaG9yaXotbGluZSB7XG4gICAgd2lkdGg6IDEwMCU7XG4gICAgY29sb3I6ICNBOEE4QTg7XG59XG5cbi5yYWRpby1mYW1pbHkge1xuICAgIHdpZHRoOiA0MCU7XG4gICAgZGlzcGxheTogaW5saW5lLWJsb2NrO1xuICAgIHRleHQtYWxpZ246IGxlZnQ7XG59XG5cbi8vIC5yYWRpby1ncm91cCB7XG4gICAgLy8gdGV4dC1hbGlnbjogbGVmdDtcbi8vIH1cblxuLnJhZGlvLWJ0biB7XG4gICAgbWFyZ2luLXRvcDogMTBweDtcbiAgICBtYXJnaW4tYm90dG9tOiAxMHB4O1xufVxuXG4ucGFsZXR0ZS1idG4tYmFyIHtcbiAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XG59XG5cbi5hZGQtY29sb3ItZGlhbG9nIHtcbiAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XG59XG5cbmZvcm0ge1xuICAgIHRleHQtYWxpZ246IGNlbnRlcjtcbn1cblxuLmlucHV0LWRpdiB7XG4gICAgZGlzcGxheTogaW5saW5lLWJsb2NrO1xuICAgIG1heC13aWR0aDogMjAwcHg7XG59XG5cbmlucHV0IHtcbiAgICBtYXJnaW4tbGVmdDogMnZ3O1xufVxuXG4uc2VsZWN0LWZpbGUge1xuICAgIG92ZXJmbG93OiBoaWRkZW47XG4gICAgbWFyZ2luLXRvcDogMC41JTtcbn1cblxuLmNvbG9yLXRpbGUge1xuICAgIDpob3ZlciB7XG4gICAgICAgIG9wYWNpdHk6IDAuODtcbiAgICAgICAgLnRpbGUtY29udGVudCB7XG4gICAgICAgICAgICBkaXNwbGF5OiBub25lO1xuICAgICAgICB9XG4gICAgICAgIC5kZWxldGUtdGlsZSB7XG4gICAgICAgICAgICBvcGFjaXR5OiAxO1xuICAgICAgICAgICAgZGlzcGxheTogYmxvY2s7XG4gICAgICAgIH1cbiAgICB9XG4gICAgLnRpbGUtY29udGVudCB7XG4gICAgICAgIG9wYWNpdHk6IDE7XG4gICAgICAgIHdpZHRoOiAxMDAlO1xuICAgIH1cbiAgICAuZGVsZXRlLXRpbGUge1xuICAgICAgICBvcGFjaXR5OiAxO1xuICAgICAgICBkaXNwbGF5OiBub25lO1xuICAgIH1cbn1cblxuLmNvbnRhaW5lciB7XG4gICAgdGV4dC1hbGlnbjogY2VudGVyO1xuICAgIG1hcmdpbjogYXV0bztcbn0iLCJoMSB7XG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbn1cblxuLmVycm9yLW1lc3NhZ2Uge1xuICBjb2xvcjogcmVkO1xuICBmb250LXNpemU6IDEycHg7XG59XG5cbi5ob3Jpei1saW5lIHtcbiAgd2lkdGg6IDEwMCU7XG4gIGNvbG9yOiAjQThBOEE4O1xufVxuXG4ucmFkaW8tZmFtaWx5IHtcbiAgd2lkdGg6IDQwJTtcbiAgZGlzcGxheTogaW5saW5lLWJsb2NrO1xuICB0ZXh0LWFsaWduOiBsZWZ0O1xufVxuXG4ucmFkaW8tYnRuIHtcbiAgbWFyZ2luLXRvcDogMTBweDtcbiAgbWFyZ2luLWJvdHRvbTogMTBweDtcbn1cblxuLnBhbGV0dGUtYnRuLWJhciB7XG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbn1cblxuLmFkZC1jb2xvci1kaWFsb2cge1xuICB0ZXh0LWFsaWduOiBjZW50ZXI7XG59XG5cbmZvcm0ge1xuICB0ZXh0LWFsaWduOiBjZW50ZXI7XG59XG5cbi5pbnB1dC1kaXYge1xuICBkaXNwbGF5OiBpbmxpbmUtYmxvY2s7XG4gIG1heC13aWR0aDogMjAwcHg7XG59XG5cbmlucHV0IHtcbiAgbWFyZ2luLWxlZnQ6IDJ2dztcbn1cblxuLnNlbGVjdC1maWxlIHtcbiAgb3ZlcmZsb3c6IGhpZGRlbjtcbiAgbWFyZ2luLXRvcDogMC41JTtcbn1cblxuLmNvbG9yLXRpbGUgOmhvdmVyIHtcbiAgb3BhY2l0eTogMC44O1xufVxuLmNvbG9yLXRpbGUgOmhvdmVyIC50aWxlLWNvbnRlbnQge1xuICBkaXNwbGF5OiBub25lO1xufVxuLmNvbG9yLXRpbGUgOmhvdmVyIC5kZWxldGUtdGlsZSB7XG4gIG9wYWNpdHk6IDE7XG4gIGRpc3BsYXk6IGJsb2NrO1xufVxuLmNvbG9yLXRpbGUgLnRpbGUtY29udGVudCB7XG4gIG9wYWNpdHk6IDE7XG4gIHdpZHRoOiAxMDAlO1xufVxuLmNvbG9yLXRpbGUgLmRlbGV0ZS10aWxlIHtcbiAgb3BhY2l0eTogMTtcbiAgZGlzcGxheTogbm9uZTtcbn1cblxuLmNvbnRhaW5lciB7XG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgbWFyZ2luOiBhdXRvO1xufSJdfQ== */");
 
 /***/ }),
 
@@ -660,19 +660,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
-/* harmony import */ var _RGBRangeValidator__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./RGBRangeValidator */ "./src/app/RGBRangeValidator.ts");
-/* harmony import */ var _excel_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./excel.service */ "./src/app/excel.service.ts");
+/* harmony import */ var _angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/material/snack-bar */ "./node_modules/@angular/material/esm5/snack-bar.es5.js");
+/* harmony import */ var _RGBRangeValidator__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./RGBRangeValidator */ "./src/app/RGBRangeValidator.ts");
+/* harmony import */ var _excel_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./excel.service */ "./src/app/excel.service.ts");
+
 
 
 
 
 
 var AppComponent = /** @class */ (function () {
-    function AppComponent(excelService) {
+    function AppComponent(excelService, snackBar) {
         this.excelService = excelService;
+        this.snackBar = snackBar;
         this.excelFileGroup = new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormGroup"]({
             excelFilePath: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required),
             excelRenderMode: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required),
+            excelCalendarInterval: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required),
             excelFile: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null),
             minDate: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"]({ value: null, disabled: true }),
             maxDate: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"]({ value: null, disabled: true })
@@ -684,9 +688,9 @@ var AppComponent = /** @class */ (function () {
             COLOR_EXISTS: 'This color already exists in your palette. Please modify your color selection.'
         };
         this.addNewColor = false;
-        this.validColorRed = new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"]('', [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, Object(_RGBRangeValidator__WEBPACK_IMPORTED_MODULE_3__["RGBRangeValidator"])()]);
-        this.validColorGreen = new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"]('', [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, Object(_RGBRangeValidator__WEBPACK_IMPORTED_MODULE_3__["RGBRangeValidator"])()]);
-        this.validColorBlue = new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"]('', [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, Object(_RGBRangeValidator__WEBPACK_IMPORTED_MODULE_3__["RGBRangeValidator"])()]);
+        this.validColorRed = new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"]('', [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, Object(_RGBRangeValidator__WEBPACK_IMPORTED_MODULE_4__["RGBRangeValidator"])()]);
+        this.validColorGreen = new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"]('', [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, Object(_RGBRangeValidator__WEBPACK_IMPORTED_MODULE_4__["RGBRangeValidator"])()]);
+        this.validColorBlue = new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"]('', [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, Object(_RGBRangeValidator__WEBPACK_IMPORTED_MODULE_4__["RGBRangeValidator"])()]);
         this.tiles = [];
         this.defaultTiles = [];
     }
@@ -766,6 +770,7 @@ var AppComponent = /** @class */ (function () {
             input.append('start', startDate);
             input.append('end', endDate);
         }
+        input.append('interval', form.controls['excelCalendarInterval'].value);
         input.append('name', form.controls['excelFile'].value);
         this.tiles.forEach(function (tile) {
             input.append(tile.text, tile.color);
@@ -782,6 +787,7 @@ var AppComponent = /** @class */ (function () {
         }
     };
     AppComponent.prototype.programValidation = function (formData) {
+        var _this = this;
         this.excelService.sendProgramValidation(formData).subscribe(function (res) {
             var blob = new Blob([res], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
             var blobFile = new File([blob], "output.xlsx", { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
@@ -791,9 +797,22 @@ var AppComponent = /** @class */ (function () {
             anchor.href = url;
             anchor.click();
             window.URL.revokeObjectURL(url);
-        }, function (err) {
-            console.log("Error", err);
-        });
+        }, function (err) { return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this, void 0, void 0, function () {
+            var message, _a, _b;
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_c) {
+                switch (_c.label) {
+                    case 0:
+                        _b = (_a = JSON).parse;
+                        return [4 /*yield*/, err.error.text()];
+                    case 1:
+                        message = _b.apply(_a, [_c.sent()]).message;
+                        this.snackBar.open(message, null, {
+                            duration: 5000
+                        });
+                        return [2 /*return*/];
+                }
+            });
+        }); });
     };
     AppComponent.prototype.resourceValidation = function (formData) {
         this.excelService.sendResourceValidation(formData).subscribe(function (res) {
@@ -855,12 +874,26 @@ var AppComponent = /** @class */ (function () {
     AppComponent.prototype.onNoClick = function () {
         this.addNewColor = false;
     };
+    AppComponent.prototype.deleteColor = function (deleteTile) {
+        var _this = this;
+        this.excelService.removeColorPalette(deleteTile.text, this.excelFileGroup.controls.excelRenderMode.value).subscribe(function (res) {
+            var idx = _this.tiles.findIndex(function (tile) {
+                return deleteTile.text == tile.text;
+            });
+            if (idx > -1) {
+                _this.tiles.splice(idx, 1);
+            }
+        }, function (err) {
+            console.log(err);
+        });
+    };
     AppComponent.prototype.resetDefault = function () {
         this.tiles = Object.assign([], this.defaultTiles);
         ;
     };
     AppComponent.ctorParameters = function () { return [
-        { type: _excel_service__WEBPACK_IMPORTED_MODULE_4__["ExcelService"] }
+        { type: _excel_service__WEBPACK_IMPORTED_MODULE_5__["ExcelService"] },
+        { type: _angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_3__["MatSnackBar"] }
     ]; };
     AppComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -868,7 +901,8 @@ var AppComponent = /** @class */ (function () {
             template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! raw-loader!./app.component.html */ "./node_modules/raw-loader/dist/cjs.js!./src/app/app.component.html")).default,
             styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! ./app.component.scss */ "./src/app/app.component.scss")).default]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_excel_service__WEBPACK_IMPORTED_MODULE_4__["ExcelService"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_excel_service__WEBPACK_IMPORTED_MODULE_5__["ExcelService"],
+            _angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_3__["MatSnackBar"]])
     ], AppComponent);
     return AppComponent;
 }());
@@ -900,12 +934,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_material_form_field__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/material/form-field */ "./node_modules/@angular/material/esm5/form-field.es5.js");
 /* harmony import */ var _angular_material_input__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @angular/material/input */ "./node_modules/@angular/material/esm5/input.es5.js");
 /* harmony import */ var _angular_material_radio__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/material/radio */ "./node_modules/@angular/material/esm5/radio.es5.js");
-/* harmony import */ var _angular_material_datepicker__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @angular/material/datepicker */ "./node_modules/@angular/material/esm5/datepicker.es5.js");
-/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
-/* harmony import */ var _angular_material_moment_adapter__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @angular/material-moment-adapter */ "./node_modules/@angular/material-moment-adapter/esm5/material-moment-adapter.es5.js");
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
-/* harmony import */ var _excel_service__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./excel.service */ "./src/app/excel.service.ts");
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./constants */ "./src/app/constants.ts");
+/* harmony import */ var _angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @angular/material/snack-bar */ "./node_modules/@angular/material/esm5/snack-bar.es5.js");
+/* harmony import */ var _angular_material_datepicker__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @angular/material/datepicker */ "./node_modules/@angular/material/esm5/datepicker.es5.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var _angular_material_moment_adapter__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @angular/material-moment-adapter */ "./node_modules/@angular/material-moment-adapter/esm5/material-moment-adapter.es5.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _excel_service__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./excel.service */ "./src/app/excel.service.ts");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./constants */ "./src/app/constants.ts");
+
 
 
 
@@ -945,13 +981,14 @@ var AppModule = /** @class */ (function () {
                 _angular_material_form_field__WEBPACK_IMPORTED_MODULE_10__["MatFormFieldModule"],
                 _angular_material_input__WEBPACK_IMPORTED_MODULE_11__["MatInputModule"],
                 _angular_material_radio__WEBPACK_IMPORTED_MODULE_12__["MatRadioModule"],
-                _angular_material_datepicker__WEBPACK_IMPORTED_MODULE_13__["MatDatepickerModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_14__["MatNativeDateModule"],
-                _angular_common_http__WEBPACK_IMPORTED_MODULE_16__["HttpClientModule"]
+                _angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_13__["MatSnackBarModule"],
+                _angular_material_datepicker__WEBPACK_IMPORTED_MODULE_14__["MatDatepickerModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_15__["MatNativeDateModule"],
+                _angular_common_http__WEBPACK_IMPORTED_MODULE_17__["HttpClientModule"]
             ],
-            providers: [_constants__WEBPACK_IMPORTED_MODULE_18__["Constants"], _excel_service__WEBPACK_IMPORTED_MODULE_17__["ExcelService"], _angular_material_datepicker__WEBPACK_IMPORTED_MODULE_13__["MatDatepickerModule"],
-                { provide: _angular_material__WEBPACK_IMPORTED_MODULE_14__["DateAdapter"], useClass: _angular_material_moment_adapter__WEBPACK_IMPORTED_MODULE_15__["MomentDateAdapter"], deps: [_angular_material__WEBPACK_IMPORTED_MODULE_14__["MAT_DATE_LOCALE"]] },
-                { provide: _angular_material__WEBPACK_IMPORTED_MODULE_14__["MAT_DATE_FORMATS"], useValue: _constants__WEBPACK_IMPORTED_MODULE_18__["MY_FORMATS"] }
+            providers: [_constants__WEBPACK_IMPORTED_MODULE_19__["Constants"], _excel_service__WEBPACK_IMPORTED_MODULE_18__["ExcelService"], _angular_material_datepicker__WEBPACK_IMPORTED_MODULE_14__["MatDatepickerModule"],
+                { provide: _angular_material__WEBPACK_IMPORTED_MODULE_15__["DateAdapter"], useClass: _angular_material_moment_adapter__WEBPACK_IMPORTED_MODULE_16__["MomentDateAdapter"], deps: [_angular_material__WEBPACK_IMPORTED_MODULE_15__["MAT_DATE_LOCALE"]] },
+                { provide: _angular_material__WEBPACK_IMPORTED_MODULE_15__["MAT_DATE_FORMATS"], useValue: _constants__WEBPACK_IMPORTED_MODULE_19__["MY_FORMATS"] }
             ],
             bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_5__["AppComponent"]]
         })
@@ -1038,6 +1075,12 @@ var ExcelService = /** @class */ (function () {
     ExcelService.prototype.addColorPalette = function (color, document) {
         var urlParams = document ? { doc: document } : {};
         return this.http.post(this.constants.BASE_URL + '/excel/add', color, {
+            params: urlParams
+        });
+    };
+    ExcelService.prototype.removeColorPalette = function (color, document) {
+        var urlParams = document ? { doc: document } : {};
+        return this.http.post(this.constants.BASE_URL + '/excel/remove', color, {
             params: urlParams
         });
     };
