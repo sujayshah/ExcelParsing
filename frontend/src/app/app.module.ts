@@ -12,6 +12,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule, MAT_DATE_FORMATS, MAT_DATE_LOCALE, DateAdapter } from '@angular/material';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
@@ -36,6 +37,7 @@ import { Constants, MY_FORMATS} from './constants';
     MatFormFieldModule,
     MatInputModule,
     MatRadioModule,
+    MatSnackBarModule,
     MatDatepickerModule,
     MatNativeDateModule,
     HttpClientModule

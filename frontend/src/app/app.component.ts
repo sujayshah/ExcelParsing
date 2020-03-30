@@ -3,6 +3,7 @@ import { NgForm, FormControl, FormGroup, Validators, AbstractControl, ValidatorF
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { RGBRangeValidator } from './RGBRangeValidator';
 import { MatRadioChange } from '@angular/material/radio';
 import { ExcelService } from './excel.service';
@@ -77,9 +78,9 @@ export class AppComponent implements OnInit {
   defaultTiles: Tile[] = [];
 
   constructor(
-    private excelService: ExcelService
+    private excelService: ExcelService,
+    private snackBar: MatSnackBar
   ) {
-
   }
 
   focusRenderMode(event : MatRadioChange) {
@@ -158,8 +159,11 @@ export class AppComponent implements OnInit {
       anchor.click()
       window.URL.revokeObjectURL(url)
     },
-    err => {
-      console.log("Error", err);
+    async (err) => {
+      let message = JSON.parse(await err.error.text()).message;
+      this.snackBar.open(message, null, {
+        duration: 5000
+      });
     });
   }
 

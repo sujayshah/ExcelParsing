@@ -110,8 +110,8 @@ def program_validation():
 		# resp = send_file(fileName, mimetype="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
 		resp = send_from_directory('/tmp', fileName, as_attachment=True, mimetype="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
 		resp_code = 200
-	except:
-		resp = "Error"
+	except Exception as e:
+		resp = jsonify({'message' : str(e)})
 		resp_code = 400
 
 	return resp, resp_code
