@@ -94,17 +94,17 @@ def generateCalendar(startDate, endDate, interval):
 	else:
 		idx = 0
 		curYear = curDate.year
-		qstarts = [date(year=curYear, month=1, day=1), \
-						date(year=curYear, month=4, day=1), \
-						date(year=curYear, month=7, day=1), \
-						date(year=curYear, month=10, day=1)]
+		qstarts = [date(year=curYear, month=4, day=1), \
+					date(year=curYear, month=7, day=1), \
+					date(year=curYear, month=10, day=1), \
+					date(year=curYear+1, month=1, day=1)]
 		for qs in qstarts:
-			if (qs - curDate).days >= 0:
+			if (qs - curDate).days > 0:
 				idx = qstarts.index(qs)
 				break
 		while curDate <= endDate:			
 			startToEnd.append(curDate)
-			if idx == 0:
+			if idx == len(qstarts)-1:
 				curYear += 1
 			curDate = qstarts[idx].replace(year = curYear)
 			idx = (idx + 1) % 4
@@ -207,24 +207,33 @@ def styleCell(curCell, fillColor, cellRange = 0, autofit = False):
 			col_dim.min = autoLength
 		curCell.parent.column_dimensions[curCell.column_letter].width = col_dim.min
 
-def writeExcel(st, wkList, eventData, palette, categories, startDate, endDate):
+def writeExcel(st, wkList, eventData, palette, categories, startDate, endDate, interval):
 	st['A1'] = 'Machine S/N'
 	st['B1'] = 'Phase'
 	styleCell(st['A1'], "FFFFFFFF", autofit = True)
 	styleCell(st['B1'], "FFFFFFFF", autofit = True)
-
 	curCell = st['C1']
 	st.row_dimensions[1] = dimensions.RowDimension(worksheet = st, height = 50)
-	for idx, wkCell in enumerate(wkList):
-		curCell.value = wkList[idx].strftime("X%m/X%d/%Y").replace('X0','X').replace('X','')
-		st.merge_cells(start_column = curCell.column, end_column = curCell.column + 6, start_row = curCell.row, end_row = curCell.row)		
-		styleCell(curCell, "FFFFA500", cellRange = 6)
-		curCell = curCell.offset(column = 7)
+	if interval == 'monthly':
+		for idx, wkCell in enumerate(wkList):
+			curCell.value = wkList[idx].strftime("X%m/X%d/%Y").replace('X0','X').replace('X','')
+			st.merge_cells(start_column = curCell.column, end_column = curCell.column + 6, start_row = curCell.row, end_row = curCell.row)		
+			styleCell(curCell, "FFFFA500", cellRange = 6)
+			curCell = curCell.offset(column = 7)
+	else:
+		for idx, wkCell in enumerate(wkList):
+			if idx < (len(wkList)-1):
+				mergeOffset = (wkList[idx+1] - wkCell).days
+			else:
+				mergeOffset = (endDate - wkCell).days + 1
+			curCell.value = wkList[idx].strftime("X%m/X%d/%Y").replace('X0','X').replace('X','')
+			st.merge_cells(start_column = curCell.column, end_column = curCell.column + mergeOffset - 1, start_row = curCell.row, end_row = curCell.row)		
+			styleCell(curCell, "FFFFA500", cellRange = mergeOffset - 1)
+			curCell = curCell.offset(column = mergeOffset)
 
 	machineCol = st['A2']
 	activityCol = st['B2']
 	calendarStartCol = st['C2']
-	calendarEndCol = calendarStartCol.offset(column = len(wkList)*7-1)
 
 	for event in iter(eventData):
 		machineCol.value = event.machineID
@@ -260,7 +269,6 @@ def writeExcel(st, wkList, eventData, palette, categories, startDate, endDate):
 		machineCol = machineCol.offset(row = 1)
 		activityCol = activityCol.offset(row = 1)
 		calendarStartCol = calendarStartCol.offset(row = 1)
-		calendarEndCol = calendarEndCol.offset(row = 1)
 
 #--------------------------------------------------------
 
@@ -274,7 +282,7 @@ def program_validation(file_path, palette, start, end, interval = "monthly"):
 		if "Calendar" in wb.sheetnames:
 			wb.remove(wb["Calendar"])
 		ws = wb.create_sheet("Calendar")
-		writeExcel(ws, wkList, eventList, palette, categories, start, end)
+		writeExcel(ws, wkList, eventList, palette, categories, start, end, interval)
 		# writeExcel(ws, wkList, eventList, palette, categories, start.strftime("X%m/X%d/%Y").replace('X0','X').replace('X',''))
 		wb.save(file_path)
 		# except ValueError as ve:
@@ -282,4 +290,4 @@ def program_validation(file_path, palette, start, end, interval = "monthly"):
 		# except TypeError as te:
 		# 	raise Exception('A cell in column C or D has an invalid date or formula')
 	except Exception as e:
-		print(e)
+		raise(e)
