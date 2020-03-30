@@ -47,7 +47,7 @@ class EXCEL_FUNCS:
 					elif evalCell < min:
 						min = evalCell
 		except Exception as e:
-			print(e)
+			raise(e)
 		return min
 
 	def getMax(self, st, op_range, cellCache):
@@ -63,7 +63,7 @@ class EXCEL_FUNCS:
 					elif evalCell > max:
 						max = evalCell
 		except Exception as e:
-			print(e)
+			raise(e)
 		return max
 	
 	def getWorkday(self, st, op_range, cellCache, offset, secondary_range):
@@ -78,7 +78,7 @@ class EXCEL_FUNCS:
 					workday += timedelta(days = 7 - workday.weekday())
 				workday += timedelta(days = 1)
 		except Exception as e:
-			print(e)
+			raise(e)
 		while workday.weekday() >= 5:
 			workday += timedelta(days = 1)
 		return workday
@@ -86,10 +86,28 @@ class EXCEL_FUNCS:
 def generateCalendar(startDate, endDate, interval):
 	startToEnd = []
 	curDate = startDate
-	while curDate <= endDate:
-		startToEnd.append(curDate)
-		# startToEnd.append(curDate.strftime("X%m/X%d/%Y").replace('X0','X').replace('X',''))
-		curDate += timedelta(days = 7)
+	if interval == 'monthly':
+		while curDate <= endDate:
+			# startToEnd.append(curDate.strftime("X%m/X%d/%Y").replace('X0','X').replace('X',''))
+			startToEnd.append(curDate)
+			curDate += timedelta(days = 7)
+	else:
+		idx = 0
+		curYear = curDate.year
+		qstarts = [date(year=curYear, month=1, day=1), \
+						date(year=curYear, month=4, day=1), \
+						date(year=curYear, month=7, day=1), \
+						date(year=curYear, month=10, day=1)]
+		for qs in qstarts:
+			if (qs - curDate).days >= 0:
+				idx = qstarts.index(qs)
+				break
+		while curDate <= endDate:			
+			startToEnd.append(curDate)
+			if idx == 0:
+				curYear += 1
+			curDate = qstarts[idx].replace(year = curYear)
+			idx = (idx + 1) % 4
 	return startToEnd
 
 def evaluateFormulaToDate(st, evalString, cellCache):
