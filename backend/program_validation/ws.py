@@ -261,8 +261,8 @@ def writeExcel(st, wkList, eventData, palette, categories, startDate, endDate, i
 				offsetCell.value = task.task
 				if taskLength > 0:
 					st.merge_cells(start_column = offsetCell.column, end_column = offsetCell.column + taskLength, start_row = offsetCell.row, end_row = offsetCell.row)
+				paletteIdx = categories.index(task.category) % len(palette)
 				styleCell(offsetCell, palette[paletteIdx], cellRange = taskLength)
-				paletteIdx = (paletteIdx + 1) % len(palette)
 			except Exception as e:
 				raise(e)
 
