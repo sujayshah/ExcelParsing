@@ -179,8 +179,11 @@ export class AppComponent implements OnInit {
       anchor.click()
       window.URL.revokeObjectURL(url)
     },
-    err => {
-    console.log("Error", err);
+    async (err) => {
+      let message = JSON.parse(await err.error.text()).message;
+      this.snackBar.open(message, null, {
+        duration: 5000
+      });
     });
   }
 
