@@ -38,7 +38,6 @@ def getNames(st):
 def resource_validation(file_path):
 	wb = pyxl.load_workbook(file_path)
 	st = wb[wb.sheetnames[0]]
-	categories, eventList = parseSchedule(st, start, end)
 	if "Calendar" in wb.sheetnames:
 		wb.remove(wb["Calendar"])
 	ws = wb.create_sheet("Calendar")
