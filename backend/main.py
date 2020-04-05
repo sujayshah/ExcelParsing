@@ -129,7 +129,7 @@ def resource_validation():
 		fileStorage = request.files.get('name')
 		fileName = "output.xlsx"
 		fileStorage.save('/tmp/' + fileName)
-		# testwork.openfile(file, palette)
+		testwork.resource_validation('/tmp/' + fileName)
 		# resp = send_file(fileName, mimetype="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
 		resp = send_from_directory('/tmp', fileName, as_attachment=True, mimetype="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
 		resp_code = 200
