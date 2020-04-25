@@ -12,7 +12,7 @@ class EXCEL_FUNCS:
 	def __init__(self, func_type):
 		self.func_type = func_type
 
-	def runFunction(self, st, op_range, cellCache, offset = 0, secondary_range = None): 
+	def runFunction(self, st, op_range, cellCache, offset = 0, external_offset = 0, secondary_range = None): 
 		if self.func_type == 'MIN(':
 			# print("getMin")
 			return self.getMin(st, op_range, cellCache)
@@ -21,7 +21,7 @@ class EXCEL_FUNCS:
 			# print("getMax")
 		elif self.func_type == 'WORKDAY(':
 			# print("getWorkday")
-			return self.getWorkday(st, op_range, cellCache, offset, secondary_range)
+			return self.getWorkday(st, op_range, cellCache, offset, external_offset, secondary_range)
 		elif op_range:
 			# print("getCellValue")
 			return self.getCellValue(st, op_range, offset, cellCache)
@@ -66,7 +66,7 @@ class EXCEL_FUNCS:
 			raise(e)
 		return max
 	
-	def getWorkday(self, st, op_range, cellCache, offset, secondary_range):
+	def getWorkday(self, st, op_range, cellCache, offset, external_offset, secondary_range):
 		workday = st[op_range].value
 		try:
 			if not isinstance(workday, datetime):
@@ -81,6 +81,7 @@ class EXCEL_FUNCS:
 			raise(e)
 		while workday.weekday() >= 5:
 			workday += timedelta(days = 1)
+		workday += timedelta(days = external_offset)
 		return workday
 
 def generateCalendar(startDate, endDate, interval):
@@ -119,7 +120,10 @@ def evaluateFormulaToDate(st, evalString, cellCache):
 		operand_range_iter = (t for t in tok.items if t.type == 'OPERAND' and t.subtype == 'RANGE')
 		operand_range = next(operand_range_iter, None)
 		secondary_range = next(operand_range_iter, None)
-		offset = next((t for t in tok.items if t.type == 'OPERAND' and t.subtype == 'NUMBER'), 0)
+		offset_iter = (t for t in tok.items if t.type == 'OPERAND' and t.subtype == 'NUMBER')
+		offset = next(offset_iter, 0)
+		external_offset = next(offset_iter, 0)
+		offset_prefix = next((t for t in tok.items if t.type == 'OPERATOR-PREFIX'), 0)
 		offset_infix = next((t for t in tok.items if t.type == 'OPERATOR-INFIX'), 0)
 		# print(func_type, operand_range, secondary_range, offset)
 		# print("\n".join("%12s%11s%9s" % (t.value, t.type, t.subtype) for t in tok.items))
@@ -136,11 +140,21 @@ def evaluateFormulaToDate(st, evalString, cellCache):
 
 		if isinstance(offset, pyxl.formula.tokenizer.Token) and isinstance(offset.value, str):
 			offset = int(float(offset.value))
-			if offset_infix and offset_infix.value == '-':
+			if offset_prefix and offset_prefix.value == '-':
+				offset *= -1
+			elif offset_infix and offset_infix.value == '-':
 				offset *= -1
 
+		if isinstance(external_offset, pyxl.formula.tokenizer.Token) and isinstance(external_offset.value, str) and formula_func.func_type == 'WORKDAY(':
+			external_offset = int(float(external_offset.value))
+			if offset_infix and offset_infix.value == '-':
+				external_offset *= -1
+		else:
+			external_offset = 0
+
 		funcOutput = formula_func.runFunction(st=st, op_range=operand_range, cellCache=cellCache, 
-		offset=offset, secondary_range=secondary_range)
+		offset=offset, external_offset = external_offset, secondary_range=secondary_range)
+
 		return funcOutput
 
 def parseSchedule(st, userStartDate, userEndDate):
@@ -291,3 +305,7 @@ def program_validation(file_path, palette, start, end, interval = "monthly"):
 		# 	raise Exception('A cell in column C or D has an invalid date or formula')
 	except Exception as e:
 		raise(e)
+
+if __name__ == '__main__':
+	palette = ['#FB8000', '#B0E0E6', '#D8BFD8', '#EE82EE', '#4CFF00', '#40E0D0', '#CD5C5C', '#F0E68C', '#9370DB', '#BC8F8F', '#3CB371']
+	program_validation('./backend/program_validation/input/966GC-April2020.xlsx', palette, date(year=2019, month=11, day=4), date(year=2022, month=6, day=30))
