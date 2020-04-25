@@ -295,7 +295,7 @@ webpackContext.id = "./node_modules/moment/locale sync recursive ^\\.\\/.*$";
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<!--The content below is only a placeholder and can be replaced.-->\n<!-- <div style=\"text-align:center\">\n  <form (ngSubmit)=\"onSubmit(f)\">\n    <input name=\"first\" ngModel required>\n    <input name=\"last\" ngModel>\n    <button type=\"submit\">Submit</button>\n  </form>\n</div> -->\n<div class=\"container\">\n  <h2>Select Input File</h2>\n  <form [formGroup]=\"excelFileGroup\" (ngSubmit)=\"onSubmit(excelFileGroup)\">\n    <div class=\"radio-family\">\n      <mat-radio-group class=\"radio-group\" formControlName=\"excelRenderMode\" (change)=\"focusRenderMode($event)\">\n        <mat-radio-button class=\"radio-btn\" value=\"program\">\n          Program Validation\n        </mat-radio-button><br>\n        <mat-radio-button class=\"radio-btn\" value=\"resource\">\n          Resource Validation\n        </mat-radio-button><br>\n      </mat-radio-group><br>\n      <hr class=\"horiz-line\">\n      <mat-radio-group class=\"radio-group\" formControlName=\"excelCalendarInterval\">\n        <mat-radio-button class=\"radio-btn\" value=\"monthly\">\n          Monthly\n        </mat-radio-button><br>\n        <mat-radio-button class=\"radio-btn\" value=\"quarterly\">\n          Quarterly\n        </mat-radio-button><br>\n      </mat-radio-group><br>\n    </div><br>\n    <!-- ------------------- -->\n    <mat-form-field class=\"datepicker\">\n      <input matInput [matDatepicker]=\"minPicker\" formControlName=\"minDate\" placeholder=\"Choose a start date\">\n      <mat-datepicker-toggle matSuffix [for]=\"minPicker\"></mat-datepicker-toggle>\n      <mat-datepicker #minPicker></mat-datepicker>\n    </mat-form-field>\n    <mat-form-field class=\"datepicker\">\n      <input matInput [matDatepicker]=\"maxPicker\" formControlName=\"maxDate\" placeholder=\"Choose an end date\">\n      <mat-datepicker-toggle matSuffix [for]=\"maxPicker\"></mat-datepicker-toggle>\n      <mat-datepicker #maxPicker></mat-datepicker>\n    </mat-form-field><br>\n    <span class=\"error-message\" *ngIf=\"excelFileGroup.errors\">Please select a valid date range</span><br><br>\n    <!-- ------------------- -->\n    <div class=\"input-div\">\n      <input #input class=\"select-file btn\" (change)=\"processFile($event.target.files)\"\n      id=\"input-file-id\" type=\"file\" name=\"excel-file\" accept=\".xlsx\" formControlName=\"excelFilePath\"  />\n    </div>\n    <br><br>\n    <button mat-raised-button type=\"submit\" [disabled]=\"!excelFileGroup.valid\">Upload</button>\n  </form>\n  <h2>{{ excelFileGroup.controls[\"excelRenderMode\"].value || \"default\" }} color palette</h2>\n  <mat-grid-list cols=\"4\" rowHeight=\"100px\">\n    <div class=\"color-tile\" *ngFor=\"let tile of tiles\">\n      <mat-grid-tile\n          [style.background]=\"tile.color\">\n        <div class=\"tile-content\">{{tile.text}}</div>\n        <div class=\"delete-tile\">\n          <button mat-stroked-button (click)=\"deleteColor(tile)\">X</button>\n        </div>\n      </mat-grid-tile>\n  </div>\n  </mat-grid-list>\n  <br>\n  <div class=\"palette-btn-bar\">\n    <button mat-raised-button (click)=\"addColorDialog()\">\n      Add color\n    </button><br><br>\n\n    <!-- Dialog Palette Select -->\n    <div class=\"add-color-dialog \"*ngIf=\"addNewColor\">\n      <div mat-dialog-content>\n        <p>Enter a whole number between 0-255 for each RGB Value</p>\n        <mat-form-field>\n          <input matInput placeholder=\"Red\" [formControl]=\"validColorRed\">\n        </mat-form-field>&nbsp;\n        <mat-form-field>\n          <input matInput placeholder=\"Green\" [formControl]=\"validColorGreen\">\n        </mat-form-field>&nbsp;\n        <mat-form-field>\n          <input matInput placeholder=\"Blue\" [formControl]=\"validColorBlue\">\n        </mat-form-field>\n        <mat-error *ngIf=\"clickedAddColor && (\n                        (validColorRed.invalid || validColorGreen.invalid || validColorBlue.invalid) ||\n                        (validColorRed.valid && validColorGreen.valid && validColorBlue.valid && colorExists)\n                        )\">{{colorError}}</mat-error>\n      </div>\n      <div mat-dialog-actions>\n        <button mat-button (click)=\"onNoClick()\">Cancel</button>\n        <button mat-button (click)=\"addColor()\" cdkFocusInitial>OK</button>\n      </div><br>\n    </div>\n    <!-- Dialog Palette Select -->\n\n    <button mat-raised-button (click)=\"resetDefault()\">\n      Reset to Default\n    </button>\n  </div>\n</div>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"container\">\n  <h2>Select Input File</h2>\n  <form [formGroup]=\"excelFileGroup\" (ngSubmit)=\"onSubmit(excelFileGroup)\">\n    <div class=\"radio-family\">\n      <mat-radio-group class=\"radio-group\" formControlName=\"excelRenderMode\" (change)=\"focusRenderMode($event)\">\n        <mat-radio-button class=\"radio-btn\" value=\"program\">\n          Program Validation\n        </mat-radio-button><br>\n        <mat-radio-button class=\"radio-btn\" value=\"resource\">\n          Resource Validation\n        </mat-radio-button><br>\n      </mat-radio-group><br>\n      <hr class=\"horiz-line\">\n      <mat-radio-group class=\"radio-group\" formControlName=\"excelCalendarInterval\">\n        <mat-radio-button class=\"radio-btn\" value=\"monthly\">\n          Monthly\n        </mat-radio-button><br>\n        <mat-radio-button class=\"radio-btn\" value=\"quarterly\">\n          Quarterly\n        </mat-radio-button><br>\n      </mat-radio-group><br>\n    </div><br>\n    <!-- ------------------- -->\n    <mat-form-field class=\"datepicker\">\n      <input matInput [matDatepicker]=\"minPicker\" formControlName=\"minDate\" placeholder=\"Choose a start date\">\n      <mat-datepicker-toggle matSuffix [for]=\"minPicker\"></mat-datepicker-toggle>\n      <mat-datepicker #minPicker></mat-datepicker>\n    </mat-form-field>\n    <mat-form-field class=\"datepicker\">\n      <input matInput [matDatepicker]=\"maxPicker\" formControlName=\"maxDate\" placeholder=\"Choose an end date\">\n      <mat-datepicker-toggle matSuffix [for]=\"maxPicker\"></mat-datepicker-toggle>\n      <mat-datepicker #maxPicker></mat-datepicker>\n    </mat-form-field><br>\n    <span class=\"error-message\" *ngIf=\"excelFileGroup.errors\">Please select a valid date range</span><br><br>\n    <!-- ------------------- -->\n    <div class=\"input-div\">\n      <input #input class=\"select-file btn\" (change)=\"processFile($event.target.files)\"\n      id=\"input-file-id\" type=\"file\" name=\"excel-file\" accept=\".xlsx\" formControlName=\"excelFilePath\"  />\n    </div>\n    <br><br>\n    <button mat-raised-button type=\"submit\" [disabled]=\"!excelFileGroup.valid\">Upload</button>\n  </form>\n  <h2>{{ excelFileGroup.controls[\"excelRenderMode\"].value || \"default\" }} color palette</h2>\n  <mat-grid-list cols=\"4\" rowHeight=\"100px\">\n    <div class=\"color-tile\" *ngFor=\"let tile of tiles\">\n      <mat-grid-tile\n          [style.background]=\"tile.color\">\n        <div class=\"tile-content\">{{tile.text}}</div>\n        <div class=\"delete-tile\">\n          <button mat-stroked-button (click)=\"deleteColor(tile)\">X</button>\n        </div>\n      </mat-grid-tile>\n  </div>\n  </mat-grid-list>\n  <br>\n  <div class=\"palette-btn-bar\">\n    <button mat-raised-button (click)=\"addColorDialog()\">\n      Add color\n    </button><br><br>\n\n    <!-- Dialog Palette Select -->\n    <div class=\"add-color-dialog \"*ngIf=\"addNewColor\">\n      <mat-form-field>\n        <input matInput placeholder=\"Category Name\" [formControl]=\"categoryName\">\n      </mat-form-field>\n      <div mat-dialog-content>\n        <p>Enter a whole number between 0-255 for each RGB Value</p>\n        <mat-form-field>\n          <input matInput placeholder=\"Red\" [formControl]=\"validColorRed\">\n        </mat-form-field>&nbsp;\n        <mat-form-field>\n          <input matInput placeholder=\"Green\" [formControl]=\"validColorGreen\">\n        </mat-form-field>&nbsp;\n        <mat-form-field>\n          <input matInput placeholder=\"Blue\" [formControl]=\"validColorBlue\">\n        </mat-form-field>\n        <mat-error *ngIf=\"clickedAddColor && (\n                        (validColorRed.invalid || validColorGreen.invalid || validColorBlue.invalid) ||\n                        (validColorRed.valid && validColorGreen.valid && validColorBlue.valid && colorExists)\n                        )\">{{colorError}}</mat-error>\n        <mat-error *ngIf=\"clickedAddColor && categoryName.invalid\">Category name is required</mat-error>\n      </div>\n      <div mat-dialog-actions>\n        <button mat-button (click)=\"onNoClick()\">Cancel</button>\n        <button mat-button (click)=\"addColor()\" cdkFocusInitial>OK</button>\n      </div><br>\n    </div>\n    <!-- Dialog Palette Select -->\n\n    <button mat-raised-button (click)=\"resetDefault()\">\n      Reset to Default\n    </button>\n  </div>\n</div>\n");
 
 /***/ }),
 
@@ -691,6 +691,7 @@ var AppComponent = /** @class */ (function () {
         this.validColorRed = new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"]('', [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, Object(_RGBRangeValidator__WEBPACK_IMPORTED_MODULE_4__["RGBRangeValidator"])()]);
         this.validColorGreen = new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"]('', [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, Object(_RGBRangeValidator__WEBPACK_IMPORTED_MODULE_4__["RGBRangeValidator"])()]);
         this.validColorBlue = new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"]('', [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, Object(_RGBRangeValidator__WEBPACK_IMPORTED_MODULE_4__["RGBRangeValidator"])()]);
+        this.categoryName = new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"]('', [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required]);
         this.tiles = [];
         this.defaultTiles = [];
     }
@@ -700,7 +701,7 @@ var AppComponent = /** @class */ (function () {
             _this.tiles = [];
             for (var k in res) {
                 var newTile = {
-                    text: res[k],
+                    text: k,
                     color: res[k]
                 };
                 _this.tiles.push(newTile);
@@ -731,7 +732,7 @@ var AppComponent = /** @class */ (function () {
             _this.tiles = [];
             for (var k in res) {
                 var newTile = {
-                    text: res[k],
+                    text: k,
                     color: res[k]
                 };
                 _this.tiles.push(newTile);
@@ -815,6 +816,7 @@ var AppComponent = /** @class */ (function () {
         }); });
     };
     AppComponent.prototype.resourceValidation = function (formData) {
+        var _this = this;
         this.excelService.sendResourceValidation(formData).subscribe(function (res) {
             var blob = new Blob([res], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
             var blobFile = new File([blob], "output.xlsx", { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
@@ -824,9 +826,22 @@ var AppComponent = /** @class */ (function () {
             anchor.href = url;
             anchor.click();
             window.URL.revokeObjectURL(url);
-        }, function (err) {
-            console.log("Error", err);
-        });
+        }, function (err) { return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this, void 0, void 0, function () {
+            var message, _a, _b;
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_c) {
+                switch (_c.label) {
+                    case 0:
+                        _b = (_a = JSON).parse;
+                        return [4 /*yield*/, err.error.text()];
+                    case 1:
+                        message = _b.apply(_a, [_c.sent()]).message;
+                        this.snackBar.open(message, null, {
+                            duration: 5000
+                        });
+                        return [2 /*return*/];
+                }
+            });
+        }); });
     };
     /////////////////////////////////////////////////
     AppComponent.prototype.rgbToHex = function (r, g, b) {
@@ -848,16 +863,16 @@ var AppComponent = /** @class */ (function () {
     AppComponent.prototype.addColor = function () {
         var _this = this;
         this.clickedAddColor = true;
-        if (this.validColorRed.valid && this.validColorGreen.valid && this.validColorBlue.valid) {
+        if (this.validColorRed.valid && this.validColorGreen.valid && this.validColorBlue.valid && this.categoryName.valid) {
             var color_1 = this.rgbToHex(this.validColorRed.value, this.validColorGreen.value, this.validColorBlue.value);
-            var newTile_1 = { color: color_1, text: color_1.toUpperCase() };
+            var newTile_1 = { color: color_1, text: this.categoryName.value };
             if (this.tiles.find(function (tile) { return color_1.toUpperCase() == tile.color.toUpperCase(); })) {
                 this.colorError = this.colorErrors['COLOR_EXISTS'];
                 this.colorExists = true;
             }
             else {
                 this.colorExists = false;
-                this.excelService.addColorPalette(color_1, this.excelFileGroup.controls.excelRenderMode.value).subscribe(function (res) {
+                this.excelService.addColorPalette(newTile_1, this.excelFileGroup.controls.excelRenderMode.value).subscribe(function (res) {
                     _this.tiles.push(newTile_1);
                 }, function (err) {
                     console.log(err);
@@ -1072,9 +1087,9 @@ var ExcelService = /** @class */ (function () {
             params: urlParams
         });
     };
-    ExcelService.prototype.addColorPalette = function (color, document) {
+    ExcelService.prototype.addColorPalette = function (tile, document) {
         var urlParams = document ? { doc: document } : {};
-        return this.http.post(this.constants.BASE_URL + '/excel/add', color, {
+        return this.http.post(this.constants.BASE_URL + '/excel/add', tile, {
             params: urlParams
         });
     };

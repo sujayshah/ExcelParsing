@@ -41,17 +41,18 @@ def get_color_palette():
 	try:
 		docRef = users_ref.document(docType)
 		doc = docRef.get()
-		paletteList = doc.get('palette')
-		resp = {i : paletteList[i] for i in range(0, len(paletteList))}
-	except:
-		resp = "Error"
+		resp = doc.get('palette')
+	except Exception as e:
+		resp = jsonify({'message' : str(e)})
 		resp_code = 400
 	return resp, resp_code
 
 @app.route('/excel/add', methods=['POST'])
 @cross_origin()
 def add_color_palette():
-	new_color = request.get_data().decode("utf-8").upper()
+	new_tile = eval(request.get_data().decode("utf-8"))
+	new_category = new_tile['text']
+	new_color = new_tile['color'].upper()
 	docType = request.args.get('doc')
 	if not docType:
 		docType = 'default'
@@ -59,17 +60,21 @@ def add_color_palette():
 	resp_code = 200
 	try:
 		docRef = users_ref.document(docType)
-		docRef.update({u'palette': firestore.ArrayUnion([new_color])})
+		doc = docRef.get()
+		palette = doc.get('palette')
+		if not palette.get(new_category):
+			palette[new_category] = new_color
+		docRef.update({u'palette': palette})
 		resp = jsonify(docRef.path + '/palette')
-	except:
-		resp = "Error"
+	except Exception as e:
+		resp = jsonify({'message' : str(e)})
 		resp_code = 400
 	return resp, resp_code
 
 @app.route('/excel/remove', methods=['POST'])
 @cross_origin()
 def remove_color_palette():
-	new_color = request.get_data().decode("utf-8").upper()
+	new_category = request.get_data().decode("utf-8")
 	docType = request.args.get('doc')
 	if not docType:
 		docType = 'default'
@@ -77,10 +82,13 @@ def remove_color_palette():
 	resp_code = 200
 	try:
 		docRef = users_ref.document(docType)
-		docRef.update({u'palette': firestore.ArrayRemove([new_color])})
+		doc = docRef.get()
+		palette = doc.get('palette')
+		palette.pop(new_category, None)
+		docRef.update({u'palette': palette})
 		resp = jsonify(docRef.path + '/palette')
-	except:
-		resp = "Error"
+	except Exception as e:
+		resp = jsonify({'message' : str(e)})
 		resp_code = 400
 	return resp, resp_code
 

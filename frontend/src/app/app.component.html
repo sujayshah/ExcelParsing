@@ -60,6 +60,9 @@
 
     <!-- Dialog Palette Select -->
     <div class="add-color-dialog "*ngIf="addNewColor">
+      <mat-form-field>
+        <input matInput placeholder="Category Name" [formControl]="categoryName">
+      </mat-form-field>
       <div mat-dialog-content>
         <p>Enter a whole number between 0-255 for each RGB Value</p>
         <mat-form-field>
@@ -75,6 +78,7 @@
                         (validColorRed.invalid || validColorGreen.invalid || validColorBlue.invalid) ||
                         (validColorRed.valid && validColorGreen.valid && validColorBlue.valid && colorExists)
                         )">{{colorError}}</mat-error>
+        <mat-error *ngIf="clickedAddColor && categoryName.invalid">Category name is required</mat-error>
       </div>
       <div mat-dialog-actions>
         <button mat-button (click)="onNoClick()">Cancel</button>

@@ -26,7 +26,7 @@ export class AppComponent implements OnInit {
       this.tiles = [];
       for(let k in res) {
         let newTile: Tile = {
-          text: res[k],
+          text: k,
           color: res[k]
         }
         this.tiles.push(newTile);
@@ -73,6 +73,7 @@ export class AppComponent implements OnInit {
   validColorRed = new FormControl('', [Validators.required, RGBRangeValidator()]);
   validColorGreen = new FormControl('', [Validators.required, RGBRangeValidator()]);
   validColorBlue = new FormControl('', [Validators.required, RGBRangeValidator()]);
+  categoryName = new FormControl('', [Validators.required])
 
   tiles: Tile[] = [];
   defaultTiles: Tile[] = [];
@@ -88,7 +89,7 @@ export class AppComponent implements OnInit {
       this.tiles = [];
       for(let k in res) {
         let newTile: Tile = {
-          text: res[k],
+          text: k,
           color: res[k]
         }
         this.tiles.push(newTile);
@@ -207,16 +208,16 @@ export class AppComponent implements OnInit {
 
   addColor() {
     this.clickedAddColor = true;
-    if(this.validColorRed.valid && this.validColorGreen.valid && this.validColorBlue.valid) {
+    if(this.validColorRed.valid && this.validColorGreen.valid && this.validColorBlue.valid && this.categoryName.valid) {
       let color = this.rgbToHex(this.validColorRed.value, this.validColorGreen.value, this.validColorBlue.value);
-      let newTile : Tile = {color: color, text: color.toUpperCase()};
+      let newTile : Tile = {color: color, text: this.categoryName.value};
       if(this.tiles.find(function(tile) { return color.toUpperCase() == tile.color.toUpperCase() } )) {
         this.colorError = this.colorErrors['COLOR_EXISTS'];
         this.colorExists = true;
       }
       else {
         this.colorExists = false;
-        this.excelService.addColorPalette(color, this.excelFileGroup.controls.excelRenderMode.value).subscribe( res => {
+        this.excelService.addColorPalette(newTile, this.excelFileGroup.controls.excelRenderMode.value).subscribe( res => {
           this.tiles.push(newTile);
         }, err => {
           console.log(err);
