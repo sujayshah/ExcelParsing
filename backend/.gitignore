@@ -4,6 +4,5 @@ requirements.txt
 *.yaml
 /../.DS_Store/
 __pycache__/
-input/
 /excel/
 /accounts/
