@@ -40,7 +40,9 @@
     <br><br>
     <button mat-raised-button type="submit" [disabled]="!excelFileGroup.valid">Upload</button>
   </form>
-  <h2>{{ excelFileGroup.controls["excelRenderMode"].value || "default" }} color palette</h2>
+  <h2>{{ excelFileGroup.controls["excelRenderMode"].value ? 
+        excelFileGroup.controls["excelRenderMode"].value.charAt(0).toUpperCase() + excelFileGroup.controls["excelRenderMode"].value.slice(1) 
+        : "Default" }} Color Palette</h2>
   <mat-grid-list cols="4" rowHeight="100px">
     <div class="color-tile" *ngFor="let tile of tiles">
       <mat-grid-tile
