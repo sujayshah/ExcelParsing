@@ -5,10 +5,13 @@ Writes an Excel Calendar for different systems and start and end dates for proje
 - [x] Write Excel
 - [x] Add quarterly format
 - [x] Error Reporting on Frontend (Still needs user feedback)
-- [x] Write to palette
+- [x] CRUD operations on palette
+- [x] Complete Program Validation flow
+- [ ] Match categories to specific palette color
+- [ ] Complete Resource Validation flow
 - [ ] Color Palette Non-Solid Scheme?
-- [ ] Add support for workday holidays
+- [ ] Add support for workday holidays?
 
 # Performance Improvements
-- [ ] Recursion Timeout
+- [ ] Recursion Timeout / Iterative Solution
 - [ ] Add cell cache to Program Validation with `Set`
