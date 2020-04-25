@@ -305,7 +305,3 @@ def program_validation(file_path, palette, start, end, interval = "monthly"):
 		# 	raise Exception('A cell in column C or D has an invalid date or formula')
 	except Exception as e:
 		raise(e)
-
-if __name__ == '__main__':
-	palette = ['#FB8000', '#B0E0E6', '#D8BFD8', '#EE82EE', '#4CFF00', '#40E0D0', '#CD5C5C', '#F0E68C', '#9370DB', '#BC8F8F', '#3CB371']
-	program_validation('./backend/program_validation/input/966GC-April2020.xlsx', palette, date(year=2019, month=11, day=4), date(year=2022, month=6, day=30))
