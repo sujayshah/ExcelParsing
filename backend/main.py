@@ -98,7 +98,7 @@ def program_validation():
 	resp = ""
 	resp_code = 200
 	try:
-		palette = []
+		palette = {}
 		start = None
 		end = None
 		value = None
@@ -110,7 +110,7 @@ def program_validation():
 			elif key == 'interval':
 				interval = value
 			elif value not in palette:
-				palette.append(value)
+				palette[key] = value.replace("#", "00")
 		fileStorage = request.files.get('name')
 		fileName = "output.xlsx"
 		fileStorage.save('/tmp/' + fileName)
@@ -130,10 +130,9 @@ def resource_validation():
 	resp = ""
 	resp_code = 200
 	try:
-		palette = []
-		for color in request.form.values():
-			if color not in palette:
-				palette.append(color)
+		palette = {}
+		for key, value in request.form.items():
+			palette[key] = value
 		fileStorage = request.files.get('name')
 		fileName = "output.xlsx"
 		fileStorage.save('/tmp/' + fileName)

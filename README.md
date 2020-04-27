@@ -7,7 +7,8 @@ Writes an Excel Calendar for different systems and start and end dates for proje
 - [x] Error Reporting on Frontend (Still needs user feedback)
 - [x] CRUD operations on palette
 - [x] Complete Program Validation flow
-- [ ] Match categories to specific palette color
+- [x] Match categories to specific palette color
+- [ ] Add 'Reset to Default' palette functionality and edit/rename color option
 - [ ] Complete Resource Validation flow
 - [ ] Color Palette Non-Solid Scheme?
 - [ ] Add support for workday holidays?

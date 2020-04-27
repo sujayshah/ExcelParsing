@@ -255,7 +255,6 @@ def writeExcel(st, wkList, eventData, palette, categories, startDate, endDate, i
 		styleCell(machineCol, "00FFFF00", autofit=True)
 		styleCell(activityCol, "00FFFF00", autofit=True)
 		
-		paletteIdx = 0
 		for task in event.subTasks:
 			taskStart = task.startDate
 			taskEnd = task.finishDate
@@ -275,8 +274,10 @@ def writeExcel(st, wkList, eventData, palette, categories, startDate, endDate, i
 				offsetCell.value = task.task
 				if taskLength > 0:
 					st.merge_cells(start_column = offsetCell.column, end_column = offsetCell.column + taskLength, start_row = offsetCell.row, end_row = offsetCell.row)
-				paletteIdx = categories.index(task.category) % len(palette)
-				styleCell(offsetCell, palette[paletteIdx], cellRange = taskLength)
+				paletteColor = palette.get(task.category)
+				if paletteColor is None:
+					paletteColor = '00FF0000'
+				styleCell(offsetCell, paletteColor, cellRange = taskLength)
 			except Exception as e:
 				raise(e)
 
@@ -288,7 +289,6 @@ def writeExcel(st, wkList, eventData, palette, categories, startDate, endDate, i
 
 def program_validation(file_path, palette, start, end, interval = "monthly"):
 	try:
-		palette = [color.replace("#", "00") for color in palette]
 		wkList = generateCalendar(start, end, interval)
 		wb = pyxl.load_workbook(file_path)
 		st = wb[wb.sheetnames[0]]
